@@ -2,6 +2,7 @@
 tags:
 position: -77,-264
 ---
+<<set $jamming to true>>
 Brooke: Mic check, one two...
 <<jump Arg1_1>>
 ===
@@ -18,15 +19,17 @@ title: Arg1_1_c
 position: -77,74
 ---
 Brooke: I refute your argument by stating...
--> Dogs are man's best friend!
+<<if $jamming == true>>
     <<jump Arg1_1_s>>
--> Dogs poop and pee all over the place!
+<<else>>
     <<jump Arg1_1_p>>
+<<endif>>
 ===
 
 title: Arg1_1_s
 position: -214,258
 ---
+Brooke: Dogs are man's best friend!
 Brooke: No one can disagree with the tyranny of the majority!
 Peter: Well, I guess I can't argue with that...
 <<jump Arg2_1>>
@@ -35,6 +38,7 @@ Peter: Well, I guess I can't argue with that...
 title: Arg1_1_p
 position: 89,259
 ---
+Brooke: Dogs poop and pee all over the place!
 Peter: Cats pee on all your furniture instead of outside, they're even better!
 Brooke: Curses, I hadn't considered...
 <<jump Arg2_1>>
@@ -59,10 +63,11 @@ title: Arg2_2_c
 position: -67,925
 ---
 Brooke: I refute your argument by stating...
--> You're not based!
+<<if $jamming == true>>
     <<jump Arg2_2_s>>
--> Let me do it for you~
+<<else>>
     <<jump Arg2_2_p>>
+<<endif>>
 ===
 
 title: Arg2_2_s

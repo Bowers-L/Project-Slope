@@ -123,6 +123,52 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &145053099
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 145053101}
+  - component: {fileID: 145053100}
+  m_Layer: 0
+  m_Name: Dialogue Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &145053100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145053099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2325860b489a5d047823bbc18ffd1735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DialogueRunnerObject: {fileID: 2753718018761519602}
+  DialogueView: {fileID: 7778558436046966239}
+--- !u!4 &145053101
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145053099}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1156791474
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,6 +361,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1847092129}
   - component: {fileID: 1847092128}
+  - component: {fileID: 1847092130}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -399,6 +446,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &1847092130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1847092127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &2107304813
 GameObject:
   m_ObjectHideFlags: 0
@@ -478,6 +545,7 @@ GameObject:
   - component: {fileID: 3183266951258063756}
   - component: {fileID: 3579681406204328335}
   - component: {fileID: 3831113770421303704}
+  - component: {fileID: 3831113770421303705}
   m_Layer: 0
   m_Name: Dialogue System/View
   m_TagString: Untagged
@@ -534,7 +602,6 @@ MonoBehaviour:
   _variableStorage: {fileID: 3831113770421303704}
   dialogueViews:
   - {fileID: 7778558436046966235}
-  - {fileID: 0}
   startNode: TestScript
   startAutomatically: 1
   runSelectedOptionAsLine: 0
@@ -585,8 +652,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610c541718d694070a21327d1ae62e75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showDebug: 0
+  showDebug: 1
   debugTextView: {fileID: 0}
+--- !u!114 &3831113770421303705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2753718018761519602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 097b95c9f69f04f2d8c08a817e7786af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueView: {fileID: 7778558436046966235}
+  continueActionType: 0
+  continueActionKeyCode: 32
 --- !u!224 &7084386683904628614
 RectTransform:
   m_ObjectHideFlags: 0
@@ -657,7 +739,7 @@ MonoBehaviour:
   onCharacterTyped:
     m_PersistentCalls:
       m_Calls: []
-  typewriterEffectSpeed: 120
+  typewriterEffectSpeed: 80
   continueButton: {fileID: 0}
   holdTime: 1
   autoAdvance: 0
