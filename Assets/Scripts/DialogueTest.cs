@@ -90,9 +90,14 @@ public class DialogueTest : MonoBehaviour
                 NameTextObject.transform.rotation = Quaternion.Euler(0, 0, 0);
             }
             
-            if (currentLine.Metadata != null) boxType = currentLine.Metadata[0];
+            if (currentLine.Metadata != null) {
+                boxType = currentLine.Metadata[0];
+            } else {
+                Debug.Log("No metadata found for current line");
+            }
+
             string[] boxTypeValue = boxType.Split(':');
-            if (boxTypeValue[0] == "boxType")
+            if (boxTypeValue[0] == "boxtype")
             {
                 ChangeDialogueBox(boxTypeValue[1]);
             }
@@ -101,6 +106,7 @@ public class DialogueTest : MonoBehaviour
 
     void ChangeDialogueBox(string boxType)
     {
+        Debug.Log("ChangeDialogueBox(): " + boxType);
         switch(boxType){
             case "normal":
                 _dialogueBoxAnimator.Play("DialogueBox-Normal");
