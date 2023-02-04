@@ -24,8 +24,15 @@ public class MSChartParser : MonoBehaviour
 
     public void ParseFile(FileInfo file)
     {
-        file.Open(FileMode.Open, FileAccess.Read);
+        FileStream stream = file.Open(FileMode.Open, FileAccess.Read);
 
-
+        using (StreamReader sr = new StreamReader(stream))
+        {
+            while(!sr.EndOfStream)
+            {
+                string line = sr.ReadLine();
+                Debug.Log(line);
+            }
+        }
     }
 }
