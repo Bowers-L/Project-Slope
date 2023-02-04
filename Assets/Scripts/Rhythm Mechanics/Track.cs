@@ -40,15 +40,19 @@ public class Track : MonoBehaviour
     {   
         if (hasInit)
         {
-            Note note;
-            noteInstantiateQueue.TryPeek(out note);
+            Note noteData;
+            noteInstantiateQueue.TryPeek(out noteData);
 
             //Once note's moment passes the spawn moment, spawn the note.
-            if (note != null && NoteDiff(note) <= SpawnMomentCU())
+            if (noteData != null && NoteDiff(noteData) <= SpawnMomentCU())
             {
                 //Spawn the Note!
-                GameObject noteObj = Instantiate(notePrefab, GetNotePos(note), Quaternion.identity);
-                activeNoteList.Add(noteObj.GetComponent<TrackNote>());
+                GameObject noteObj = Instantiate(notePrefab, GetNotePos(noteData), Quaternion.identity);
+                TrackNote tNote = noteObj.GetComponent<TrackNote>();
+                tNote.NoteData = noteData;
+                tNote.SetTrack(this);
+
+                activeNoteList.Add(tNote);
                 noteInstantiateQueue.Dequeue();
             }
 
@@ -64,7 +68,7 @@ public class Track : MonoBehaviour
         }
     }
 
-    public void InitTrack(Conductor conductor)
+    public void Init(Conductor conductor)
     {
         hasInit = true;
         conductor = GameObject.FindObjectOfType<Conductor>();
@@ -114,7 +118,6 @@ public class Track : MonoBehaviour
         float y = BeatBar.transform.position.y;
         float trackLengthsFromBeatBar = momentDiff / conductor.Chart.unitsPerBeat / BeatsPerTL;
         y += trackLengthsFromBeatBar * TrackLengthYDelta;
-
         return y;
     }
 

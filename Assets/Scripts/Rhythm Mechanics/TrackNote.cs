@@ -1,9 +1,4 @@
-using FMOD;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class TrackNote : MonoBehaviour
 {
@@ -16,6 +11,7 @@ public class TrackNote : MonoBehaviour
     {
         if (NoteData != null)
         {
+            Debug.Log($"Setting note pos to {transform.position}");
             transform.position = track.GetNotePos(NoteData);
         }
     }
