@@ -29,6 +29,7 @@ position: -214,258
 ---
 Brooke: No one can disagree with the tyranny of the majority!
 Peter: Well, I guess I can't argue with that...
+<<jump Arg2_1>>
 ===
 
 title: Arg1_1_p
@@ -36,4 +37,45 @@ position: 89,259
 ---
 Peter: Cats pee on all your furniture instead of outside, they're even better!
 Brooke: Curses, I hadn't considered...
+<<jump Arg2_1>>
+===
+
+title: Arg2_1
+position: -66,473
+---
+Brooke: Furthermore...
+<<jump Arg2_2>>
+===
+
+title: Arg2_2
+position: -66,671
+---
+Brooke: IP: 192.168.1.1
+Peter: But that's just the default IP Address!
+<<jump Arg2_2_c>>
+===
+
+title: Arg2_2_c
+position: -67,925
+---
+Brooke: I refute your argument by stating...
+-> You're not based!
+    <<jump Arg2_2_s>>
+-> Let me do it for you~
+    <<jump Arg2_2_p>>
+===
+
+title: Arg2_2_s
+position: -278,1073
+---
+Brooke: You're not based!
+Peter: Wrong, I'm Peter!
+Brooke: Drat, I was wrong...
+===
+
+title: Arg2_2_p
+position: 129,1068
+---
+Brooke: Let me do it for you~
+Peter: :cursedplead:
 ===
