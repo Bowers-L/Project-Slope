@@ -1,10 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
-using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Rendering.LookDev;
-using UnityEngine.Windows;
 
 public class MSChartParser : MonoBehaviour
 {
@@ -31,7 +28,6 @@ public class MSChartParser : MonoBehaviour
 
         using (StreamReader sr = new StreamReader(stream))
         {
-            ChartData song;
             float bpm = 0;
             int timeSignatureNum = 0;
             List<Note> notes = new List<Note>();
@@ -84,12 +80,12 @@ public class MSChartParser : MonoBehaviour
                         //Debug.Log(tokens[startI]);
                         //Debug.Log(tokens[startI + 3]);
                         //Debug.Log(tokens[startI + 4]);
-                        int position = int.Parse(tokens[startI]);
+                        int moment = int.Parse(tokens[startI]);
                         int pitch = int.Parse(tokens[startI + 3]);
                         int length = int.Parse(tokens[startI + 4]);
 
 
-                        Note newNote = new Note(position, pitch, length);
+                        Note newNote = new Note(moment, pitch, length);
                         notes.Add(newNote);
                         line = sr.ReadLine();
                     }

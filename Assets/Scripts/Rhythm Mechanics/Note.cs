@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-[System.Serializable]
+﻿[System.Serializable]
 public class Note
 {
     public const int SIXTEENTH = 48;
@@ -11,15 +9,15 @@ public class Note
     public const int DOTTED_HALF = 48 * 12;
     public const int WHOLE = 48 * 16;
 
-    public int position;
+    public int moment;
     public int pitch;
     public int length;
 
-    public string Description => $"Note at position {position} with pitch {pitch} and length {length}";
+    public string Description => $"Note at position {moment} with pitch {pitch} and length {length}";
 
-    public Note(int position, int pitch, int length)
+    public Note(int moment, int pitch, int length)
     {
-        this.position = position;
+        this.moment = moment;
         this.pitch = pitch;
         this.length = length;
     }

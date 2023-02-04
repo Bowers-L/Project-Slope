@@ -21,9 +21,6 @@ MonoBehaviour:
   - position: 288
     pitch: 2
     length: 0
-  - position: 384
-    pitch: 4
-    length: 0
   - position: 480
     pitch: 2
     length: 0
@@ -36,15 +33,9 @@ MonoBehaviour:
   - position: 768
     pitch: 2
     length: 0
-  - position: 768
-    pitch: 4
-    length: 0
   - position: 960
     pitch: 1
     length: 192
   - position: 960
     pitch: 2
-    length: 192
-  - position: 960
-    pitch: 4
     length: 192
