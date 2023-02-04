@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Timeline;
 
 /*IMPORTANT TERMINOLOGY:
  * -I'm using the term "moment" instead of "position" to represent a note's placement in the track,
@@ -11,40 +13,52 @@ using UnityEngine;
 
 public class Conductor : MonoBehaviour
 {
+
     [SerializeField] ChartData chart;
     [SerializeField] private int firstBeatOffsetSeconds;
 
-    private float currMomentSeconds;
+    private float currMomentSeconds;    //How much time has elapsed in the song
+    private bool isPaused;   //
 
+    //Chart specific parameters
     private float beatsPerSecond;
     private float unitsPerBeat;
-    private float dspStartTime;
+    private float startTime;
 
-    private bool running = false;
+    //FMOD Dsp Clock Things
+    private FMOD.System fmodCore;
+    private FMOD.ChannelGroup masterChannel;
+    private int sampleRateHertz;
+
+
 
     private float CurrMomentBeats => currMomentSeconds * beatsPerSecond;
     private float CurrMomentCU => currMomentSeconds * beatsPerSecond * unitsPerBeat;
 
-    private float TimeSinceStart => GetDSP() - dspStartTime;
+    private float TimeSinceStart => GetCurrentTimeDSP() - startTime;
 
     private void Awake()
     {
-        running = false;
+        isPaused = true;
     }
 
     private void Start()
     {
         beatsPerSecond = chart.bpm / 60f;
         unitsPerBeat = chart.unitsPerBeat;
+        startTime = GetCurrentTimeDSP();
 
-        dspStartTime = GetDSP();
+        fmodCore = FMODUnity.RuntimeManager.CoreSystem;
+        fmodCore.getMasterChannelGroup(out masterChannel);
+        fmodCore.getSoftwareFormat(out sampleRateHertz, out _, out _);
+
 
         Play(); //FOR TESTING (call from FMOD event instead)
     }
 
     private void Update()
     {
-        if (running)
+        if (!isPaused)
         {
             currMomentSeconds = TimeSinceStart - firstBeatOffsetSeconds;
         }
@@ -53,22 +67,25 @@ public class Conductor : MonoBehaviour
     public void Play()
     {
         currMomentSeconds = -firstBeatOffsetSeconds;
-        running = true;
+        isPaused = false;
     }
 
     public void Pause()
     {
-        running = false;
+        isPaused = true;
     }
 
     public void Resume()
     {
-        running = true;
+        isPaused = false;
     }
 
-    private float GetDSP()
+    private float GetCurrentTimeDSP()
     {
-        //Insert FMOD jank to get dsp value.
-        return 0f;
+        ulong numSamples;
+        masterChannel.getDSPClock(out numSamples, out _);
+
+        double dspTime = (double) numSamples / sampleRateHertz;
+        return (float) dspTime;
     }
 }

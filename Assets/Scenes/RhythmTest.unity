@@ -368,7 +368,7 @@ GameObject:
   - component: {fileID: 1307230179}
   - component: {fileID: 1307230177}
   m_Layer: 0
-  m_Name: ChartParser
+  m_Name: Conductor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -413,3 +413,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5283b678f499d5246be9698fe6ab710a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chart: {fileID: 11400000, guid: 0c07839334d9a8e48adb2c00cb798f61, type: 2}
+  firstBeatOffsetSeconds: 0
