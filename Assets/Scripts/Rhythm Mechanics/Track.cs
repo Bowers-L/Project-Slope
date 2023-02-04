@@ -61,7 +61,8 @@ public class Track : MonoBehaviour
                 Note closestNote = activeNoteList[0].NoteData;
                 if (NoteDiff(closestNote) <= DespawnMomentCU())
                 {
-                    Destroy(activeNoteList[0]);
+
+                    Destroy(activeNoteList[0].gameObject);
                     activeNoteList.RemoveAt(0);
                 }
             }
@@ -116,7 +117,7 @@ public class Track : MonoBehaviour
     private float GetNoteYPos(int momentDiff)
     {
         float y = BeatBar.transform.position.y;
-        float trackLengthsFromBeatBar = momentDiff / conductor.Chart.unitsPerBeat / BeatsPerTL;
+        float trackLengthsFromBeatBar = (float) momentDiff / conductor.Chart.unitsPerBeat / BeatsPerTL;
         y += trackLengthsFromBeatBar * TrackLengthYDelta;
         return y;
     }
