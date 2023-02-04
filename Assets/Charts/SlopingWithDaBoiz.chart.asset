@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6661cdc807156049a28ef6d187285ff, type: 3}
+  m_Name: SlopingWithDaBoiz.chart
+  m_EditorClassIdentifier: 
+  bpm: 60.000004
+  timeSignatureNum: 4
+  notes:
+  - position: 192
+    pitch: 0
+    length: 0
+  - position: 288
+    pitch: 2
+    length: 0
+  - position: 480
+    pitch: 2
+    length: 0
+  - position: 576
+    pitch: 0
+    length: 192
+  - position: 768
+    pitch: 1
+    length: 0
+  - position: 768
+    pitch: 2
+    length: 0
+  - position: 960
+    pitch: 1
+    length: 192
+  - position: 960
+    pitch: 2
+    length: 192
