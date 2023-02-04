@@ -50,11 +50,10 @@ Brooke: Furthermore...
 title: Arg2_2
 position: -66,671
 ---
-Brooke: IP: 198.168.1.1
+Brooke: IP: 192.168.1.1
 Peter: But that's just the default IP Address!
 <<jump Arg2_2_c>>
 ===
-
 
 title: Arg2_2_c
 position: -67,925
