@@ -10,32 +10,33 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b6661cdc807156049a28ef6d187285ff, type: 3}
-  m_Name: SlopingWithDaBoiz.chart
+  m_Name: SlopingWithDaBoiz
   m_EditorClassIdentifier: 
+  notes:
+  - moment: 192
+    pitch: 0
+    length: 0
+  - moment: 288
+    pitch: 2
+    length: 0
+  - moment: 480
+    pitch: 2
+    length: 0
+  - moment: 576
+    pitch: 0
+    length: 192
+  - moment: 768
+    pitch: 1
+    length: 0
+  - moment: 768
+    pitch: 2
+    length: 0
+  - moment: 960
+    pitch: 1
+    length: 192
+  - moment: 960
+    pitch: 2
+    length: 192
   bpm: 60.000004
   timeSignatureNum: 4
-  notes:
-  - position: 192
-    pitch: 0
-    length: 0
-  - position: 288
-    pitch: 2
-    length: 0
-  - position: 480
-    pitch: 2
-    length: 0
-  - position: 576
-    pitch: 0
-    length: 192
-  - position: 768
-    pitch: 1
-    length: 0
-  - position: 768
-    pitch: 2
-    length: 0
-  - position: 960
-    pitch: 1
-    length: 192
-  - position: 960
-    pitch: 2
-    length: 192
+  unitsPerBeat: 192

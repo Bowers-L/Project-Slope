@@ -9,7 +9,7 @@ public class ChartData : ScriptableObject
     public List<Note> notes;
     public float bpm;
     public int timeSignatureNum;   //Implied 4 in denominator
-    public int unitsPerBeat; //Always 4 in time signature
+    public int unitsPerBeat = Note.QUARTER; //Always 4 in time signature
 
     public ChartData(List<Note> notes, float bpm, int timeSignatureNum, int unitsPerBeat = Note.QUARTER)
     {

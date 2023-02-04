@@ -104,7 +104,9 @@ public class MSChartParser : MonoBehaviour
             chart.bpm = bpm;
             chart.timeSignatureNum = timeSignatureNum;
             chart.notes = notes;
-            AssetDatabase.CreateAsset(chart, chartsPath + '/' + file.Name + ".asset");
+            chart.unitsPerBeat = Note.QUARTER;
+            
+            AssetDatabase.CreateAsset(chart, chartsPath + '/' + Path.GetFileNameWithoutExtension(file.Name) + ".asset");
         }
     }
 }
