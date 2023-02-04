@@ -1,21 +1,18 @@
-using FMOD;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class TrackNote : MonoBehaviour
 {
-    private Note note;
     private Track track;
     private Conductor conductor;
 
+    public Note NoteData { get; set; }
+
     private void Update()
     {
-        if (note != null)
+        if (NoteData != null)
         {
-            transform.position = track.GetNotePos(note);
+            Debug.Log($"Setting note pos to {transform.position}");
+            transform.position = track.GetNotePos(NoteData);
         }
     }
 
@@ -23,9 +20,5 @@ public class TrackNote : MonoBehaviour
     {
         this.track = track;
         this.conductor = track.Conduct;
-    }
-    public void SetData(Note noteData)
-    {
-        this.note = noteData;
     }
 }

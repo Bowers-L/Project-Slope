@@ -24,6 +24,7 @@ public class Conductor : MonoBehaviour
 
     [SerializeField] ChartData chart;
     [SerializeField] private int firstBeatOffsetSeconds;
+    [SerializeField] private Track track;
 
     private float currMomentSeconds;    //How much time has elapsed in the song
     private bool isPaused;
@@ -47,14 +48,14 @@ public class Conductor : MonoBehaviour
 
     private void Awake()
     {
+        track = FindObjectOfType<Track>();
         isPaused = true;
     }
 
     private void Start()
     {
-        beatsPerSecond = chart.bpm / 60f;
+        beatsPerSecond = (float) chart.bpm / 60f;
         unitsPerBeat = chart.unitsPerBeat;
-        startTime = GetCurrentTime();
 
         fmodCore = FMODUnity.RuntimeManager.CoreSystem;
         fmodCore.getMasterChannelGroup(out masterChannel);
@@ -69,7 +70,6 @@ public class Conductor : MonoBehaviour
         {
             currMomentSeconds = TimeSinceStart - firstBeatOffsetSeconds;
 
-            Debug.Log($"Current Moment Seconds: {currMomentSeconds}");
             Debug.Log($"Current Moment Beat: {CurrMomentBeats}");
         }
     }
@@ -77,9 +77,10 @@ public class Conductor : MonoBehaviour
     public void Play()
     {
         Debug.Log("Starting the Track");
-
+        startTime = GetCurrentTime();
         currMomentSeconds = -firstBeatOffsetSeconds;
         isPaused = false;
+        track.Init(this);
     }
 
     public void Pause()

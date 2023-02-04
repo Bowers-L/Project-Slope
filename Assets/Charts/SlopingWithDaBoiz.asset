@@ -13,30 +13,30 @@ MonoBehaviour:
   m_Name: SlopingWithDaBoiz
   m_EditorClassIdentifier: 
   notes:
-  - moment: 192
-    pitch: 0
-    length: 0
   - moment: 288
     pitch: 2
     length: 0
-  - moment: 480
+  - moment: 336
+    pitch: 3
+    length: 0
+  - moment: 384
     pitch: 2
+    length: 0
+  - moment: 480
+    pitch: 1
     length: 0
   - moment: 576
     pitch: 0
-    length: 192
+    length: 0
+  - moment: 672
+    pitch: 2
+    length: 0
   - moment: 768
     pitch: 1
     length: 0
-  - moment: 768
-    pitch: 2
-    length: 0
   - moment: 960
-    pitch: 1
-    length: 192
-  - moment: 960
-    pitch: 2
-    length: 192
-  bpm: 60.000004
+    pitch: 0
+    length: 576
+  bpm: 130
   timeSignatureNum: 4
   unitsPerBeat: 192
