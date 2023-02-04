@@ -7,15 +7,16 @@ using UnityEngine.UIElements;
 
 public class TrackNote : MonoBehaviour
 {
-    private Note note;
     private Track track;
     private Conductor conductor;
 
+    public Note NoteData { get; set; }
+
     private void Update()
     {
-        if (note != null)
+        if (NoteData != null)
         {
-            transform.position = track.GetNotePos(note);
+            transform.position = track.GetNotePos(NoteData);
         }
     }
 
@@ -23,9 +24,5 @@ public class TrackNote : MonoBehaviour
     {
         this.track = track;
         this.conductor = track.Conduct;
-    }
-    public void SetData(Note noteData)
-    {
-        this.note = noteData;
     }
 }

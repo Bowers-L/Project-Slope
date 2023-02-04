@@ -54,7 +54,6 @@ public class Conductor : MonoBehaviour
     {
         beatsPerSecond = chart.bpm / 60f;
         unitsPerBeat = chart.unitsPerBeat;
-        startTime = GetCurrentTime();
 
         fmodCore = FMODUnity.RuntimeManager.CoreSystem;
         fmodCore.getMasterChannelGroup(out masterChannel);
@@ -78,6 +77,7 @@ public class Conductor : MonoBehaviour
     {
         Debug.Log("Starting the Track");
 
+        startTime = GetCurrentTime();
         currMomentSeconds = -firstBeatOffsetSeconds;
         isPaused = false;
     }
