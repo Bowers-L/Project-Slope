@@ -1,0 +1,39 @@
+﻿title: TestScript
+tags:
+position: -77,-264
+---
+Brooke: Mic check, one two...
+<<jump Arg1_1>>
+===
+
+title: Arg1_1
+position: -77,-94
+---
+Brooke: I start this argument with my hypothesis that dogs are the superior pet!
+Peter: That's wrong, cats are better!
+<<jump Arg1_1_c>>
+===
+
+title: Arg1_1_c
+position: -77,74
+---
+Brooke: I refute your argument by stating...
+-> Dogs are man's best friend!
+    <<jump Arg1_1_s>>
+-> Dogs poop and pee all over the place!
+    <<jump Arg1_1_p>>
+===
+
+title: Arg1_1_s
+position: -214,258
+---
+Brooke: No one can disagree with the tyranny of the majority!
+Peter: Well, I guess I can't argue with that...
+===
+
+title: Arg1_1_p
+position: 89,259
+---
+Peter: Cats pee on all your furniture instead of outside, they're even better!
+Brooke: Curses, I hadn't considered...
+===
