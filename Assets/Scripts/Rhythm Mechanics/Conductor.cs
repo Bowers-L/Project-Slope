@@ -39,7 +39,7 @@ public class Conductor : MonoBehaviour
     private int sampleRateHertz;
 
     public float CurrMomentBeats => currMomentSeconds * beatsPerSecond;
-    public float CurrMomentCU => currMomentSeconds * beatsPerSecond * unitsPerBeat;
+    public int CurrMomentCU => (int) (currMomentSeconds * beatsPerSecond * unitsPerBeat);
 
     public float TimeSinceStart => GetCurrentTime() - startTime;
 

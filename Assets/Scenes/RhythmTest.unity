@@ -369,8 +369,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6450ed171f726e46b599879636575d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  noteXOffset: -2.25
+  noteXSpacing: 1.5
+  beatsPerTL: 4
   spawnBar: {fileID: 1124128212}
   beatBar: {fileID: 1137683504}
+  conductor: {fileID: 1307230179}
   notePrefab: {fileID: 6388998836435875635, guid: c80a2d1608e2be746a946f4131f51937, type: 3}
 --- !u!1 &963194225
 GameObject:
@@ -734,5 +738,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5283b678f499d5246be9698fe6ab710a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chart: {fileID: 11400000, guid: 0c07839334d9a8e48adb2c00cb798f61, type: 2}
+  chart: {fileID: 11400000, guid: 772d6766f95a22345a06ccf17c1ab9fc, type: 2}
   firstBeatOffsetSeconds: 4
