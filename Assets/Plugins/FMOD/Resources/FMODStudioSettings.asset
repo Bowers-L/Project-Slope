@@ -518,6 +518,7 @@ MonoBehaviour:
   MasterBanks:
   - Master
   Banks:
+  - Ambience
   - Music
   BanksToLoad: []
   LiveUpdatePort: 9264

@@ -621,13 +621,13 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 773553309
-      Data2: 1292568808
-      Data3: 1292278680
-      Data4: 975346272
-    Path: event:/Music/MainMusic
+      Data1: -1660068632
+      Data2: 1286840113
+      Data3: 431116192
+      Data4: -986375344
+    Path: event:/Ambience/RestaurantAmbience
   Event: 
-  PlayEvent: 0
+  PlayEvent: 1
   StopEvent: 0
   AllowFadeout: 1
   TriggerOnce: 0
