@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{6c04381f-8e2f-485e-a27b-53764fe3d7f1}">
+		<property name="assetPath">
+			<value>3Torpe_Tango.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>260.36244897959182</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{687a2af4-e051-42e5-bfac-d27f4ff58c88}</destination>
+		</relationship>
+	</object>
+</objects>
