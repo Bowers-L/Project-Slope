@@ -1,9 +1,8 @@
-using System.Collections;
+using MyBox;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class Track : MonoBehaviour
+public class Track : Singleton<Track>
 {
     [SerializeField] private float noteXOffset;
     [SerializeField] private float noteXSpacing;
@@ -12,7 +11,6 @@ public class Track : MonoBehaviour
     [SerializeField] private float despawnBeats;
     [SerializeField] private GameObject spawnBar;
     [SerializeField] private GameObject beatBar;
-    [SerializeField] private Conductor conductor;
     [SerializeField] private GameObject notePrefab;
 
 
@@ -21,14 +19,16 @@ public class Track : MonoBehaviour
 
     public float TrackLengthYDelta => spawnBar.transform.position.y - beatBar.transform.position.y;
     public float BeatsPerTL => beatsPerTL;
-    public Conductor Conduct => conductor;
     public GameObject SpawnBar => spawnBar;
     public GameObject BeatBar => beatBar;
+
+    public List<TrackNote> ActiveNotes => activeNoteList;
 
     private bool hasInit = false;
 
     private void Awake()
     {
+        InitializeSingleton();
         hasInit = false;
     }
 
@@ -50,7 +50,6 @@ public class Track : MonoBehaviour
                 GameObject noteObj = Instantiate(notePrefab, GetNotePos(noteData), Quaternion.identity);
                 TrackNote tNote = noteObj.GetComponent<TrackNote>();
                 tNote.NoteData = noteData;
-                tNote.SetTrack(this);
 
                 activeNoteList.Add(tNote);
                 noteInstantiateQueue.Dequeue();
@@ -61,7 +60,6 @@ public class Track : MonoBehaviour
                 Note closestNote = activeNoteList[0].NoteData;
                 if (NoteDiff(closestNote) <= DespawnMomentCU())
                 {
-
                     Destroy(activeNoteList[0].gameObject);
                     activeNoteList.RemoveAt(0);
                 }
@@ -75,7 +73,6 @@ public class Track : MonoBehaviour
         conductor = GameObject.FindObjectOfType<Conductor>();
         noteInstantiateQueue = new Queue<Note>();
         activeNoteList = new List<TrackNote>();
-        this.conductor = conductor;
 
         List<Note> notes = conductor.Chart.notes;
         for (int i = 0; i < notes.Count; i++)
@@ -86,7 +83,7 @@ public class Track : MonoBehaviour
 
     public int NoteDiff(Note note)
     {
-        return (int) (note.moment - conductor.CurrMomentCU);
+        return (int) (note.moment - Conductor.Instance.CurrMomentCU);
     }
 
     public Vector3 GetNotePos(Note note)
@@ -101,12 +98,12 @@ public class Track : MonoBehaviour
     //The moment a note should spawn on the track
     public int SpawnMomentCU()
     {
-        return (int) (beatsPerTL * conductor.Chart.unitsPerBeat);
+        return (int) (beatsPerTL * Conductor.Instance.Chart.unitsPerBeat);
     }
 
     public int DespawnMomentCU()
     {
-        return (int) (-despawnBeats * conductor.Chart.unitsPerBeat);
+        return (int) (-despawnBeats * Conductor.Instance.Chart.unitsPerBeat);
     }
 
     private float GetNoteXPos(int pitch)
@@ -117,7 +114,7 @@ public class Track : MonoBehaviour
     private float GetNoteYPos(int momentDiff)
     {
         float y = BeatBar.transform.position.y;
-        float trackLengthsFromBeatBar = (float) momentDiff / conductor.Chart.unitsPerBeat / BeatsPerTL;
+        float trackLengthsFromBeatBar = (float) momentDiff / Conductor.Instance.Chart.unitsPerBeat / BeatsPerTL;
         y += trackLengthsFromBeatBar * TrackLengthYDelta;
         return y;
     }
@@ -135,7 +132,7 @@ public class Track : MonoBehaviour
             {
                 Gizmos.DrawSphere(new Vector3(
                     x,
-                    GetNoteYPos((int) (beat * conductor.Chart.unitsPerBeat)),
+                    GetNoteYPos((int) (beat * Conductor.Instance.Chart.unitsPerBeat)),
                     spawnBar.transform.position.z), 0.2f);
             }
 

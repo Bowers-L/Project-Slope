@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+using MyBox;
 using UnityEngine;
-using UnityEngine.Timeline;
 
 /*IMPORTANT TERMINOLOGY:
  * -I'm using the term "moment" instead of "position" to represent a note's placement in the track and how much 
@@ -12,7 +9,7 @@ using UnityEngine.Timeline;
  * Chart Units (or CU) is used to represent the moment of a note. 192 CU = 1 Quater Note Beat.
  */
 
-public class Conductor : MonoBehaviour
+public class Conductor : Singleton<Conductor>
 {
     public enum TimingMethod
     {
@@ -24,7 +21,6 @@ public class Conductor : MonoBehaviour
 
     [SerializeField] ChartData chart;
     [SerializeField] private int firstBeatOffsetSeconds;
-    [SerializeField] private Track track;
 
     private float currMomentSeconds;    //How much time has elapsed in the song
     private bool isPaused;
@@ -48,7 +44,7 @@ public class Conductor : MonoBehaviour
 
     private void Awake()
     {
-        track = FindObjectOfType<Track>();
+        InitializeSingleton();
         isPaused = true;
     }
 
@@ -70,7 +66,7 @@ public class Conductor : MonoBehaviour
         {
             currMomentSeconds = TimeSinceStart - firstBeatOffsetSeconds;
 
-            Debug.Log($"Current Moment Beat: {CurrMomentBeats}");
+            //Debug.Log($"Current Moment Beat: {CurrMomentBeats}");
         }
     }
 
@@ -80,7 +76,7 @@ public class Conductor : MonoBehaviour
         startTime = GetCurrentTime();
         currMomentSeconds = -firstBeatOffsetSeconds;
         isPaused = false;
-        track.Init(this);
+        Track.Instance.Init(this);
     }
 
     public void Pause()
@@ -110,7 +106,7 @@ public class Conductor : MonoBehaviour
         ulong numSamples;
         masterChannel.getDSPClock(out numSamples, out _);
 
-        double dspTime = (double)numSamples / sampleRateHertz;
+        double dspTime = (double) numSamples / sampleRateHertz;
         return (float) dspTime;
     }
 }
