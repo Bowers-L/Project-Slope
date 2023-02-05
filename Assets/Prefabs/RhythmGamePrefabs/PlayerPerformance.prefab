@@ -50,8 +50,13 @@ MonoBehaviour:
   earlyTimingWindowBeats: 0.25
   lateTimingWindowBeats: 0.25
   playerMaxHealthPerSection: 20
-  hitFXPrefab: {fileID: 0}
-  missFXPrefab: {fileID: 0}
+  hitFXPrefab: {fileID: 6388998836435875635, guid: 94d967d536c9d014387ed0374e223fe3, type: 3}
+  missFXPrefab: {fileID: 6388998836435875635, guid: 702670ec548a7eb4cae628edbb42fba4, type: 3}
+  tracks:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &4583963617398066780
 MonoBehaviour:
   m_ObjectHideFlags: 0
