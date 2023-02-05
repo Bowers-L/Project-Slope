@@ -493,8 +493,8 @@ MonoBehaviour:
   switchSettingsMigration: 1
   HasSourceProject: 1
   HasPlatforms: 1
-  sourceProjectPath: FmodAssets/Examples/Examples.fspro
-  sourceBankPath: FmodAssets/Examples/Build
+  sourceProjectPath: FmodAssets/FmodProject/Main/Main.fspro
+  sourceBankPath: FmodAssets/FmodProject/Main/Build
   sourceBankPathUnformatted: 
   BankRefreshCooldown: 5
   ShowBankRefreshWindow: 1
@@ -518,13 +518,8 @@ MonoBehaviour:
   MasterBanks:
   - Master
   Banks:
-  - Dialogue_CN
-  - Dialogue_EN
-  - Dialogue_JP
+  - Ambience
   - Music
-  - SFX
-  - Vehicles
-  - VO
   BanksToLoad: []
   LiveUpdatePort: 9264
   EnableMemoryTracking: 0
