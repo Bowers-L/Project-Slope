@@ -518,18 +518,8 @@ MonoBehaviour:
   MasterBanks:
   - Master
   Banks:
-<<<<<<< HEAD
   - Ambience
   - Music
-=======
-  - Dialogue_CN
-  - Dialogue_EN
-  - Dialogue_JP
-  - Music
-  - SFX
-  - Vehicles
-  - VO
->>>>>>> 0063910f8ef4ea6b79d876bcab8fa8ba896c8bb8
   BanksToLoad: []
   LiveUpdatePort: 9264
   EnableMemoryTracking: 0

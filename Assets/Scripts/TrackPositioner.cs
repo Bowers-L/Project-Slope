@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//NOT USED ANYMORE
 public class TrackPositioner : MonoBehaviour
 {
     [SerializeField, Range(0f, 1f)] private float horizontalFraction;

@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+using MyBox;
 using UnityEngine;
-using UnityEngine.Timeline;
 
 /*IMPORTANT TERMINOLOGY:
  * -I'm using the term "moment" instead of "position" to represent a note's placement in the track and how much 
@@ -12,7 +9,7 @@ using UnityEngine.Timeline;
  * Chart Units (or CU) is used to represent the moment of a note. 192 CU = 1 Quater Note Beat.
  */
 
-public class Conductor : MonoBehaviour
+public class Conductor : Singleton<Conductor>
 {
     public enum TimingMethod
     {
@@ -22,9 +19,8 @@ public class Conductor : MonoBehaviour
 
     public const TimingMethod timingMethod = TimingMethod.UnityTime;
 
-    [SerializeField] ChartData chart;
+    [SerializeField] private ChartData testChart;
     [SerializeField] private int firstBeatOffsetSeconds;
-    [SerializeField] private Track track;
 
     private float currMomentSeconds;    //How much time has elapsed in the song
     private bool isPaused;
@@ -44,24 +40,25 @@ public class Conductor : MonoBehaviour
 
     public float TimeSinceStart => GetCurrentTime() - startTime;
 
-    public ChartData Chart => chart;
+    private ChartData _currChart;
+    public ChartData Chart => _currChart;
 
     private void Awake()
     {
-        track = FindObjectOfType<Track>();
+        InitializeSingleton();
         isPaused = true;
     }
 
     private void Start()
     {
-        beatsPerSecond = (float) chart.bpm / 60f;
-        unitsPerBeat = chart.unitsPerBeat;
-
         fmodCore = FMODUnity.RuntimeManager.CoreSystem;
         fmodCore.getMasterChannelGroup(out masterChannel);
         fmodCore.getSoftwareFormat(out sampleRateHertz, out _, out _);
 
-        Play(); //FOR TESTING (call from FMOD event instead)
+        if (testChart != null)
+        {
+            Play(testChart); //FOR TESTING (call from Game Manager Instead.)
+        }
     }
 
     private void Update()
@@ -70,17 +67,26 @@ public class Conductor : MonoBehaviour
         {
             currMomentSeconds = TimeSinceStart - firstBeatOffsetSeconds;
 
-            Debug.Log($"Current Moment Beat: {CurrMomentBeats}");
+            //Debug.Log($"Current Moment Beat: {CurrMomentBeats}");
         }
     }
 
-    public void Play()
+    public void Play(ChartData chart)
     {
         Debug.Log("Starting the Track");
+        _currChart = chart;
+
+        //Set Chart Parameters
+        beatsPerSecond = (float)_currChart.bpm / 60f;
+        unitsPerBeat = _currChart.unitsPerBeat;
+
+        //Set Internal State
         startTime = GetCurrentTime();
         currMomentSeconds = -firstBeatOffsetSeconds;
         isPaused = false;
-        track.Init(this);
+
+        Track.Instance.Init();
+        PlayerPerformanceManager.Instance.StartNewSection();
     }
 
     public void Pause()
@@ -105,12 +111,17 @@ public class Conductor : MonoBehaviour
 
     }
 
+    public int BeatsToCU(float beats)
+    {
+        return (int)(beats * Chart.unitsPerBeat);
+    }
+
     private float GetDSPTime()
     {
         ulong numSamples;
         masterChannel.getDSPClock(out numSamples, out _);
 
-        double dspTime = (double)numSamples / sampleRateHertz;
+        double dspTime = (double) numSamples / sampleRateHertz;
         return (float) dspTime;
     }
 }

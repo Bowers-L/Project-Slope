@@ -12,16 +12,13 @@ public class DialogueTest : MonoBehaviour
     public string name1;
     public string name2;
 
-    [SerializeField]
-    GameObject DialogueRunnerObject;
-    [SerializeField]
-    GameObject DialogueView;
-    [SerializeField]
-    GameObject DialogueBox;
-    [SerializeField]
-    GameObject DialogueTextObject;
-    [SerializeField]
-    GameObject NameTextObject;
+    [SerializeField] GameObject DialogueRunnerObject;
+    [SerializeField] GameObject DialogueView;
+    [SerializeField] GameObject DialogueBox;
+    [SerializeField] GameObject DialogueTextObject;
+    [SerializeField] GameObject NameTextObject;
+    [SerializeField] GameObject char1;
+    [SerializeField] GameObject char2;
 
     DialogueRunner _dialogueRunner;
     InMemoryVariableStorage _inMemoryVariableStorage;
@@ -31,7 +28,12 @@ public class DialogueTest : MonoBehaviour
 
     DialogueBoxType dialogueBoxType = DialogueBoxType.normal;
     string boxType = "normal";
-    Timer dialogueProgressCooldownTimer;
+    Animator char1anim;
+    Animator char2anim;
+    string emoteType = "default";
+
+    //Timer dialogueProgressCooldownTimer;
+    Timer dialogueProgressTimer;
     bool dialogueProgressCooldown = true;
 
     LocalizedLine currentLine;
@@ -45,6 +47,9 @@ public class DialogueTest : MonoBehaviour
 
         _dialogueBoxAnimator = DialogueBox.GetComponent<Animator>();
 
+        char1anim = char1.GetComponent<Animator>();
+        char2anim = char2.GetComponent<Animator>();
+
         _inMemoryVariableStorage.SetValue("$jamming", true);
     }
 
@@ -52,9 +57,10 @@ public class DialogueTest : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            ProgressDialogue();
-            dialogueProgressCooldown = false;
-            dialogueProgressCooldownTimer = Timer.Register(0.5f, () => dialogueProgressCooldown = true);
+            StartNode();
+            //ProgressDialogue();
+            // dialogueProgressCooldown = false;
+            // dialogueProgressCooldownTimer = Timer.Register(0.5f, () => dialogueProgressCooldown = true);
         }
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -70,37 +76,51 @@ public class DialogueTest : MonoBehaviour
     {
         if (_dialogueRunner.CurrentNodeName == null || _dialogueRunner.CurrentNodeName == "")
         {
-            StartNode();
-        } else if (dialogueProgressCooldown) {
+            if (dialogueProgressTimer != null) dialogueProgressTimer.Cancel();
+        } else {
             _lineView.UserRequestedViewAdvancement();
 
             currentLine = _lineView.GetCurrentLine();
 
-            if (currentLine.CharacterName != null && currentLine.CharacterName == name1)
-            {
-                Debug.Log(currentLine.RawText + ", point left.");
-                DialogueBox.transform.rotation = Quaternion.Euler(0, 0, 0);
-                DialogueTextObject.transform.rotation = Quaternion.Euler(0, 0, 0);
-                NameTextObject.transform.rotation = Quaternion.Euler(0, 0, 0);
-            } else if (currentLine.CharacterName == name2)
-            {
-                Debug.Log(currentLine.RawText + ", point right.");
-                DialogueBox.transform.rotation = Quaternion.Euler(0, 180, 0);
-                DialogueTextObject.transform.rotation = Quaternion.Euler(0, 0, 0);
-                NameTextObject.transform.rotation = Quaternion.Euler(0, 0, 0);
-            }
+            FlipDialogueBox();
             
             if (currentLine.Metadata != null) {
-                boxType = currentLine.Metadata[0];
+                // if (currentLine.Metadata.Length == 2)
+                // {
+                //     emoteType = currentLine.Metadata[1].Split(':')[1];
+                // }
+                // boxType = currentLine.Metadata[0];
+                foreach (string s in currentLine.Metadata)
+                {
+                    if (s.Split(':')[0] == "boxtype") 
+                    {
+                        ChangeDialogueBox(s.Split(':')[1]);
+                    }
+                    if (s.Split(':')[0] == "emotetype")
+                    {
+                        //change emote
+                    }
+                }
             } else {
                 Debug.Log("No metadata found for current line");
             }
+        }
+    }
 
-            string[] boxTypeValue = boxType.Split(':');
-            if (boxTypeValue[0] == "boxtype")
-            {
-                ChangeDialogueBox(boxTypeValue[1]);
-            }
+    void FlipDialogueBox()
+    {
+        if (currentLine.CharacterName != null && currentLine.CharacterName == name1)
+        {
+            Debug.Log(currentLine.RawText + ", point left.");
+            DialogueBox.transform.rotation = Quaternion.Euler(0, 0, 0);
+            DialogueTextObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+            NameTextObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+        } else if (currentLine.CharacterName == name2)
+        {
+            Debug.Log(currentLine.RawText + ", point right.");
+            DialogueBox.transform.rotation = Quaternion.Euler(0, 180, 0);
+            DialogueTextObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+            NameTextObject.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
 
@@ -119,9 +139,29 @@ public class DialogueTest : MonoBehaviour
         }
     }
 
+    void ChangeEmoteType(string emoteType)
+    {
+        switch(emoteType) {
+            case "default":
+                //change current character's sprite to default
+                break;
+            default:
+                break;
+        }
+    }
+
     public void StartNode(string node = "TestScript")
     {
         _dialogueRunner.StartDialogue(node);
         _lineView.UserRequestedViewAdvancement();
+
+        dialogueProgressTimer = Timer.Register(
+            duration: 2.5f,
+            isLooped: true,
+            onComplete: () => 
+            {
+                ProgressDialogue();
+            }
+        );
     }
 }
