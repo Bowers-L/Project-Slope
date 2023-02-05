@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8234819427971004909}
   - component: {fileID: 637096706234839886}
   m_Layer: 0
-  m_Name: Note
+  m_Name: Track4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,7 +108,7 @@ Animator:
   m_GameObject: {fileID: 6388998836435875635}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c0787301999887f438de2a729eb517b8, type: 2}
+  m_Controller: {fileID: 9100000, guid: fadb7f46493f79f4e9227c6a72eca05c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

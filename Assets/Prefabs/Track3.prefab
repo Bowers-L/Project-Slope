@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8234819427971004909}
   - component: {fileID: 637096706234839886}
   m_Layer: 0
-  m_Name: Note
+  m_Name: Track3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: -23765503
   m_SortingLayer: 1
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: c436fd19551320b47963e54483dc2dfb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8e5665c708a947b4f957282c60f0c4f7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -108,7 +108,7 @@ Animator:
   m_GameObject: {fileID: 6388998836435875635}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c0787301999887f438de2a729eb517b8, type: 2}
+  m_Controller: {fileID: 9100000, guid: 6e2f4036569a3e4458018d5e9727019d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
