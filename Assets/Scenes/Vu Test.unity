@@ -1651,11 +1651,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-<<<<<<< HEAD
-  m_Sprite: {fileID: 21300000, guid: 3f84c0eda156c854789c4238c8c3f825, type: 3}
-=======
   m_Sprite: {fileID: 21300000, guid: eca515031edfdbe4c8ec4c657f2b1afa, type: 3}
->>>>>>> Lominoe-main
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
