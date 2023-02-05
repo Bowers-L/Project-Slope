@@ -9,22 +9,36 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
     [SerializeField] private float flashSpeed;
     [SerializeField] private float earlyTimingWindowBeats;
     [SerializeField] private float lateTimingWindowBeats;
+    //[SerializeField, Range(0f, 1f)] private float failurePercentage;
+    [SerializeField] private int playerMaxHealthPerSection;
 
-    public int hitNotesInSection;
-    public int missedNotesInSection;    //Letting the note pass without hitting it.
-    public int missHits;    //Pressing button at wrong time
+    private int hitNotesInSection;
+    private int missedNotesInSection;    //Letting the note pass without hitting it.
+    private int missHits;    //Pressing button at wrong time
+
+    private int playerHealth;
+
+    private bool failed = false;
 
 
     private HashSet<SpriteRenderer> flashing = new HashSet<SpriteRenderer>();
 
     public void StartNewSection()
     {
+        failed = false;
         hitNotesInSection = 0;
         missedNotesInSection = 0;
+        playerHealth = playerMaxHealthPerSection;
     }
 
     private void Update()
     {
+        if (CheckFailure() && !failed)
+        {
+            failed = true;
+            Debug.Log("You Failed n00b");
+        }
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             HandlePlayedNote(0);
@@ -44,6 +58,11 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
         {
             HandlePlayedNote(3);
         }
+    }
+
+    public bool CheckFailure()
+    {
+        return playerHealth <= 0;
     }
 
     private void HandlePlayedNote(int pitch)
@@ -78,6 +97,7 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
     public void HandleMissHit()
     {
         missHits++;
+        playerHealth--;
         StartCoroutine(FlashColor(Track.Instance.BeatBar.GetComponent<SpriteRenderer>(), Color.red, flashSpeed));
     }
 
@@ -85,6 +105,7 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
     {
         //Do VFX Things. Keep Track of Pass/Fail, etc.
         missedNotesInSection++;
+        playerHealth--;
     }
 
     private IEnumerator FlashColor(SpriteRenderer sr, Color c, float duration, System.Action callback = null)

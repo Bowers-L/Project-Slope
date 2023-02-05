@@ -254,9 +254,7 @@ MonoBehaviour:
   flashSpeed: 0.1
   earlyTimingWindowBeats: 0.25
   lateTimingWindowBeats: 0.25
-  hitNotesInSection: 0
-  missedNotesInSection: 0
-  missHits: 0
+  playerMaxHealthPerSection: 20
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -770,4 +768,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   testChart: {fileID: 11400000, guid: 36d96f7e965d4d240a28fa82b1cc0c29, type: 2}
-  firstBeatOffsetSeconds: 4
+  firstBeatOffsetSeconds: 1
