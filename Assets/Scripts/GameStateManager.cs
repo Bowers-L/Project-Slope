@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MyBox;
+using FMOD.Studio;
+using Unity.VisualScripting;
 
 /**
  * This class is the main entry point into the game. 
@@ -11,10 +13,11 @@ using MyBox;
  *
  * It also handles restarting the conductor / fmod upon a level failure. 
  */
-public class GameStateManager : Singleton<GameStateManager>
+public class GameStateManager : MyBox.Singleton<GameStateManager>
 {
     public enum GameState
     {
+        None,
         Tutorial,
         FirstChorus,
         Level1,
@@ -33,23 +36,38 @@ public class GameStateManager : Singleton<GameStateManager>
     FMOD.Studio.EVENT_CALLBACK _musicFmodCallback;
     FMOD.Studio.EventInstance _musicEventInstance;
 
+    //FMOD.Studio.TIMELINE_MARKER_PROPERTIES? _prevMarker;
+    FMOD.Studio.TIMELINE_MARKER_PROPERTIES? _currMarker;
+
+    HashSet<string> _labelsPassed = new HashSet<string>();
+    public HashSet<string> LabelsPassed => _labelsPassed;
+
+    private FMODUnity.StudioEventEmitter emitter;
+
     void Awake() {
         InitializeSingleton();
+
+        gameState = GameState.None;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        gameState = GameState.Tutorial;
-        
-        FMOD.Studio.EventDescription desc = FMODUnity.RuntimeManager.GetEventDescription("event:/Music/Chorus");
-        desc.createInstance(out _musicEventInstance);
+        emitter = GetComponent<FMODUnity.StudioEventEmitter>();
+        //FMOD.Studio.EventDescription desc = FMODUnity.RuntimeManager.GetEventDescription("event:/Music/Chorus");
+        //desc.createInstance(out _musicEventInstance);
         
         _musicFmodCallback = new FMOD.Studio.EVENT_CALLBACK(FMODEventCallback);
 
-        _musicEventInstance.setCallback(_musicFmodCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
-
         //_musicEventInstance.start();
+    }
+
+    private void StartFMODEvent()
+    {
+        emitter.Play();
+        _labelsPassed.Clear();
+        _musicEventInstance = emitter.EventInstance;
+        _musicEventInstance.setCallback(_musicFmodCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
     }
 
     [AOT.MonoPInvokeCallback(typeof(FMOD.Studio.EVENT_CALLBACK))]
@@ -57,8 +75,19 @@ public class GameStateManager : Singleton<GameStateManager>
     {
         if (type == FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER)
         {
+            var game = GameStateManager.Instance;
             var parameter = (FMOD.Studio.TIMELINE_MARKER_PROPERTIES)System.Runtime.InteropServices.Marshal.PtrToStructure(parameterPtr, typeof(FMOD.Studio.TIMELINE_MARKER_PROPERTIES));
+            //GameStateManager.Instance._prevMarker = GameStateManager.Instance._currMarker;
+            game._currMarker = parameter;
+            string labelName = (string) parameter.name;
             UnityEngine.Debug.LogFormat("Marker: {0}", (string)parameter.name);
+            
+            if (!game.LabelsPassed.Contains(labelName))
+            {
+                //First time passing label
+                game.LabelsPassed.Add(labelName);
+                game.UpdateGameState();
+            }
         }
 
         return FMOD.RESULT.OK;
@@ -80,28 +109,32 @@ public class GameStateManager : Singleton<GameStateManager>
      */
     void UpdateGameState()
     {
-        gameState++;
+
+        gameState = gameState+1;
+        Debug.Log($"SWITCH THE GAME STATE TO {gameState}");
         //gameState = 0;
+
         switch (gameState)
         {
+            case GameState.None:
+                break;
             case GameState.Tutorial: // game
                 // *** Start Chart 1 
                 Conductor.Instance.Play(charts[0]);
-                // *** start Tutorial part of Fmod Timeline
 
-                FMODUnity.StudioEventEmitter emitter = GetComponent<FMODUnity.StudioEventEmitter>();
-                emitter.Stop();
-                emitter.Play();
+                if (!emitter.IsPlaying())
+                {
+                    StartFMODEvent();
+                }
 
                 break;
             case GameState.FirstChorus: // dialog
                 // *** Start Dialog 1
-                // *** start First Chorus part of Fmod Timeline
+                Conductor.Instance.Pause();
                 break;
             case GameState.Level1: // game
                 // *** Start Chart 2
                 Conductor.Instance.Play(charts[1]);
-                // *** start Tutorial part of Fmod Timeline
                 //FMODUnity.StudioEventEmitter emitter = GetComponent<FMODUnity.StudioEventEmitter>();
                 //emitter.Play();
                 break;
@@ -125,12 +158,15 @@ public class GameStateManager : Singleton<GameStateManager>
                 break;
         }
     }
-        
+
     public void RestartCurrentLevel()
     {
         deaths++;
         // *** Halt current instance of Fmod Timeline, also stop the current instance of game
         gameState--;
+
+        //Update FMOD timeline position
+        emitter.EventInstance.setTimelinePosition(_currMarker == null ? 0 : _currMarker.Value.position);
         UpdateGameState();
     }
 }

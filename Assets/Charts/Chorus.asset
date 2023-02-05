@@ -61,7 +61,127 @@ MonoBehaviour:
   - moment: 2880
     pitch: 0
     length: 0
-  bpm: 60.000004
+  - moment: 3072
+    pitch: 0
+    length: 0
+  - moment: 3360
+    pitch: 0
+    length: 0
+  - moment: 3456
+    pitch: 0
+    length: 0
+  - moment: 3648
+    pitch: 0
+    length: 0
+  - moment: 3840
+    pitch: 0
+    length: 0
+  - moment: 4128
+    pitch: 0
+    length: 0
+  - moment: 4224
+    pitch: 0
+    length: 0
+  - moment: 4416
+    pitch: 0
+    length: 0
+  - moment: 4608
+    pitch: 0
+    length: 0
+  - moment: 4896
+    pitch: 0
+    length: 0
+  - moment: 4992
+    pitch: 0
+    length: 0
+  - moment: 5184
+    pitch: 0
+    length: 0
+  - moment: 5376
+    pitch: 0
+    length: 0
+  - moment: 5664
+    pitch: 0
+    length: 0
+  - moment: 5760
+    pitch: 0
+    length: 0
+  - moment: 5952
+    pitch: 0
+    length: 0
+  - moment: 6144
+    pitch: 0
+    length: 0
+  - moment: 6432
+    pitch: 0
+    length: 0
+  - moment: 6528
+    pitch: 0
+    length: 0
+  - moment: 6720
+    pitch: 0
+    length: 0
+  - moment: 6912
+    pitch: 0
+    length: 0
+  - moment: 7200
+    pitch: 0
+    length: 0
+  - moment: 7296
+    pitch: 0
+    length: 0
+  - moment: 7488
+    pitch: 0
+    length: 0
+  - moment: 7680
+    pitch: 0
+    length: 0
+  - moment: 7968
+    pitch: 0
+    length: 0
+  - moment: 8064
+    pitch: 0
+    length: 0
+  - moment: 8256
+    pitch: 0
+    length: 0
+  - moment: 8448
+    pitch: 0
+    length: 0
+  - moment: 8736
+    pitch: 0
+    length: 0
+  - moment: 8832
+    pitch: 0
+    length: 0
+  - moment: 9024
+    pitch: 0
+    length: 0
+  - moment: 9216
+    pitch: 0
+    length: 0
+  - moment: 9504
+    pitch: 0
+    length: 0
+  - moment: 9600
+    pitch: 0
+    length: 0
+  - moment: 9792
+    pitch: 0
+    length: 0
+  - moment: 9984
+    pitch: 0
+    length: 0
+  - moment: 10272
+    pitch: 0
+    length: 0
+  - moment: 10368
+    pitch: 0
+    length: 0
+  - moment: 10560
+    pitch: 0
+    length: 0
+  bpm: 130
   timeSignatureNum: 4
   unitsPerBeat: 192
-  firstBeatOffsetSeconds: 0
+  firstBeatOffsetSeconds: 0.3
