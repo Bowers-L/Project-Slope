@@ -1,0 +1,187 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6661cdc807156049a28ef6d187285ff, type: 3}
+  m_Name: Chorus (2)
+  m_EditorClassIdentifier: 
+  notes:
+  - moment: 0
+    pitch: 0
+    length: 0
+  - moment: 288
+    pitch: 0
+    length: 0
+  - moment: 384
+    pitch: 0
+    length: 0
+  - moment: 576
+    pitch: 0
+    length: 0
+  - moment: 768
+    pitch: 0
+    length: 0
+  - moment: 1056
+    pitch: 0
+    length: 0
+  - moment: 1152
+    pitch: 0
+    length: 0
+  - moment: 1344
+    pitch: 0
+    length: 0
+  - moment: 1536
+    pitch: 0
+    length: 0
+  - moment: 1824
+    pitch: 0
+    length: 0
+  - moment: 1920
+    pitch: 0
+    length: 0
+  - moment: 2112
+    pitch: 0
+    length: 0
+  - moment: 2304
+    pitch: 0
+    length: 0
+  - moment: 2592
+    pitch: 0
+    length: 0
+  - moment: 2688
+    pitch: 0
+    length: 0
+  - moment: 2880
+    pitch: 0
+    length: 0
+  - moment: 3072
+    pitch: 0
+    length: 0
+  - moment: 3360
+    pitch: 0
+    length: 0
+  - moment: 3456
+    pitch: 0
+    length: 0
+  - moment: 3648
+    pitch: 0
+    length: 0
+  - moment: 3840
+    pitch: 0
+    length: 0
+  - moment: 4128
+    pitch: 0
+    length: 0
+  - moment: 4224
+    pitch: 0
+    length: 0
+  - moment: 4416
+    pitch: 0
+    length: 0
+  - moment: 4608
+    pitch: 0
+    length: 0
+  - moment: 4896
+    pitch: 0
+    length: 0
+  - moment: 4992
+    pitch: 0
+    length: 0
+  - moment: 5184
+    pitch: 0
+    length: 0
+  - moment: 5376
+    pitch: 0
+    length: 0
+  - moment: 5664
+    pitch: 0
+    length: 0
+  - moment: 5760
+    pitch: 0
+    length: 0
+  - moment: 5952
+    pitch: 0
+    length: 0
+  - moment: 6144
+    pitch: 0
+    length: 0
+  - moment: 6432
+    pitch: 0
+    length: 0
+  - moment: 6528
+    pitch: 0
+    length: 0
+  - moment: 6720
+    pitch: 0
+    length: 0
+  - moment: 6912
+    pitch: 0
+    length: 0
+  - moment: 7200
+    pitch: 0
+    length: 0
+  - moment: 7296
+    pitch: 0
+    length: 0
+  - moment: 7488
+    pitch: 0
+    length: 0
+  - moment: 7680
+    pitch: 0
+    length: 0
+  - moment: 7968
+    pitch: 0
+    length: 0
+  - moment: 8064
+    pitch: 0
+    length: 0
+  - moment: 8256
+    pitch: 0
+    length: 0
+  - moment: 8448
+    pitch: 0
+    length: 0
+  - moment: 8736
+    pitch: 0
+    length: 0
+  - moment: 8832
+    pitch: 0
+    length: 0
+  - moment: 9024
+    pitch: 0
+    length: 0
+  - moment: 9216
+    pitch: 0
+    length: 0
+  - moment: 9504
+    pitch: 0
+    length: 0
+  - moment: 9600
+    pitch: 0
+    length: 0
+  - moment: 9792
+    pitch: 0
+    length: 0
+  - moment: 9984
+    pitch: 0
+    length: 0
+  - moment: 10272
+    pitch: 0
+    length: 0
+  - moment: 10368
+    pitch: 0
+    length: 0
+  - moment: 10560
+    pitch: 0
+    length: 0
+  bpm: 130
+  timeSignatureNum: 4
+  unitsPerBeat: 192
+  firstBeatOffsetSeconds: 0.35

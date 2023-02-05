@@ -62,7 +62,10 @@ public class GameStateManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            UpdateGameState();
+        }
     }
 
     /**
@@ -73,11 +76,17 @@ public class GameStateManager : MonoBehaviour
     void UpdateGameState()
     {
         gameState++;
+        gameState = 0;
         switch (gameState)
         {
             case GameState.Tutorial: // game
                 // *** Start Chart 1 
+                Conductor.Instance.Play(charts[0]);
                 // *** start Tutorial part of Fmod Timeline
+
+                FMODUnity.StudioEventEmitter emitter = GetComponent<FMODUnity.StudioEventEmitter>();
+                emitter.Play();
+
                 break;
             case GameState.FirstChorus: // dialog
                 // *** Start Dialog 1
@@ -85,6 +94,10 @@ public class GameStateManager : MonoBehaviour
                 break;
             case GameState.Level1: // game
                 // *** Start Chart 2
+                Conductor.Instance.Play(charts[1]);
+                // *** start Tutorial part of Fmod Timeline
+                //FMODUnity.StudioEventEmitter emitter = GetComponent<FMODUnity.StudioEventEmitter>();
+                //emitter.Play();
                 break;
             case GameState.Response1: // dialog
                 // *** Start Dialog 2
