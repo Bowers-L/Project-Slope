@@ -286,8 +286,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2325860b489a5d047823bbc18ffd1735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name1: Saeko
-  name2: Miwa
+  name1: Evan
+  name2: Vivian
   DialogueRunnerObject: {fileID: 2753718018761519602}
   DialogueView: {fileID: 7778558436046966239}
   DialogueBox: {fileID: 1564720169}
@@ -295,6 +295,13 @@ MonoBehaviour:
   NameTextObject: {fileID: 581176072}
   char1: {fileID: 2571766}
   char2: {fileID: 1745664644}
+  emoteList:
+  - {fileID: 21300000, guid: 9b68e564e0a98c4419cdca94b9bac04e, type: 3}
+  - {fileID: 21300000, guid: a35f0d2c5e11586448be9d0654cb459f, type: 3}
+  - {fileID: 21300000, guid: cb378d874d8a1b948944245bd4ee9ae6, type: 3}
+  - {fileID: 21300000, guid: 970981c7178980d4ab0cac59d718e4cd, type: 3}
+  - {fileID: 21300000, guid: 3f84c0eda156c854789c4238c8c3f825, type: 3}
+  - {fileID: 21300000, guid: 31e6f09bb4574e74591b44646cc2de7d, type: 3}
 --- !u!4 &145053101
 Transform:
   m_ObjectHideFlags: 0
@@ -1212,11 +1219,11 @@ MonoBehaviour:
   lineText: {fileID: 7778558436139624037}
   showCharacterNameInLineView: 1
   characterNameText: {fileID: 581176074}
-  useTypewriterEffect: 0
+  useTypewriterEffect: 1
   onCharacterTyped:
     m_PersistentCalls:
       m_Calls: []
-  typewriterEffectSpeed: 80
+  typewriterEffectSpeed: 120
   continueButton: {fileID: 0}
   holdTime: 1
   autoAdvance: 0

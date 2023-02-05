@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{60e98c96-d243-41c8-9bf7-66b639d94355}">
+		<property name="name">
+			<value>NumFails</value>
+		</property>
+		<relationship name="folder">
+			<destination>{8909dab1-a320-4823-b96f-b5f92aa542c5}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{56cf6a28-017a-424a-b37d-cb95e2a9d437}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{56cf6a28-017a-424a-b37d-cb95e2a9d437}">
+		<property name="parameterType">
+			<value>1</value>
+		</property>
+		<property name="maximum">
+			<value>4</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>
