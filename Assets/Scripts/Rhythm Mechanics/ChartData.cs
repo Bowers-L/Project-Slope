@@ -11,6 +11,8 @@ public class ChartData : ScriptableObject
     public int timeSignatureNum;   //Implied 4 in denominator
     public int unitsPerBeat = Note.QUARTER; //Always 4 in time signature
 
+    public float firstBeatOffsetSeconds = 0f;
+
     public ChartData(List<Note> notes, float bpm, int timeSignatureNum, int unitsPerBeat = Note.QUARTER)
     {
         this.bpm = bpm;

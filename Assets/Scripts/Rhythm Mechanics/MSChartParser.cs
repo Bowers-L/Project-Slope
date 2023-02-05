@@ -13,6 +13,9 @@ public class MSChartParser : MonoBehaviour
         FileInfo[] files = info.GetFiles();
         foreach (FileInfo f in files)
         {
+            if (f.Extension == ".asset") {
+                f.Delete();
+            }
             if (f.Extension == ".chart")
             {
                 Debug.Log($"Parsing File: {f.Name}");
