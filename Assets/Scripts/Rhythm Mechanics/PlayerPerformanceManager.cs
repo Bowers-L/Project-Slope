@@ -31,33 +31,42 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
         playerHealth = playerMaxHealthPerSection;
     }
 
+    public void OnParticleSystemStopped()
+    {
+        failed = false;
+        playerHealth = playerMaxHealthPerSection;
+    }
+
     private void Update()
     {
-        if (CheckFailure() && !failed && !Conductor.Instance.Paused)
+        if (!Conductor.Instance.Paused)
         {
-            failed = true;
-            Debug.Log("You Failed n00b");
-            GameStateManager.Instance.RestartCurrentLevel();
-        }
+            if (CheckFailure() && !failed)
+            {
+                failed = true;
+                Debug.Log("You Failed n00b");
+                GameStateManager.Instance.RestartCurrentLevel();
+            }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            HandlePlayedNote(0);
-        } 
-        
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            HandlePlayedNote(1);
-        } 
-        
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            HandlePlayedNote(2);
-        }
-        
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            HandlePlayedNote(3);
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                HandlePlayedNote(0);
+            }
+
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                HandlePlayedNote(1);
+            }
+
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                HandlePlayedNote(2);
+            }
+
+            if (Input.GetKeyDown(KeyCode.V))
+            {
+                HandlePlayedNote(3);
+            }
         }
     }
 
