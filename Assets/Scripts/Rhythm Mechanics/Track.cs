@@ -61,11 +61,10 @@ public class Track : Singleton<Track>
                 Note closestNote = activeNoteList[0].NoteData;
                 if (NoteMomentOnTrackCU(closestNote) <= DespawnMomentCU())
                 {
+                    PlayerPerformanceManager.Instance.HandleNoteMissed();
                     Destroy(activeNoteList[0].gameObject);
                     activeNoteList.RemoveAt(0);
                 }
-
-                PlayerPerformanceManager.Instance.HandleNoteMissed();
             }
         }
     }
