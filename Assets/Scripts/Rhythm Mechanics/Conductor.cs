@@ -17,10 +17,9 @@ public class Conductor : Singleton<Conductor>
         FMODDsp     //Actually use this in game since it will sync better.
     }
 
-    public const TimingMethod timingMethod = TimingMethod.UnityTime;
+    public const TimingMethod timingMethod = TimingMethod.FMODDsp;
 
     [SerializeField] private ChartData testChart;
-    [SerializeField] private int firstBeatOffsetSeconds;
 
     private float currMomentSeconds;    //How much time has elapsed in the song
     private bool isPaused;
@@ -57,7 +56,7 @@ public class Conductor : Singleton<Conductor>
 
         if (testChart != null)
         {
-            Play(testChart); //FOR TESTING (call from Game Manager Instead.)
+            //Play(testChart); //FOR TESTING (call from Game Manager Instead.)
         }
     }
 
@@ -65,7 +64,7 @@ public class Conductor : Singleton<Conductor>
     {
         if (!isPaused)
         {
-            currMomentSeconds = TimeSinceStart - firstBeatOffsetSeconds;
+            currMomentSeconds = TimeSinceStart - _currChart.firstBeatOffsetSeconds;
 
             //Debug.Log($"Current Moment Beat: {CurrMomentBeats}");
         }
@@ -82,7 +81,7 @@ public class Conductor : Singleton<Conductor>
 
         //Set Internal State
         startTime = GetCurrentTime();
-        currMomentSeconds = -firstBeatOffsetSeconds;
+        currMomentSeconds = -_currChart.firstBeatOffsetSeconds;
         isPaused = false;
 
         Track.Instance.Init();
