@@ -68,9 +68,6 @@ MonoBehaviour:
     pitch: 2
     length: 160
   - moment: 3168
-    pitch: 1
-    length: 144
-  - moment: 3168
     pitch: 2
     length: 144
   - moment: 3168
@@ -257,9 +254,18 @@ MonoBehaviour:
     pitch: 1
     length: 0
   - moment: 11616
+    pitch: 1
+    length: 288
+  - moment: 11616
     pitch: 2
-    length: 624
-  bpm: 120.00001
+    length: 288
+  - moment: 11904
+    pitch: 0
+    length: 320
+  - moment: 11904
+    pitch: 2
+    length: 320
+  bpm: 130
   timeSignatureNum: 4
   unitsPerBeat: 192
-  firstBeatOffsetSeconds: 0
+  firstBeatOffsetSeconds: -0.1

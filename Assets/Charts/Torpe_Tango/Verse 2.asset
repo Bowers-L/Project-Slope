@@ -65,14 +65,23 @@ MonoBehaviour:
     pitch: 3
     length: 0
   - moment: 4608
+    pitch: 1
+    length: 320
+  - moment: 4608
     pitch: 2
     length: 336
   - moment: 4992
     pitch: 0
     length: 336
-  - moment: 5376
+  - moment: 4992
     pitch: 1
-    length: 528
+    length: 320
+  - moment: 5376
+    pitch: 0
+    length: 512
+  - moment: 5376
+    pitch: 2
+    length: 512
   - moment: 5952
     pitch: 1
     length: 144
@@ -145,12 +154,21 @@ MonoBehaviour:
   - moment: 10176
     pitch: 2
     length: 320
+  - moment: 10176
+    pitch: 3
+    length: 320
   - moment: 10560
     pitch: 1
     length: 160
   - moment: 10752
+    pitch: 1
+    length: 224
+  - moment: 10752
     pitch: 2
     length: 256
+  - moment: 11040
+    pitch: 2
+    length: 224
   - moment: 11040
     pitch: 3
     length: 256
@@ -175,4 +193,4 @@ MonoBehaviour:
   bpm: 130
   timeSignatureNum: 4
   unitsPerBeat: 192
-  firstBeatOffsetSeconds: 0
+  firstBeatOffsetSeconds: -0.1
