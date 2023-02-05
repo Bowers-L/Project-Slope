@@ -44,6 +44,8 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
 
     private FMODUnity.StudioEventEmitter emitter;
 
+    private FMODUnity.StudioEventEmitter sfxEmitter;
+
     void Awake() {
         InitializeSingleton();
 
@@ -53,13 +55,12 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
     // Start is called before the first frame update
     void Start()
     {
-        emitter = GetComponent<FMODUnity.StudioEventEmitter>();
-        //FMOD.Studio.EventDescription desc = FMODUnity.RuntimeManager.GetEventDescription("event:/Music/Chorus");
-        //desc.createInstance(out _musicEventInstance);
+        FMODUnity.StudioEventEmitter[] emitters = GetComponents<FMODUnity.StudioEventEmitter>();
+
+        emitter = emitters[0];
+        sfxEmitter = emitters[1];
         
         _musicFmodCallback = new FMOD.Studio.EVENT_CALLBACK(FMODEventCallback);
-
-        //_musicEventInstance.start();
 
         StartFMODEvent();
     }
@@ -118,7 +119,8 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
 
         switch (gameState)
         {
-            case GameState.None:
+            case GameState.None: // this is the main menu
+                // *** main menu witchcraft
                 break;
             case GameState.Tutorial: // game
                 // *** Start Chart 1 
@@ -169,6 +171,10 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
         Conductor.Instance.Play(charts[index]);
     }
 
+    /**
+     * Called by the conductor class when the user fails. If the user fails, restart fmod sequence, start game chart, and play fail sfx.
+     *
+     */
     public void RestartCurrentLevel()
     {
         deaths++;
@@ -176,6 +182,8 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
         gameState--;
 
         //Update FMOD timeline position
+        sfxEmitter.Play();
+        emitter.SetParameter("NumFails", deaths);
         emitter.EventInstance.setTimelinePosition(_currMarker == null ? 0 : _currMarker.Value.position);
         UpdateGameState();
     }
