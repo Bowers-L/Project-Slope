@@ -33,10 +33,11 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
 
     private void Update()
     {
-        if (CheckFailure() && !failed)
+        if (CheckFailure() && !failed && !Conductor.Instance.Paused)
         {
             failed = true;
             Debug.Log("You Failed n00b");
+            GameStateManager.Instance.RestartCurrentLevel();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -129,6 +130,10 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
     private TrackNote CheckHitNote(int pitch)
     {
         List<TrackNote> activeNotes = Track.Instance.ActiveNotes;
+
+        if (activeNotes == null) {
+            return null;
+        }
 
         TrackNote hitNote = null;
         foreach (TrackNote note in activeNotes)
