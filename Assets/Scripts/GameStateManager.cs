@@ -32,7 +32,7 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
 
     private GameState gameState;
     public List<ChartData> charts;
-    private int deaths = 0;
+    public int NumFails = 0;
 
     FMOD.Studio.EVENT_CALLBACK _musicFmodCallback;
     FMOD.Studio.EventInstance _musicEventInstance;
@@ -75,6 +75,7 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
 
     public void StartFMODEvent()
     {
+        gameState = GameState.Intro;
         emitter.Play();
         _labelsPassed.Clear();
         _musicEventInstance = emitter.EventInstance;
@@ -97,6 +98,9 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
             {
                 //First time passing label
                 game.LabelsPassed.Add(labelName);
+                game.NumFails = 0;
+                game.emitter.SetParameter("NumFails", game.NumFails);
+                //Debug.Log($"Num Fails: {game.NumFails}");
                 game.UpdateGameState();
             }
         }
@@ -192,8 +196,8 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
      */
     public void RestartCurrentLevel()
     {
-        deaths++;
-        switch(deaths){
+        NumFails++;
+        switch(NumFails){
             case 1:
                 _dialogueManager.StartNode("Strike1");
                 break;
@@ -212,7 +216,7 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
 
         //Update FMOD timeline position
         sfxEmitter.Play();
-        emitter.SetParameter("NumFails", deaths);
+        emitter.SetParameter("NumFails", NumFails);
         emitter.EventInstance.setTimelinePosition(_currMarker == null ? 0 : _currMarker.Value.position);
         UpdateGameState();
     }

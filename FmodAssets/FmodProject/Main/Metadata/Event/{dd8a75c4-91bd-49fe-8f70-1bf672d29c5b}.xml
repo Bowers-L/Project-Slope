@@ -364,7 +364,7 @@
 	</object>
 	<object class="NamedMarker" id="{40780452-055b-44f0-be62-d3915d7c79f3}">
 		<property name="position">
-			<value>107.30000000000001</value>
+			<value>105.3</value>
 		</property>
 		<property name="name">
 			<value>Verse2</value>
@@ -392,7 +392,7 @@
 	</object>
 	<object class="NamedMarker" id="{a2f75748-f0b6-40d8-8fe3-20c60142aa8a}">
 		<property name="position">
-			<value>151.65000000000001</value>
+			<value>149.65000000000001</value>
 		</property>
 		<property name="name">
 			<value>Verse3</value>
