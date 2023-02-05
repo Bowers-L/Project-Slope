@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{7311544a-ec2a-4814-baa8-fe2f8a974388}">
+		<property name="assetPath">
+			<value>crowded restaurant.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>61.25714285714286</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{687a2af4-e051-42e5-bfac-d27f4ff58c88}</destination>
+		</relationship>
+	</object>
+</objects>
