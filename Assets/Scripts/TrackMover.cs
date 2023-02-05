@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TrackMover : MonoBehaviour
 {
@@ -48,5 +49,9 @@ public class TrackMover : MonoBehaviour
 
         transform.position = onScreenPos;
 
+        if (OnEndScroll.GetPersistentEventCount() > 0) OnEndScroll.Invoke();
+
     }
+
+    [SerializeField] private UnityEvent OnEndScroll;
 }
