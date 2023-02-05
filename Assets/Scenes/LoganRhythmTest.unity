@@ -349,11 +349,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 27536308
-      Data2: 1116673326
-      Data3: 1006688684
-      Data4: 1490299811
-    Path: event:/Music/Chorus
+      Data1: -578128444
+      Data2: 1241420221
+      Data3: -165973873
+      Data4: 1537004146
+    Path: event:/Music/TheWholeSong
   Event: 
   PlayEvent: 0
   StopEvent: 0

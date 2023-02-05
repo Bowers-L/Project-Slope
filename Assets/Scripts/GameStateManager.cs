@@ -60,9 +60,11 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
         _musicFmodCallback = new FMOD.Studio.EVENT_CALLBACK(FMODEventCallback);
 
         //_musicEventInstance.start();
+
+        StartFMODEvent();
     }
 
-    private void StartFMODEvent()
+    public void StartFMODEvent()
     {
         emitter.Play();
         _labelsPassed.Clear();
@@ -96,10 +98,10 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            UpdateGameState();
-        }
+        //if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    UpdateGameState();
+        //}
     }
 
     /**

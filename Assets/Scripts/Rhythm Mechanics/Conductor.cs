@@ -9,7 +9,7 @@ using UnityEngine;
  * Chart Units (or CU) is used to represent the moment of a note. 192 CU = 1 Quater Note Beat.
  */
 
-public class Conductor : Singleton<Conductor>
+public class Conductor : MyBox.Singleton<Conductor>
 {
     public enum TimingMethod
     {
@@ -73,7 +73,7 @@ public class Conductor : Singleton<Conductor>
 
     public void Play(ChartData chart)
     {
-        Debug.Log("Starting the Track");
+        Debug.Log($"Starting the Chart {chart.name}");
         _currChart = chart;
 
         //Set Chart Parameters
