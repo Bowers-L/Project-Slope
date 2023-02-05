@@ -50,6 +50,47 @@ MonoBehaviour:
   gain:
     m_OverrideState: 1
     m_Value: {x: 1, y: 1, z: 1, w: 0.11605413}
+--- !u!114 &-4177226495861401174
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b2db86121404754db890f4c8dfe81b2, type: 3}
+  m_Name: Bloom
+  m_EditorClassIdentifier: 
+  active: 1
+  threshold:
+    m_OverrideState: 1
+    m_Value: 0.5
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0.71
+  scatter:
+    m_OverrideState: 1
+    m_Value: 1
+  clamp:
+    m_OverrideState: 0
+    m_Value: 65472
+  tint:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  highQualityFiltering:
+    m_OverrideState: 0
+    m_Value: 0
+  skipIterations:
+    m_OverrideState: 0
+    m_Value: 1
+  dirtTexture:
+    m_OverrideState: 0
+    m_Value: {fileID: 0}
+    dimension: 1
+  dirtIntensity:
+    m_OverrideState: 0
+    m_Value: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,11 +104,11 @@ MonoBehaviour:
   m_Name: Box Volume Profile
   m_EditorClassIdentifier: 
   components:
-  - {fileID: 2477873369991692475}
   - {fileID: 433473313883083435}
   - {fileID: 2878447893273249573}
   - {fileID: -5874917647335450828}
   - {fileID: -6130759949332825659}
+  - {fileID: -4177226495861401174}
 --- !u!114 &433473313883083435
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -89,13 +130,14 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.324
+    m_Value: 0.216
   smoothness:
     m_OverrideState: 0
     m_Value: 0.2
   rounded:
     m_OverrideState: 1
     m_Value: 1
+<<<<<<< HEAD
 --- !u!114 &2477873369991692475
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -137,6 +179,8 @@ MonoBehaviour:
   dirtIntensity:
     m_OverrideState: 0
     m_Value: 0
+=======
+>>>>>>> Lominoe-main
 --- !u!114 &2878447893273249573
 MonoBehaviour:
   m_ObjectHideFlags: 3
