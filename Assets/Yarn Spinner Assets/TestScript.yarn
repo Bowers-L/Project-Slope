@@ -2,80 +2,85 @@
 tags:
 position: -77,-264
 ---
-Brooke: Mic check, one two...
+<<set $jamming to true>>
+Saeko: Mic check, one two... #boxtype:normal
 <<jump Arg1_1>>
 ===
 
 title: Arg1_1
 position: -77,-94
 ---
-Brooke: I start this argument with my hypothesis that dogs are the superior pet!
-Peter: That's wrong, cats are better!
+Saeko: I start this argument with my hypothesis that dogs are the superior pet! #boxtype:yell
+Miwa: That's wrong, cats are better! #boxtype:yell
 <<jump Arg1_1_c>>
 ===
 
 title: Arg1_1_c
 position: -77,74
 ---
-Brooke: I refute your argument by stating...
--> Dogs are man's best friend!
+Saeko: I refute your argument by stating... #boxtype:normal
+<<if $jamming == true>>
     <<jump Arg1_1_s>>
--> Dogs poop and pee all over the place!
+<<else>>
     <<jump Arg1_1_p>>
+<<endif>>
 ===
 
 title: Arg1_1_s
 position: -214,258
 ---
-Brooke: No one can disagree with the tyranny of the majority!
-Peter: Well, I guess I can't argue with that...
+Saeko: Dogs are man's best friend! #boxtype:yell
+Saeko: No one can disagree with the tyranny of the majority! #boxtype:yell
+Miwa: Well, I guess I can't argue with that... #boxtype:normal
 <<jump Arg2_1>>
 ===
 
 title: Arg1_1_p
 position: 89,259
 ---
-Peter: Cats pee on all your furniture instead of outside, they're even better!
-Brooke: Curses, I hadn't considered...
+Saeko: Dogs poop and pee all over the place! #boxtype:yell
+Miwa: Cats pee on all your furniture instead of outside, they're even better! #boxtype:yell
+Saeko: Curses, I hadn't considered... #boxtype:normal
 <<jump Arg2_1>>
 ===
 
 title: Arg2_1
 position: -66,473
 ---
-Brooke: Furthermore...
+Saeko: Furthermore... #boxtype:normal
 <<jump Arg2_2>>
 ===
 
 title: Arg2_2
 position: -66,671
 ---
-Brooke: IP: 192.168.1.1
-Peter: But that's just the default IP Address!
+Saeko: IP: 192.168.1.1 #boxtype:normal
+Miwa: But that's just the default IP Address! #boxtype:yell
 <<jump Arg2_2_c>>
 ===
 
 title: Arg2_2_c
 position: -67,925
 ---
-Brooke: I refute your argument by stating...
--> You're not based!
+Saeko: I refute your argument by stating... #boxtype:normal
+<<if $jamming == true>>
     <<jump Arg2_2_s>>
--> Let me do it for you~
+<<else>>
     <<jump Arg2_2_p>>
+<<endif>>
 ===
 
 title: Arg2_2_s
 position: -278,1073
 ---
-Brooke: You're not based!
-Peter: Wrong, I'm Peter!
-Brooke: Drat, I was wrong...
+Saeko: You're not based! #boxtype:yell
+Miwa: Wrong, I'm Miwa! #boxtype:yell
+Saeko: Drat, I was wrong... #boxtype:normal
 ===
 
 title: Arg2_2_p
 position: 129,1068
 ---
-Brooke: Let me do it for you~
-Peter: :cursedplead:
+Saeko: Let me do it for you~ #boxtype:normal
+Miwa: :cursedplead: #boxtype:normal
 ===
