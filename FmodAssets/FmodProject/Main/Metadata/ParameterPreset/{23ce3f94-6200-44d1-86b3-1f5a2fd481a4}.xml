@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{23ce3f94-6200-44d1-86b3-1f5a2fd481a4}">
+		<property name="name">
+			<value>FormValue</value>
+		</property>
+		<relationship name="folder">
+			<destination>{8909dab1-a320-4823-b96f-b5f92aa542c5}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{c453be2e-7f9c-4655-a854-071c4816997f}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{c453be2e-7f9c-4655-a854-071c4816997f}">
+		<property name="parameterType">
+			<value>2</value>
+		</property>
+		<property name="maximum">
+			<value>5</value>
+		</property>
+		<property name="enumerationLabels">
+			<value>IntroChorus</value>
+			<value>Chorus1</value>
+			<value>Chorus2</value>
+			<value>Chorus3</value>
+			<value>EndingChorus</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>
