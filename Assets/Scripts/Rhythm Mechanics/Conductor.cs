@@ -23,6 +23,7 @@ public class Conductor : Singleton<Conductor>
 
     private float currMomentSeconds;    //How much time has elapsed in the song
     private bool isPaused;
+    public bool Paused => isPaused;
 
     //Chart specific parameters
     private float beatsPerSecond;

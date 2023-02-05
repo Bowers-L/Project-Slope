@@ -256,7 +256,7 @@ MonoBehaviour:
   flashSpeed: 0.1
   earlyTimingWindowBeats: 0.25
   lateTimingWindowBeats: 0.25
-  playerMaxHealthPerSection: 0
+  playerMaxHealthPerSection: 20
 --- !u!114 &308946263
 MonoBehaviour:
   m_ObjectHideFlags: 0
