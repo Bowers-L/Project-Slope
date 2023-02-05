@@ -253,8 +253,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   noteXOffset: -1.8
   noteXSpacing: 1.2
-  beatsPerTL: 2
-  despawnBeats: 1
+  beatsPerTL: 3
+  despawnBeats: 0.25
   spawnBar: {fileID: 6872801363860332827}
   beatBar: {fileID: 6872801363696380793}
   notePrefab: {fileID: 6388998836435875635, guid: c80a2d1608e2be746a946f4131f51937, type: 3}

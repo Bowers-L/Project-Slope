@@ -459,18 +459,6 @@ PrefabInstance:
       value: PlayerPerformance
       objectReference: {fileID: 0}
     - target: {fileID: 4583963617398066781, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
-      propertyPath: hitFXPrefab
-      value: 
-      objectReference: {fileID: 6388998836435875635, guid: 94d967d536c9d014387ed0374e223fe3, type: 3}
-    - target: {fileID: 4583963617398066781, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
-      propertyPath: missFXPrefab
-      value: 
-      objectReference: {fileID: 6388998836435875635, guid: 702670ec548a7eb4cae628edbb42fba4, type: 3}
-    - target: {fileID: 4583963617398066781, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
-      propertyPath: tracks.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4583963617398066781, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
       propertyPath: tracks.Array.data[0]
       value: 
       objectReference: {fileID: 1245596416}
@@ -586,14 +574,6 @@ PrefabInstance:
     - target: {fileID: 6872801364308224263, guid: 68f361ecc937f6f4daf8f0d3d4b41503, type: 3}
       propertyPath: m_Name
       value: Track
-      objectReference: {fileID: 0}
-    - target: {fileID: 6872801364308224281, guid: 68f361ecc937f6f4daf8f0d3d4b41503, type: 3}
-      propertyPath: beatsPerTL
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6872801364308224281, guid: 68f361ecc937f6f4daf8f0d3d4b41503, type: 3}
-      propertyPath: despawnBeats
-      value: 0.25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68f361ecc937f6f4daf8f0d3d4b41503, type: 3}
