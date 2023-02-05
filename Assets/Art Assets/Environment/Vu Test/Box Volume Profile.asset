@@ -137,7 +137,6 @@ MonoBehaviour:
   rounded:
     m_OverrideState: 1
     m_Value: 1
-<<<<<<< HEAD
 --- !u!114 &2477873369991692475
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -179,8 +178,6 @@ MonoBehaviour:
   dirtIntensity:
     m_OverrideState: 0
     m_Value: 0
-=======
->>>>>>> Lominoe-main
 --- !u!114 &2878447893273249573
 MonoBehaviour:
   m_ObjectHideFlags: 3
