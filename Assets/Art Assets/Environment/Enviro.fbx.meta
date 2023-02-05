@@ -22,7 +22,7 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Instruments
+      name: Metal
     second: {fileID: 2100000, guid: 26da449f97654054690f28a268d4cb1f, type: 2}
   - first:
       type: UnityEngine:Material
@@ -39,6 +39,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Upper Fabric
     second: {fileID: 2100000, guid: 319aa0178d19ddd4f81a4ef730594f39, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Vines
+    second: {fileID: 2100000, guid: 0ad34524c8cc2704482f250df4df2934, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
