@@ -20,6 +20,7 @@ public class Conductor : MyBox.Singleton<Conductor>
     public const TimingMethod timingMethod = TimingMethod.FMODDsp;
 
     [SerializeField] private ChartData testChart;
+    [SerializeField] private float delayPerFailAdjustment;
 
     private float currMomentSeconds;    //How much time has elapsed in the song
     private bool isPaused;
@@ -65,7 +66,7 @@ public class Conductor : MyBox.Singleton<Conductor>
     {
         if (!isPaused)
         {
-            currMomentSeconds = TimeSinceStart - _currChart.firstBeatOffsetSeconds;
+            currMomentSeconds = TimeSinceStart - _currChart.firstBeatOffsetSeconds - delayPerFailAdjustment * GameStateManager.Instance.NumFails;
 
             //Debug.Log($"Current Moment Beat: {CurrMomentBeats}");
         }
