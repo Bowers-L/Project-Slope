@@ -18,6 +18,7 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
     public enum GameState
     {
         None,
+        Intro,
         Tutorial,
         FirstChorus,
         Level1,
@@ -44,6 +45,9 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
 
     private FMODUnity.StudioEventEmitter emitter;
 
+    [SerializeField] GameObject dialogueManagerObj;
+    DialogueTest _dialogueManager;
+
     private FMODUnity.StudioEventEmitter sfxEmitter;
 
     void Awake() {
@@ -61,6 +65,10 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
         sfxEmitter = emitters[1];
         
         _musicFmodCallback = new FMOD.Studio.EVENT_CALLBACK(FMODEventCallback);
+
+        //_musicEventInstance.start();
+
+        _dialogueManager = dialogueManagerObj.GetComponent<DialogueTest>();
 
         StartFMODEvent();
     }
@@ -112,7 +120,6 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
      */
     void UpdateGameState()
     {
-
         gameState = gameState+1;
         Debug.Log($"SWITCH THE GAME STATE TO {gameState}");
         //gameState = 0;
@@ -122,12 +129,17 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
             case GameState.None: // this is the main menu
                 // *** main menu witchcraft
                 break;
+            case GameState.Intro:
+                _dialogueManager.StartNode("Intro");
+                break;
             case GameState.Tutorial: // game
                 // *** Start Chart 1 
+                _dialogueManager.StartNode("Tutorial");
                 PlayChart(0);
                 break;
             case GameState.FirstChorus: // dialog
                 // *** Start Dialog 1
+                _dialogueManager.StartNode("Loop1");
                 Conductor.Instance.Pause();
                 break;
             case GameState.Level1: // game
@@ -136,6 +148,7 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
                 break;
             case GameState.Response1: // dialog
                 // *** Start Dialog 2
+                _dialogueManager.StartNode("Post1");
                 Conductor.Instance.Pause();
                 break;
             case GameState.Level2: // game
@@ -144,6 +157,7 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
                 break;
             case GameState.Response2: // dialog
                 // *** Start Dialog 3
+                _dialogueManager.StartNode("Post2");
                 Conductor.Instance.Pause();
                 break;
             case GameState.Level3: // game 
@@ -152,6 +166,7 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
                 break;
             case GameState.Response3: // dialog
                 // *** Start Dialog 4
+                _dialogueManager.StartNode("Post3");
                 Conductor.Instance.Pause();
                 break;
             case GameState.Ending: // dialog!
@@ -178,6 +193,20 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
     public void RestartCurrentLevel()
     {
         deaths++;
+        switch(deaths){
+            case 1:
+                _dialogueManager.StartNode("Strike1");
+                break;
+            case 2:
+                _dialogueManager.StartNode("Strike2");
+                break;
+            case 3:
+                _dialogueManager.StartNode("Strike3");
+                //gameover logic, return to start of game instead of restarting
+                break;
+            default:
+                break;
+        }
         // *** Halt current instance of Fmod Timeline, also stop the current instance of game
         gameState--;
 
