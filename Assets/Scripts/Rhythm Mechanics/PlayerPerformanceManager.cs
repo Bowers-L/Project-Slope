@@ -12,6 +12,11 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
     //[SerializeField, Range(0f, 1f)] private float failurePercentage;
     [SerializeField] private int playerMaxHealthPerSection;
 
+    //Hit and Miss FX
+    [SerializeField] private GameObject hitFXPrefab;
+    [SerializeField] private GameObject missFXPrefab;
+    [SerializeField] private GameObject[] tracks;
+
     private int hitNotesInSection;
     private int missedNotesInSection;    //Letting the note pass without hitting it.
     private int missHits;    //Pressing button at wrong time
@@ -48,22 +53,22 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
                 GameStateManager.Instance.RestartCurrentLevel();
             }
 
-            if (Input.GetKeyDown(KeyCode.Z))
+            if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Alpha1))
             {
                 HandlePlayedNote(0);
             }
 
-            if (Input.GetKeyDown(KeyCode.X))
+            if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Alpha2))
             {
                 HandlePlayedNote(1);
             }
 
-            if (Input.GetKeyDown(KeyCode.C))
+            if (Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.Alpha3))
             {
                 HandlePlayedNote(2);
             }
 
-            if (Input.GetKeyDown(KeyCode.V))
+            if (Input.GetKeyDown(KeyCode.V) || Input.GetKeyDown(KeyCode.Alpha4))
             {
                 HandlePlayedNote(3);
             }
@@ -97,11 +102,19 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
         //Do VFX Things. Keep Track of Pass/Fail, etc.
         hitNotesInSection++;
 
-        StartCoroutine(FlashColor(note.GetComponent<SpriteRenderer>(), Color.green, flashSpeed, () =>
-        {
-            Track.Instance.ActiveNotes.Remove(note);
-            Destroy(note.gameObject);
-        }));
+        Track.Instance.ActiveNotes.Remove(note);
+
+        GameObject track = tracks[note.NoteData.pitch];
+        GameObject fxInstance = Instantiate(hitFXPrefab, track.transform.position, Quaternion.identity);
+        Destroy(note.gameObject);
+
+        Animator anim = fxInstance.GetComponent<Animator>();
+        Destroy(fxInstance, anim.GetCurrentAnimatorStateInfo(0).length);
+
+        //StartCoroutine(FlashColor(note.GetComponent<SpriteRenderer>(), Color.green, flashSpeed, () =>
+        //{
+        //    Destroy(note.gameObject);
+        //}));
     }
 
     public void HandleMissHit()
@@ -111,11 +124,20 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
         StartCoroutine(FlashColor(Track.Instance.BeatBar.GetComponent<SpriteRenderer>(), Color.red, flashSpeed));
     }
 
-    public void HandleNoteMissed()
+    public void HandleNoteMissed(TrackNote note)
     {
         //Do VFX Things. Keep Track of Pass/Fail, etc.
         missedNotesInSection++;
         playerHealth--;
+
+        Track.Instance.ActiveNotes.Remove(note);
+
+        //GameObject track = tracks[note.NoteData.pitch];
+        GameObject fxInstance = Instantiate(missFXPrefab, note.transform.position, Quaternion.identity);
+        Destroy(note.gameObject);
+
+        Animator anim = fxInstance.GetComponent<Animator>();
+        Destroy(fxInstance, anim.GetCurrentAnimatorStateInfo(0).length);
     }
 
     private IEnumerator FlashColor(SpriteRenderer sr, Color c, float duration, System.Action callback = null)
