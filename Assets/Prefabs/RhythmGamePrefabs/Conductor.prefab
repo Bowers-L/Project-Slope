@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   testChart: {fileID: 11400000, guid: 36d96f7e965d4d240a28fa82b1cc0c29, type: 2}
+  delayPerFailAdjustment: 0.1
 --- !u!114 &2221619505580632583
 MonoBehaviour:
   m_ObjectHideFlags: 0
