@@ -34,6 +34,7 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
     public List<ChartData> charts;
     public int NumFails = 0;
 
+
     FMOD.Studio.EVENT_CALLBACK _musicFmodCallback;
     FMOD.Studio.EventInstance _musicEventInstance;
 
@@ -116,6 +117,8 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
         //}
     }
 
+    [SerializeField] private TrackMover credits;
+
     /**
      * CALLED BY FMOD reaching the end of a section.
      *
@@ -174,6 +177,8 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
                 break;
             case GameState.Ending: // dialog!
                 // *** Start Dialog 5
+
+                credits.PutOnScreen();
                 break;
         }
     }
@@ -206,6 +211,7 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
             case 3:
                 _dialogueManager.StartNode("Strike3");
                 //gameover logic, return to start of game instead of restarting
+                StartCoroutine(GameOver());
                 break;
             default:
                 break;
@@ -219,6 +225,15 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
         emitter.EventInstance.setTimelinePosition(_currMarker == null ? 0 : _currMarker.Value.position);
         UpdateGameState();
     }
+
+    IEnumerator GameOver() {
+        
+        GameObject.Find("Game Over").SetActive(true);
+        yield return new WaitForSeconds(3);
+        Debug.Log("test");
+        GameObject.FindObjectOfType<AppManager>().ReloadMainScene();
+    }
+
 }
 
 // fmod just continues unless update game state explicitly stops it

@@ -12,6 +12,8 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private GameObject rightMidCam;
     [SerializeField] private GameObject rightFarCam;
 
+    [SerializeField] private TrackMover trackMover; 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -66,7 +68,7 @@ public class CameraManager : MonoBehaviour
             TransitionMid();
 
             yield return new WaitForSeconds(2);
-            GameObject.FindObjectOfType<TrackMover>().PutOnScreen();
+            trackMover.PutOnScreen();
 
 
             yield return new WaitForSeconds(2);
