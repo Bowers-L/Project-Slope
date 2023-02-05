@@ -18,6 +18,7 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
     public enum GameState
     {
         None,
+        Intro,
         Tutorial,
         FirstChorus,
         Level1,
@@ -44,6 +45,11 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
 
     private FMODUnity.StudioEventEmitter emitter;
 
+    [SerializeField] GameObject dialogueManagerObj;
+    DialogueTest _dialogueManager;
+
+    private FMODUnity.StudioEventEmitter sfxEmitter;
+
     void Awake() {
         InitializeSingleton();
 
@@ -53,15 +59,17 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
     // Start is called before the first frame update
     void Start()
     {
-        emitter = GetComponent<FMODUnity.StudioEventEmitter>();
-        //FMOD.Studio.EventDescription desc = FMODUnity.RuntimeManager.GetEventDescription("event:/Music/Chorus");
-        //desc.createInstance(out _musicEventInstance);
+        FMODUnity.StudioEventEmitter[] emitters = GetComponents<FMODUnity.StudioEventEmitter>();
+
+        emitter = emitters[0];
+        sfxEmitter = emitters[1];
         
         _musicFmodCallback = new FMOD.Studio.EVENT_CALLBACK(FMODEventCallback);
 
         //_musicEventInstance.start();
 
-        // StartFMODEvent();
+        _dialogueManager = dialogueManagerObj.GetComponent<DialogueTest>();
+
     }
 
     public void StartFMODEvent()
@@ -111,45 +119,53 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
      */
     void UpdateGameState()
     {
-
         gameState = gameState+1;
         Debug.Log($"SWITCH THE GAME STATE TO {gameState}");
         //gameState = 0;
 
         switch (gameState)
         {
-            case GameState.None:
+            case GameState.None: // this is the main menu
+                // *** main menu witchcraft
+                break;
+            case GameState.Intro:
+                _dialogueManager.StartNode("Intro");
                 break;
             case GameState.Tutorial: // game
                 // *** Start Chart 1 
-                Conductor.Instance.Play(charts[0]);
+                _dialogueManager.StartNode("Tutorial");
+                PlayChart(0);
                 break;
             case GameState.FirstChorus: // dialog
                 // *** Start Dialog 1
+                _dialogueManager.StartNode("Loop1");
                 Conductor.Instance.Pause();
                 break;
             case GameState.Level1: // game
                 // *** Start Chart 2
-                Conductor.Instance.Play(charts[1]);
+                PlayChart(1);
                 break;
             case GameState.Response1: // dialog
                 // *** Start Dialog 2
+                _dialogueManager.StartNode("Post1");
                 Conductor.Instance.Pause();
                 break;
             case GameState.Level2: // game
                 // *** Start Chart 3
-                Conductor.Instance.Play(charts[2]);
+                PlayChart(2);
                 break;
             case GameState.Response2: // dialog
                 // *** Start Dialog 3
+                _dialogueManager.StartNode("Post2");
                 Conductor.Instance.Pause();
                 break;
             case GameState.Level3: // game 
                 // *** Start Chart 4
-                Conductor.Instance.Play(charts[3]);
+                PlayChart(3);
                 break;
             case GameState.Response3: // dialog
                 // *** Start Dialog 4
+                _dialogueManager.StartNode("Post3");
                 Conductor.Instance.Pause();
                 break;
             case GameState.Ending: // dialog!
@@ -158,13 +174,44 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
         }
     }
 
+    private void PlayChart(int index)
+    {
+        if (index >= charts.Count)
+        {
+            Debug.LogError($"Chart not found {index}");
+            return;
+        }
+
+        Conductor.Instance.Play(charts[index]);
+    }
+
+    /**
+     * Called by the conductor class when the user fails. If the user fails, restart fmod sequence, start game chart, and play fail sfx.
+     *
+     */
     public void RestartCurrentLevel()
     {
         deaths++;
+        switch(deaths){
+            case 1:
+                _dialogueManager.StartNode("Strike1");
+                break;
+            case 2:
+                _dialogueManager.StartNode("Strike2");
+                break;
+            case 3:
+                _dialogueManager.StartNode("Strike3");
+                //gameover logic, return to start of game instead of restarting
+                break;
+            default:
+                break;
+        }
         // *** Halt current instance of Fmod Timeline, also stop the current instance of game
         gameState--;
 
         //Update FMOD timeline position
+        sfxEmitter.Play();
+        emitter.SetParameter("NumFails", deaths);
         emitter.EventInstance.setTimelinePosition(_currMarker == null ? 0 : _currMarker.Value.position);
         UpdateGameState();
     }

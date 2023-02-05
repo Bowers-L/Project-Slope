@@ -97,12 +97,21 @@ MonoBehaviour:
   - moment: 7808
     pitch: 0
     length: 64
+  - moment: 7808
+    pitch: 2
+    length: 64
   - moment: 7968
     pitch: 0
+    length: 64
+  - moment: 7968
+    pitch: 2
     length: 64
   - moment: 8064
     pitch: 1
     length: 240
+  - moment: 8064
+    pitch: 3
+    length: 224
   - moment: 8352
     pitch: 2
     length: 0
@@ -125,23 +134,44 @@ MonoBehaviour:
     pitch: 0
     length: 336
   - moment: 10368
-    pitch: 2
+    pitch: 0
+    length: 128
+  - moment: 10368
+    pitch: 3
     length: 144
   - moment: 10496
-    pitch: 1
+    pitch: 0
+    length: 64
+  - moment: 10496
+    pitch: 2
     length: 128
   - moment: 10624
-    pitch: 1
+    pitch: 0
+    length: 64
+  - moment: 10624
+    pitch: 2
     length: 128
   - moment: 10752
     pitch: 0
     length: 128
-  - moment: 10880
+  - moment: 10752
     pitch: 1
+    length: 96
+  - moment: 10880
+    pitch: 0
+    length: 128
+  - moment: 10880
+    pitch: 2
     length: 128
   - moment: 11008
+    pitch: 0
+    length: 96
+  - moment: 11008
     pitch: 3
-    length: 0
+    length: 96
+  - moment: 11136
+    pitch: 0
+    length: 256
   - moment: 11136
     pitch: 2
     length: 256
