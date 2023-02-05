@@ -295,7 +295,7 @@ namespace Yarn.Unity{
         /// <inheritdoc/>
         public override void RunLine(LocalizedLine dialogueLine, Action onDialogueLineFinished)
         {
-            Debug.Log("CustomDialogueView: Running line: " + dialogueLine.RawText);
+            //Debug.Log("CustomDialogueView: Running line: " + dialogueLine.RawText);
             currentLineLoaded = dialogueLine;
             // Stop any coroutines currently running on this line view (for
             // example, any other RunLine that might be running)
