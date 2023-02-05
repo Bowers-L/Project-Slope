@@ -75,6 +75,7 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
 
     public void StartFMODEvent()
     {
+        gameState = GameState.Intro;
         emitter.Play();
         _labelsPassed.Clear();
         _musicEventInstance = emitter.EventInstance;
