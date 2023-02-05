@@ -193,4 +193,4 @@ MonoBehaviour:
   bpm: 130
   timeSignatureNum: 4
   unitsPerBeat: 192
-  firstBeatOffsetSeconds: 2
+  firstBeatOffsetSeconds: 0

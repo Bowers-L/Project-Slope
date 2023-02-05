@@ -3,6 +3,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 public class MSChartParser : MonoBehaviour
 {
     [SerializeField] private string chartsPath;
@@ -113,3 +114,4 @@ public class MSChartParser : MonoBehaviour
         }
     }
 }
+#endif
