@@ -44,7 +44,7 @@ public class Track : Singleton<Track>
             noteInstantiateQueue.TryPeek(out noteData);
 
             //Once note's moment passes the spawn moment, spawn the note.
-            if (noteData != null && NoteDiff(noteData) <= SpawnMomentCU())
+            if (noteData != null && NoteMomentOnTrackCU(noteData) <= SpawnMomentCU())
             {
                 //Spawn the Note!
                 GameObject noteObj = Instantiate(notePrefab, GetNotePos(noteData), Quaternion.identity);
@@ -57,31 +57,33 @@ public class Track : Singleton<Track>
 
             if (activeNoteList.Count > 0)
             {
+                //PLAYER MISSED THIS NOTE
                 Note closestNote = activeNoteList[0].NoteData;
-                if (NoteDiff(closestNote) <= DespawnMomentCU())
+                if (NoteMomentOnTrackCU(closestNote) <= DespawnMomentCU())
                 {
                     Destroy(activeNoteList[0].gameObject);
                     activeNoteList.RemoveAt(0);
                 }
+
+                PlayerPerformanceManager.Instance.HandleNoteMissed();
             }
         }
     }
 
-    public void Init(Conductor conductor)
+    public void Init()
     {
         hasInit = true;
-        conductor = GameObject.FindObjectOfType<Conductor>();
         noteInstantiateQueue = new Queue<Note>();
         activeNoteList = new List<TrackNote>();
 
-        List<Note> notes = conductor.Chart.notes;
+        List<Note> notes = Conductor.Instance.Chart.notes;
         for (int i = 0; i < notes.Count; i++)
         {
             noteInstantiateQueue.Enqueue(notes[i]);
         }
     }
 
-    public int NoteDiff(Note note)
+    public int NoteMomentOnTrackCU(Note note)
     {
         return (int) (note.moment - Conductor.Instance.CurrMomentCU);
     }
@@ -90,7 +92,7 @@ public class Track : Singleton<Track>
     {
         //Assumes center of note is 0, 0
         float x = GetNoteXPos(note.pitch);
-        float y = GetNoteYPos(NoteDiff(note));
+        float y = GetNoteYPos(NoteMomentOnTrackCU(note));
 
         return new Vector3(x, y);
     }
@@ -119,6 +121,14 @@ public class Track : Singleton<Track>
         return y;
     }
 
+    private float GetNoteYPosBeat(float momentDiffBeats)
+    {
+        float y = BeatBar.transform.position.y;
+        float trackLengthsFromBeatBar = momentDiffBeats / BeatsPerTL;
+        y += trackLengthsFromBeatBar * TrackLengthYDelta;
+        return y;
+    }
+
     private void OnDrawGizmosSelected()
     {
 
@@ -132,7 +142,7 @@ public class Track : Singleton<Track>
             {
                 Gizmos.DrawSphere(new Vector3(
                     x,
-                    GetNoteYPos((int) (beat * Conductor.Instance.Chart.unitsPerBeat)),
+                    GetNoteYPosBeat(beat),
                     spawnBar.transform.position.z), 0.2f);
             }
 
@@ -140,14 +150,14 @@ public class Track : Singleton<Track>
             Gizmos.color = Color.green;
             Gizmos.DrawSphere(new Vector3(
                 x,
-                GetNoteYPos(SpawnMomentCU()),
+                GetNoteYPosBeat(BeatsPerTL),
                 spawnBar.transform.position.z), 0.2f);
 
             //Despawn Point
             Gizmos.color = Color.red;
             Gizmos.DrawSphere(new Vector3(
                 x,
-                GetNoteYPos(DespawnMomentCU()),
+                GetNoteYPosBeat(-despawnBeats),
                 spawnBar.transform.position.z), 0.2f);
         }
     }

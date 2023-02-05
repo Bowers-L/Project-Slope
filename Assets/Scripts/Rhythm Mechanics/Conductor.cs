@@ -19,7 +19,7 @@ public class Conductor : Singleton<Conductor>
 
     public const TimingMethod timingMethod = TimingMethod.UnityTime;
 
-    [SerializeField] ChartData chart;
+    [SerializeField] private ChartData testChart;
     [SerializeField] private int firstBeatOffsetSeconds;
 
     private float currMomentSeconds;    //How much time has elapsed in the song
@@ -40,7 +40,8 @@ public class Conductor : Singleton<Conductor>
 
     public float TimeSinceStart => GetCurrentTime() - startTime;
 
-    public ChartData Chart => chart;
+    private ChartData _currChart;
+    public ChartData Chart => _currChart;
 
     private void Awake()
     {
@@ -50,14 +51,14 @@ public class Conductor : Singleton<Conductor>
 
     private void Start()
     {
-        beatsPerSecond = (float) chart.bpm / 60f;
-        unitsPerBeat = chart.unitsPerBeat;
-
         fmodCore = FMODUnity.RuntimeManager.CoreSystem;
         fmodCore.getMasterChannelGroup(out masterChannel);
         fmodCore.getSoftwareFormat(out sampleRateHertz, out _, out _);
 
-        Play(); //FOR TESTING (call from FMOD event instead)
+        if (testChart != null)
+        {
+            Play(testChart); //FOR TESTING (call from Game Manager Instead.)
+        }
     }
 
     private void Update()
@@ -70,13 +71,22 @@ public class Conductor : Singleton<Conductor>
         }
     }
 
-    public void Play()
+    public void Play(ChartData chart)
     {
         Debug.Log("Starting the Track");
+        _currChart = chart;
+
+        //Set Chart Parameters
+        beatsPerSecond = (float)_currChart.bpm / 60f;
+        unitsPerBeat = _currChart.unitsPerBeat;
+
+        //Set Internal State
         startTime = GetCurrentTime();
         currMomentSeconds = -firstBeatOffsetSeconds;
         isPaused = false;
-        Track.Instance.Init(this);
+
+        Track.Instance.Init();
+        PlayerPerformanceManager.Instance.StartNewSection();
     }
 
     public void Pause()
@@ -99,6 +109,11 @@ public class Conductor : Singleton<Conductor>
                 return GetDSPTime();
         }
 
+    }
+
+    public int BeatsToCU(float beats)
+    {
+        return (int)(beats * Chart.unitsPerBeat);
     }
 
     private float GetDSPTime()
