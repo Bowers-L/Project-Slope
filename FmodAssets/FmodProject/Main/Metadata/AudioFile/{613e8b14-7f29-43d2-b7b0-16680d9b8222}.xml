@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{613e8b14-7f29-43d2-b7b0-16680d9b8222}">
+		<property name="assetPath">
+			<value>hat_layer.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>44.25</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{687a2af4-e051-42e5-bfac-d27f4ff58c88}</destination>
+		</relationship>
+	</object>
+</objects>
