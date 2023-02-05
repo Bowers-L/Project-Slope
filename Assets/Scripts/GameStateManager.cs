@@ -124,7 +124,7 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
                 break;
             case GameState.Tutorial: // game
                 // *** Start Chart 1 
-                Conductor.Instance.Play(charts[0]);
+                PlayChart(0);
                 break;
             case GameState.FirstChorus: // dialog
                 // *** Start Dialog 1
@@ -132,7 +132,7 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
                 break;
             case GameState.Level1: // game
                 // *** Start Chart 2
-                Conductor.Instance.Play(charts[1]);
+                PlayChart(1);
                 break;
             case GameState.Response1: // dialog
                 // *** Start Dialog 2
@@ -140,7 +140,7 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
                 break;
             case GameState.Level2: // game
                 // *** Start Chart 3
-                Conductor.Instance.Play(charts[2]);
+                PlayChart(2);
                 break;
             case GameState.Response2: // dialog
                 // *** Start Dialog 3
@@ -148,7 +148,7 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
                 break;
             case GameState.Level3: // game 
                 // *** Start Chart 4
-                Conductor.Instance.Play(charts[3]);
+                PlayChart(3);
                 break;
             case GameState.Response3: // dialog
                 // *** Start Dialog 4
@@ -160,8 +160,19 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
         }
     }
 
+    private void PlayChart(int index)
+    {
+        if (index >= charts.Count)
+        {
+            Debug.LogError($"Chart not found {index}");
+            return;
+        }
+
+        Conductor.Instance.Play(charts[index]);
+    }
+
     /**
-     * Called by the conductor class when the user fails. If the user fails 
+     * Called by the conductor class when the user fails. If the user fails, restart fmod sequence, start game chart, and play fail sfx.
      *
      */
     public void RestartCurrentLevel()
