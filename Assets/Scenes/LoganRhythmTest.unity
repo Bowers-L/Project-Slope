@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028328, g: 0.22571322, b: 0.30692163, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -127,80 +127,6 @@ NavMeshSettings:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 561631613928716567, guid: 68f361ecc937f6f4daf8f0d3d4b41503, type: 3}
   m_PrefabInstance: {fileID: 6872801364741637961}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &619225064
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 4583963617631251212}
-    m_Modifications:
-    - target: {fileID: 2571772, guid: f19314f25148873448611ce59fe5740a, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -5.79
-      objectReference: {fileID: 0}
-    - target: {fileID: 1745664646, guid: f19314f25148873448611ce59fe5740a, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 31e6f09bb4574e74591b44646cc2de7d, type: 3}
-    - target: {fileID: 1745664649, guid: f19314f25148873448611ce59fe5740a, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 7.47
-      objectReference: {fileID: 0}
-    - target: {fileID: 9168060878350754213, guid: f19314f25148873448611ce59fe5740a, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9168060878350754213, guid: f19314f25148873448611ce59fe5740a, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.99
-      objectReference: {fileID: 0}
-    - target: {fileID: 9168060878350754213, guid: f19314f25148873448611ce59fe5740a, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 9168060878350754213, guid: f19314f25148873448611ce59fe5740a, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9168060878350754213, guid: f19314f25148873448611ce59fe5740a, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9168060878350754213, guid: f19314f25148873448611ce59fe5740a, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9168060878350754213, guid: f19314f25148873448611ce59fe5740a, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9168060878350754213, guid: f19314f25148873448611ce59fe5740a, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9168060878350754213, guid: f19314f25148873448611ce59fe5740a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9168060878350754213, guid: f19314f25148873448611ce59fe5740a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9168060878350754213, guid: f19314f25148873448611ce59fe5740a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9168060878350754214, guid: f19314f25148873448611ce59fe5740a, type: 3}
-      propertyPath: m_Name
-      value: DialogueScene
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: f19314f25148873448611ce59fe5740a, type: 3}
---- !u!1 &619225065 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9168060877713302124, guid: f19314f25148873448611ce59fe5740a, type: 3}
-  m_PrefabInstance: {fileID: 619225064}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &624635604 stripped
 GameObject:
@@ -322,41 +248,6 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
---- !u!1 &1146058294 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4583963617398066776, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
-  m_PrefabInstance: {fileID: 4583963617631251211}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1146058299
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1146058294}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollisionTag: 
-  EventReference:
-    Guid:
-      Data1: 1443130453
-      Data2: 1130898504
-      Data3: -1447128187
-      Data4: -1843237909
-    Path: event:/SFX/RecordScratch
-  Event: 
-  PlayEvent: 0
-  StopEvent: 0
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
 --- !u!1 &1245596416 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 561631615348404081, guid: 68f361ecc937f6f4daf8f0d3d4b41503, type: 3}
@@ -571,10 +462,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerPerformance
       objectReference: {fileID: 0}
-    - target: {fileID: 4583963617398066780, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
-      propertyPath: charts.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 36d96f7e965d4d240a28fa82b1cc0c29, type: 2}
     - target: {fileID: 4583963617398066781, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
       propertyPath: tracks.Array.data[0]
       value: 
@@ -637,11 +524,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
---- !u!4 &4583963617631251212 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4583963617398066782, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
-  m_PrefabInstance: {fileID: 4583963617631251211}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6872801364741637961
 PrefabInstance:
   m_ObjectHideFlags: 0
