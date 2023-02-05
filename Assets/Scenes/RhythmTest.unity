@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -207,6 +207,56 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &308946259
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 308946261}
+  - component: {fileID: 308946262}
+  m_Layer: 0
+  m_Name: PlayerPerformance
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &308946261
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 308946259}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &308946262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 308946259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca7b8ed5f7ae9e47943b20c3f27dbf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashSpeed: 0.1
+  earlyTimingWindowBeats: 0.25
+  lateTimingWindowBeats: 0.25
+  hitNotesInSection: 0
+  missedNotesInSection: 0
+  missHits: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,7 +405,7 @@ Transform:
   - {fileID: 1137683505}
   - {fileID: 1124128213}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &777498192
 MonoBehaviour:
@@ -375,7 +425,6 @@ MonoBehaviour:
   despawnBeats: 1
   spawnBar: {fileID: 1124128212}
   beatBar: {fileID: 1137683504}
-  conductor: {fileID: 1307230179}
   notePrefab: {fileID: 6388998836435875635, guid: c80a2d1608e2be746a946f4131f51937, type: 3}
 --- !u!1 &963194225
 GameObject:
@@ -720,6 +769,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5283b678f499d5246be9698fe6ab710a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chart: {fileID: 11400000, guid: 772d6766f95a22345a06ccf17c1ab9fc, type: 2}
+  testChart: {fileID: 11400000, guid: 36d96f7e965d4d240a28fa82b1cc0c29, type: 2}
   firstBeatOffsetSeconds: 4
-  track: {fileID: 777498192}
