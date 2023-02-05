@@ -256,9 +256,7 @@ MonoBehaviour:
   flashSpeed: 0.1
   earlyTimingWindowBeats: 0.25
   lateTimingWindowBeats: 0.25
-  hitNotesInSection: 0
-  missedNotesInSection: 0
-  missHits: 0
+  playerMaxHealthPerSection: 20
 --- !u!114 &308946263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,13 +272,13 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 773553309
-      Data2: 1292568808
-      Data3: 1292278680
-      Data4: 975346272
-    Path: event:/Music/MainMusic
+      Data1: 27536308
+      Data2: 1116673326
+      Data3: 1006688684
+      Data4: 1490299811
+    Path: event:/Music/Chorus
   Event: 
-  PlayEvent: 1
+  PlayEvent: 0
   StopEvent: 0
   AllowFadeout: 1
   TriggerOnce: 0
@@ -301,7 +299,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5200d5c14ad3154991fc269e99604b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charts: []
+  charts:
+  - {fileID: 11400000, guid: 6fe4006b2f8276a46a64597f775f1a1b, type: 2}
+  - {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -828,5 +828,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5283b678f499d5246be9698fe6ab710a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testChart: {fileID: 11400000, guid: 36d96f7e965d4d240a28fa82b1cc0c29, type: 2}
-  firstBeatOffsetSeconds: 4
+  testChart: {fileID: 0}

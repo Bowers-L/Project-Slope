@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MyBox;
 
 /**
  * This class is the main entry point into the game. 
@@ -10,7 +11,7 @@ using UnityEngine;
  *
  * It also handles restarting the conductor / fmod upon a level failure. 
  */
-public class GameStateManager : MonoBehaviour
+public class GameStateManager : Singleton<GameStateManager>
 {
     public enum GameState
     {
@@ -32,6 +33,25 @@ public class GameStateManager : MonoBehaviour
     FMOD.Studio.EVENT_CALLBACK _musicFmodCallback;
     FMOD.Studio.EventInstance _musicEventInstance;
 
+    void Awake() {
+        InitializeSingleton();
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        gameState = GameState.Tutorial;
+        
+        FMOD.Studio.EventDescription desc = FMODUnity.RuntimeManager.GetEventDescription("event:/Music/Chorus");
+        desc.createInstance(out _musicEventInstance);
+        
+        _musicFmodCallback = new FMOD.Studio.EVENT_CALLBACK(FMODEventCallback);
+
+        _musicEventInstance.setCallback(_musicFmodCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
+
+        //_musicEventInstance.start();
+    }
+
     [AOT.MonoPInvokeCallback(typeof(FMOD.Studio.EVENT_CALLBACK))]
     static FMOD.RESULT FMODEventCallback(FMOD.Studio.EVENT_CALLBACK_TYPE type, System.IntPtr _event, System.IntPtr parameterPtr)
     {
@@ -44,25 +64,13 @@ public class GameStateManager : MonoBehaviour
         return FMOD.RESULT.OK;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        gameState = GameState.Tutorial;
-        
-        FMOD.Studio.EventDescription desc = FMODUnity.RuntimeManager.GetEventDescription("event:/Parent");
-        desc.createInstance(out _musicEventInstance);
-        
-        _musicFmodCallback = new FMOD.Studio.EVENT_CALLBACK(FMODEventCallback);
-
-        _musicEventInstance.setCallback(_musicFmodCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
-
-        _musicEventInstance.start();
-    }
-
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            UpdateGameState();
+        }
     }
 
     /**
@@ -73,11 +81,18 @@ public class GameStateManager : MonoBehaviour
     void UpdateGameState()
     {
         gameState++;
+        //gameState = 0;
         switch (gameState)
         {
             case GameState.Tutorial: // game
                 // *** Start Chart 1 
+                Conductor.Instance.Play(charts[0]);
                 // *** start Tutorial part of Fmod Timeline
+
+                FMODUnity.StudioEventEmitter emitter = GetComponent<FMODUnity.StudioEventEmitter>();
+                emitter.Stop();
+                emitter.Play();
+
                 break;
             case GameState.FirstChorus: // dialog
                 // *** Start Dialog 1
@@ -85,6 +100,10 @@ public class GameStateManager : MonoBehaviour
                 break;
             case GameState.Level1: // game
                 // *** Start Chart 2
+                Conductor.Instance.Play(charts[1]);
+                // *** start Tutorial part of Fmod Timeline
+                //FMODUnity.StudioEventEmitter emitter = GetComponent<FMODUnity.StudioEventEmitter>();
+                //emitter.Play();
                 break;
             case GameState.Response1: // dialog
                 // *** Start Dialog 2
@@ -105,15 +124,14 @@ public class GameStateManager : MonoBehaviour
                 // *** Start Dialog 5
                 break;
         }
+    }
         
-        void HaltCurrentLevel()
-        {
-            deaths++;
-            // *** Halt current instance of Fmod Timeline, also stop the current instance of game
-            gameState--;
-            UpdateGameState();
-        }
-
+    public void RestartCurrentLevel()
+    {
+        deaths++;
+        // *** Halt current instance of Fmod Timeline, also stop the current instance of game
+        gameState--;
+        UpdateGameState();
     }
 }
 

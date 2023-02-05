@@ -40,3 +40,4 @@ MonoBehaviour:
   bpm: 60.000004
   timeSignatureNum: 4
   unitsPerBeat: 192
+  firstBeatOffsetSeconds: 0

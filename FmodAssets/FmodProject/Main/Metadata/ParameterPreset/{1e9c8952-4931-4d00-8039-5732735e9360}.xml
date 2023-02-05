@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{1e9c8952-4931-4d00-8039-5732735e9360}">
+		<property name="name">
+			<value>WhereSong</value>
+		</property>
+		<relationship name="folder">
+			<destination>{8909dab1-a320-4823-b96f-b5f92aa542c5}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{953af052-df33-401b-9cb8-81199e1b5dd8}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{953af052-df33-401b-9cb8-81199e1b5dd8}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>
