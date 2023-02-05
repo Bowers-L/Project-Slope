@@ -61,7 +61,7 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
 
         //_musicEventInstance.start();
 
-        StartFMODEvent();
+        // StartFMODEvent();
     }
 
     public void StartFMODEvent()
