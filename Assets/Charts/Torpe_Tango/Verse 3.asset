@@ -1,0 +1,265 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6661cdc807156049a28ef6d187285ff, type: 3}
+  m_Name: Verse 3
+  m_EditorClassIdentifier: 
+  notes:
+  - moment: 256
+    pitch: 0
+    length: 0
+  - moment: 320
+    pitch: 1
+    length: 0
+  - moment: 384
+    pitch: 2
+    length: 240
+  - moment: 672
+    pitch: 1
+    length: 0
+  - moment: 720
+    pitch: 0
+    length: 0
+  - moment: 768
+    pitch: 1
+    length: 144
+  - moment: 960
+    pitch: 3
+    length: 528
+  - moment: 1728
+    pitch: 2
+    length: 0
+  - moment: 1792
+    pitch: 1
+    length: 0
+  - moment: 1856
+    pitch: 0
+    length: 0
+  - moment: 1920
+    pitch: 2
+    length: 0
+  - moment: 1984
+    pitch: 2
+    length: 0
+  - moment: 2016
+    pitch: 3
+    length: 96
+  - moment: 2208
+    pitch: 2
+    length: 0
+  - moment: 2240
+    pitch: 3
+    length: 0
+  - moment: 2272
+    pitch: 2
+    length: 0
+  - moment: 2304
+    pitch: 1
+    length: 544
+  - moment: 2880
+    pitch: 2
+    length: 160
+  - moment: 3168
+    pitch: 1
+    length: 144
+  - moment: 3168
+    pitch: 2
+    length: 144
+  - moment: 3168
+    pitch: 3
+    length: 144
+  - moment: 3360
+    pitch: 3
+    length: 0
+  - moment: 3408
+    pitch: 2
+    length: 0
+  - moment: 3456
+    pitch: 1
+    length: 0
+  - moment: 3504
+    pitch: 0
+    length: 0
+  - moment: 3552
+    pitch: 1
+    length: 0
+  - moment: 3600
+    pitch: 0
+    length: 0
+  - moment: 3648
+    pitch: 2
+    length: 0
+  - moment: 3744
+    pitch: 3
+    length: 0
+  - moment: 3840
+    pitch: 0
+    length: 336
+  - moment: 3840
+    pitch: 2
+    length: 336
+  - moment: 4224
+    pitch: 0
+    length: 336
+  - moment: 4224
+    pitch: 1
+    length: 336
+  - moment: 4608
+    pitch: 3
+    length: 0
+  - moment: 4672
+    pitch: 2
+    length: 0
+  - moment: 4736
+    pitch: 1
+    length: 0
+  - moment: 4800
+    pitch: 3
+    length: 0
+  - moment: 4864
+    pitch: 2
+    length: 0
+  - moment: 4928
+    pitch: 1
+    length: 0
+  - moment: 4992
+    pitch: 3
+    length: 0
+  - moment: 5024
+    pitch: 2
+    length: 0
+  - moment: 5056
+    pitch: 1
+    length: 0
+  - moment: 5088
+    pitch: 3
+    length: 0
+  - moment: 5120
+    pitch: 2
+    length: 0
+  - moment: 5152
+    pitch: 1
+    length: 0
+  - moment: 5184
+    pitch: 0
+    length: 0
+  - moment: 5232
+    pitch: 1
+    length: 0
+  - moment: 5280
+    pitch: 2
+    length: 0
+  - moment: 5328
+    pitch: 3
+    length: 0
+  - moment: 5376
+    pitch: 0
+    length: 720
+  - moment: 5376
+    pitch: 2
+    length: 720
+  - moment: 5568
+    pitch: 3
+    length: 528
+  - moment: 5760
+    pitch: 1
+    length: 336
+  - moment: 6144
+    pitch: 0
+    length: 240
+  - moment: 6432
+    pitch: 3
+    length: 336
+  - moment: 6816
+    pitch: 0
+    length: 0
+  - moment: 6912
+    pitch: 1
+    length: 128
+  - moment: 7040
+    pitch: 0
+    length: 128
+  - moment: 7168
+    pitch: 2
+    length: 448
+  - moment: 7872
+    pitch: 1
+    length: 0
+  - moment: 7968
+    pitch: 2
+    length: 0
+  - moment: 8064
+    pitch: 3
+    length: 240
+  - moment: 8352
+    pitch: 2
+    length: 0
+  - moment: 8400
+    pitch: 1
+    length: 0
+  - moment: 8448
+    pitch: 2
+    length: 0
+  - moment: 8640
+    pitch: 0
+    length: 528
+  - moment: 9216
+    pitch: 0
+    length: 240
+  - moment: 9504
+    pitch: 2
+    length: 336
+  - moment: 9792
+    pitch: 0
+    length: 160
+  - moment: 9984
+    pitch: 1
+    length: 144
+  - moment: 10128
+    pitch: 0
+    length: 144
+  - moment: 10272
+    pitch: 3
+    length: 432
+  - moment: 10896
+    pitch: 2
+    length: 0
+  - moment: 10944
+    pitch: 3
+    length: 192
+  - moment: 11232
+    pitch: 2
+    length: 0
+  - moment: 11328
+    pitch: 1
+    length: 48
+  - moment: 11424
+    pitch: 3
+    length: 0
+  - moment: 11456
+    pitch: 2
+    length: 0
+  - moment: 11488
+    pitch: 1
+    length: 0
+  - moment: 11520
+    pitch: 0
+    length: 0
+  - moment: 11568
+    pitch: 1
+    length: 0
+  - moment: 11616
+    pitch: 2
+    length: 624
+  bpm: 120.00001
+  timeSignatureNum: 4
+  unitsPerBeat: 192
+  firstBeatOffsetSeconds: 0
