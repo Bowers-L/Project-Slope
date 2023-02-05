@@ -105,7 +105,7 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
         Track.Instance.ActiveNotes.Remove(note);
 
         GameObject track = tracks[note.NoteData.pitch];
-        GameObject fxInstance = Instantiate(hitFXPrefab, track.transform.position, Quaternion.identity);
+        GameObject fxInstance = Instantiate(hitFXPrefab, track.transform.position, Track.Instance.transform.rotation);
         Destroy(note.gameObject);
 
         Animator anim = fxInstance.GetComponent<Animator>();
@@ -133,7 +133,7 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
         Track.Instance.ActiveNotes.Remove(note);
 
         //GameObject track = tracks[note.NoteData.pitch];
-        GameObject fxInstance = Instantiate(missFXPrefab, note.transform.position, Quaternion.identity);
+        GameObject fxInstance = Instantiate(missFXPrefab, note.transform.position, Track.Instance.transform.rotation);
         Destroy(note.gameObject);
 
         Animator anim = fxInstance.GetComponent<Animator>();
