@@ -1,0 +1,160 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6661cdc807156049a28ef6d187285ff, type: 3}
+  m_Name: Verse 1
+  m_EditorClassIdentifier: 
+  notes:
+  - moment: 2592
+    pitch: 2
+    length: 0
+  - moment: 2640
+    pitch: 3
+    length: 0
+  - moment: 2688
+    pitch: 2
+    length: 0
+  - moment: 2784
+    pitch: 1
+    length: 0
+  - moment: 2880
+    pitch: 0
+    length: 0
+  - moment: 2976
+    pitch: 2
+    length: 0
+  - moment: 3072
+    pitch: 1
+    length: 0
+  - moment: 3264
+    pitch: 0
+    length: 432
+  - moment: 3936
+    pitch: 0
+    length: 0
+  - moment: 3984
+    pitch: 1
+    length: 0
+  - moment: 4032
+    pitch: 2
+    length: 240
+  - moment: 4320
+    pitch: 2
+    length: 0
+  - moment: 4368
+    pitch: 1
+    length: 0
+  - moment: 4416
+    pitch: 0
+    length: 0
+  - moment: 4512
+    pitch: 1
+    length: 0
+  - moment: 4608
+    pitch: 2
+    length: 0
+  - moment: 4800
+    pitch: 3
+    length: 432
+  - moment: 5280
+    pitch: 2
+    length: 0
+  - moment: 5328
+    pitch: 1
+    length: 0
+  - moment: 5376
+    pitch: 2
+    length: 624
+  - moment: 6048
+    pitch: 1
+    length: 0
+  - moment: 6096
+    pitch: 2
+    length: 0
+  - moment: 6144
+    pitch: 3
+    length: 528
+  - moment: 6720
+    pitch: 2
+    length: 96
+  - moment: 6816
+    pitch: 3
+    length: 0
+  - moment: 6864
+    pitch: 2
+    length: 0
+  - moment: 6912
+    pitch: 1
+    length: 528
+  - moment: 7808
+    pitch: 0
+    length: 64
+  - moment: 7968
+    pitch: 0
+    length: 64
+  - moment: 8064
+    pitch: 1
+    length: 240
+  - moment: 8352
+    pitch: 2
+    length: 0
+  - moment: 8400
+    pitch: 1
+    length: 0
+  - moment: 8448
+    pitch: 3
+    length: 320
+  - moment: 8832
+    pitch: 0
+    length: 128
+  - moment: 9024
+    pitch: 1
+    length: 128
+  - moment: 9216
+    pitch: 2
+    length: 320
+  - moment: 9600
+    pitch: 0
+    length: 336
+  - moment: 10368
+    pitch: 2
+    length: 144
+  - moment: 10496
+    pitch: 1
+    length: 128
+  - moment: 10624
+    pitch: 1
+    length: 128
+  - moment: 10752
+    pitch: 0
+    length: 128
+  - moment: 10880
+    pitch: 1
+    length: 128
+  - moment: 11008
+    pitch: 3
+    length: 0
+  - moment: 11136
+    pitch: 2
+    length: 256
+  - moment: 11424
+    pitch: 2
+    length: 0
+  - moment: 11520
+    pitch: 1
+    length: 144
+  - moment: 11664
+    pitch: 0
+    length: 240
+  bpm: 130
+  timeSignatureNum: 4
+  unitsPerBeat: 192
+  firstBeatOffsetSeconds: 0

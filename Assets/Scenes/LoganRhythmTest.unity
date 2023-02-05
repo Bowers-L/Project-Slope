@@ -476,6 +476,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2221619505580632581, guid: cf24867c6672ccb4ca7b2d4cd53da944, type: 3}
+      propertyPath: testChart
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2221619505580632582, guid: cf24867c6672ccb4ca7b2d4cd53da944, type: 3}
       propertyPath: m_Name
       value: Conductor

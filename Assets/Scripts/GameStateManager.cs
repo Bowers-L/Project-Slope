@@ -125,12 +125,6 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
             case GameState.Tutorial: // game
                 // *** Start Chart 1 
                 Conductor.Instance.Play(charts[0]);
-
-                if (!emitter.IsPlaying())
-                {
-                    StartFMODEvent();
-                }
-
                 break;
             case GameState.FirstChorus: // dialog
                 // *** Start Dialog 1
@@ -139,24 +133,26 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
             case GameState.Level1: // game
                 // *** Start Chart 2
                 Conductor.Instance.Play(charts[1]);
-
-                //FMODUnity.StudioEventEmitter emitter = GetComponent<FMODUnity.StudioEventEmitter>();
-                //emitter.Play();
                 break;
             case GameState.Response1: // dialog
                 // *** Start Dialog 2
+                Conductor.Instance.Pause();
                 break;
             case GameState.Level2: // game
                 // *** Start Chart 3
+                Conductor.Instance.Play(charts[2]);
                 break;
             case GameState.Response2: // dialog
                 // *** Start Dialog 3
+                Conductor.Instance.Pause();
                 break;
             case GameState.Level3: // game 
                 // *** Start Chart 4
+                Conductor.Instance.Play(charts[3]);
                 break;
             case GameState.Response3: // dialog
                 // *** Start Dialog 4
+                Conductor.Instance.Pause();
                 break;
             case GameState.Ending: // dialog!
                 // *** Start Dialog 5

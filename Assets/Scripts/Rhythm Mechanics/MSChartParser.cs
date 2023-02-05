@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MSChartParser : MonoBehaviour
 {
-    private const string chartsPath = "Assets/Charts";
+    [SerializeField] private string chartsPath;
 
     public void ParseCharts()
     {
@@ -13,9 +13,9 @@ public class MSChartParser : MonoBehaviour
         FileInfo[] files = info.GetFiles();
         foreach (FileInfo f in files)
         {
-            if (f.Extension == ".asset") {
-                f.Delete();
-            }
+            //if (f.Extension == ".asset") {
+            //    f.Delete();
+            //}
             if (f.Extension == ".chart")
             {
                 Debug.Log($"Parsing File: {f.Name}");

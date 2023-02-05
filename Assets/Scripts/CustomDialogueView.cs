@@ -295,6 +295,7 @@ namespace Yarn.Unity{
         /// <inheritdoc/>
         public override void RunLine(LocalizedLine dialogueLine, Action onDialogueLineFinished)
         {
+            Debug.Log("CustomDialogueView: Running line: " + dialogueLine.RawText);
             currentLineLoaded = dialogueLine;
             // Stop any coroutines currently running on this line view (for
             // example, any other RunLine that might be running)
@@ -473,6 +474,11 @@ namespace Yarn.Unity{
             // if we'd received a signal from any other part of the game (for
             // example, if a DialogueAdvanceInput had signalled us.)
             UserRequestedViewAdvancement();
+        }
+
+        public override void DialogueStarted()
+        {
+            //currentLine = dialogueLine;
         }
 
         public LocalizedLine GetCurrentLine()

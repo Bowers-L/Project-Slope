@@ -9,9 +9,18 @@ ScriptedImporter:
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 053561912b1654d80a424bb0696a74ae, type: 3}
   sourceScripts:
+  - {fileID: 6391573757903218779, guid: ef1adc9459b72a0439ca5171c8bca894, type: 3}
   - {fileID: 6391573757903218779, guid: 0fb7291e53625ea4a80f2f74eb84b16a, type: 3}
   compileErrors: []
-  serializedDeclarations: []
+  serializedDeclarations:
+  - name: $jamming
+    typeName: Bool
+    defaultValueBool: 0
+    defaultValueNumber: 0
+    defaultValueString: 
+    description: Implicitly declared in TestScript.yarn, node TestScript
+    isImplicit: 1
+    sourceYarnAsset: {fileID: 6391573757903218779, guid: 0fb7291e53625ea4a80f2f74eb84b16a, type: 3}
   defaultLanguage: en-US
   languagesToSourceAssets: []
   useAddressableAssets: 0

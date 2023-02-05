@@ -19,6 +19,7 @@ public class DialogueTest : MonoBehaviour
     [SerializeField] GameObject NameTextObject;
     [SerializeField] GameObject char1;
     [SerializeField] GameObject char2;
+    [SerializeField] Sprite[] emoteList;
 
     DialogueRunner _dialogueRunner;
     InMemoryVariableStorage _inMemoryVariableStorage;
@@ -28,6 +29,9 @@ public class DialogueTest : MonoBehaviour
 
     DialogueBoxType dialogueBoxType = DialogueBoxType.normal;
     string boxType = "normal";
+
+    SpriteRenderer char1sprite;
+    SpriteRenderer char2sprite;
     Animator char1anim;
     Animator char2anim;
     string emoteType = "default";
@@ -49,6 +53,9 @@ public class DialogueTest : MonoBehaviour
 
         char1anim = char1.GetComponent<Animator>();
         char2anim = char2.GetComponent<Animator>();
+
+        char1sprite = char1.GetComponent<SpriteRenderer>();
+        char2sprite = char2.GetComponent<SpriteRenderer>();
 
         _inMemoryVariableStorage.SetValue("$jamming", true);
     }
@@ -79,31 +86,36 @@ public class DialogueTest : MonoBehaviour
             if (dialogueProgressTimer != null) dialogueProgressTimer.Cancel();
         } else {
             _lineView.UserRequestedViewAdvancement();
+            ProcessDialogue();
+        }
+    }
 
-            currentLine = _lineView.GetCurrentLine();
+    void ProcessDialogue()
+    {
+        currentLine = _lineView.GetCurrentLine();
+        Debug.Log("DialogueTest.ProgressDialogue() returned line: " + currentLine.RawText);
 
-            FlipDialogueBox();
-            
-            if (currentLine.Metadata != null) {
-                // if (currentLine.Metadata.Length == 2)
-                // {
-                //     emoteType = currentLine.Metadata[1].Split(':')[1];
-                // }
-                // boxType = currentLine.Metadata[0];
-                foreach (string s in currentLine.Metadata)
+        FlipDialogueBox();
+        
+        if (currentLine.Metadata != null) {
+            // if (currentLine.Metadata.Length == 2)
+            // {
+            //     emoteType = currentLine.Metadata[1].Split(':')[1];
+            // }
+            // boxType = currentLine.Metadata[0];
+            foreach (string s in currentLine.Metadata)
+            {
+                if (s.Split(':')[0] == "boxtype") 
                 {
-                    if (s.Split(':')[0] == "boxtype") 
-                    {
-                        ChangeDialogueBox(s.Split(':')[1]);
-                    }
-                    if (s.Split(':')[0] == "emotetype")
-                    {
-                        //change emote
-                    }
+                    ChangeDialogueBox(s.Split(':')[1]);
                 }
-            } else {
-                Debug.Log("No metadata found for current line");
+                if (s.Split(':')[0] == "emotetype")
+                {
+                    ChangeEmote(s.Split(':')[1]);
+                }
             }
+        } else {
+            Debug.Log("No metadata found for current line");
         }
     }
 
@@ -111,13 +123,11 @@ public class DialogueTest : MonoBehaviour
     {
         if (currentLine.CharacterName != null && currentLine.CharacterName == name1)
         {
-            Debug.Log(currentLine.RawText + ", point left.");
             DialogueBox.transform.rotation = Quaternion.Euler(0, 0, 0);
             DialogueTextObject.transform.rotation = Quaternion.Euler(0, 0, 0);
             NameTextObject.transform.rotation = Quaternion.Euler(0, 0, 0);
         } else if (currentLine.CharacterName == name2)
         {
-            Debug.Log(currentLine.RawText + ", point right.");
             DialogueBox.transform.rotation = Quaternion.Euler(0, 180, 0);
             DialogueTextObject.transform.rotation = Quaternion.Euler(0, 0, 0);
             NameTextObject.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -134,29 +144,47 @@ public class DialogueTest : MonoBehaviour
             case "yell":
                 _dialogueBoxAnimator.Play("DialogueBox-Yell");
                 break;
+            case "think":
+                _dialogueBoxAnimator.Play("DialogueBox-Think");
+                break;
             default:
                 break;
         }
     }
 
-    void ChangeEmoteType(string emoteType)
+    void ChangeEmote(string emoteType)
     {
         switch(emoteType) {
-            case "default":
-                //change current character's sprite to default
+            case "evanhappy":
+                char1sprite.sprite = emoteList[0];
+                break;
+            case "vivianhappy":
+                char2sprite.sprite = emoteList[3];
+                break;
+            case "pouty":
+                char2sprite.sprite = emoteList[5];
+                break;
+            case "angry":
+                char2sprite.sprite = emoteList[4];
+                break;
+            case "idiot":
+                char1sprite.sprite = emoteList[1];
+                break;
+            case "nervous":
+                char1sprite.sprite = emoteList[2];
                 break;
             default:
                 break;
         }
     }
 
-    public void StartNode(string node = "TestScript")
+    public void StartNode(string node = "Intro")
     {
         _dialogueRunner.StartDialogue(node);
-        _lineView.UserRequestedViewAdvancement();
+        ProcessDialogue();
 
         dialogueProgressTimer = Timer.Register(
-            duration: 2.5f,
+            duration: 4f,
             isLooped: true,
             onComplete: () => 
             {
