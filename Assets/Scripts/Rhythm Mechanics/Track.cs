@@ -47,7 +47,7 @@ public class Track : Singleton<Track>
             if (noteData != null && NoteMomentOnTrackCU(noteData) <= SpawnMomentCU())
             {
                 //Spawn the Note!
-                GameObject noteObj = Instantiate(notePrefab, GetNotePos(noteData), Quaternion.identity);
+                GameObject noteObj = Instantiate(notePrefab, GetNotePos(noteData), transform.rotation);
                 TrackNote tNote = noteObj.GetComponent<TrackNote>();
                 tNote.NoteData = noteData;
 
@@ -91,7 +91,9 @@ public class Track : Singleton<Track>
         float x = GetNoteXPos(note.pitch);
         float y = GetNoteYPos(NoteMomentOnTrackCU(note));
 
-        return new Vector3(x, y);
+        Vector3 localNotePos = new Vector3(x, y);
+        Vector3 globalNotePos = transform.TransformPoint(localNotePos);
+        return globalNotePos;
     }
 
     //The moment a note should spawn on the track

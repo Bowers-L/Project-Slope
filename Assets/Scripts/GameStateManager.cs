@@ -70,7 +70,6 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
 
         _dialogueManager = dialogueManagerObj.GetComponent<DialogueTest>();
 
-        StartFMODEvent();
     }
 
     public void StartFMODEvent()
