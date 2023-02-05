@@ -6,6 +6,13 @@ Evan: She’s been acting a little weird around me since last week, but I’m no
 Evan: She keeps asking me whether I’ve forgotten something, but I’m pretty sure I haven’t missed anything...
 ===
 
+title: Tutorial
+tags:
+---
+Evan: The music here is really nice! I feel like I can gather my thoughts if I vibe with the beat. #boxtype:think #emotetype:evanhappy
+Evan: Just gotta tap my fingers to it, like…\[1\], \[2\], \[3\], \[4\]...or maybe \[Z\], \[X\], \[C\], \[V\]?
+===
+
 title: Loop1
 tags:
 ---
@@ -23,7 +30,7 @@ Vivian: Don’t think flattery is getting you out of this one, Evan. #boxtype:no
 Evan: I was just bein’ honest! It was really sweet of ya to bring us out here tonight! #emotetype:idiot
 Vivian: Ha, I’ll believe that when you can remember why I did.
 Evan: Rats, think Evan! Last week... m’sure Vivian was really excited for something, but what could that be? #boxtype:think #emotetype:nervous
-Evan: Drat, should have definitely taken a break from my project... #boxtype:think
+Evan: I should have definitely taken a break from my project... #boxtype:think
 ===
 
 title: Post2
@@ -74,15 +81,8 @@ title: Strike3
 tags:
 ---
 Evan: uhhhhhhhhhhhhhfdlskjgfkldsjvoifdsnpvresjfds #boxtype:normal #emotetype:idiot
-Vivian: Alright, that’s enough. Today’s our anniversary! #emotetype:pouty
-Evan: ...oh. Oh. #emotetype:evanhappy
-Vivian: Have you really been so busy this week that you forgot?
-Evan: Yeah...actually, I was secretly working on something. #emotetype:nervous
-Evan: A gift, for our anniversary! #emotetype:evanhappy
-Vivian: ...
-Evan: ...for our...wait a second. #emotetype:nervous
-Vivian: Evan, you dolt! You’ve been overworking so hard that you forgot what you were working on! #boxtype:yell #emotetype:angry
-Evan: Uhh, happy anniversary? #boxtype:normal
-Vivian: Thank you, Evan. It means the world to me, but I’ve just been worried about your health lately. #emotetype:vivianhappy
-Evan: Whew, that was a close one... #boxtype:think #emotetype:evanhappy
+Vivian: Alright, that’s enough. Today’s our anniversary! #boxtype:yell #emotetype:angry
+Evan: ...oh. Oh. #boxtype:normal #emotetype:nervous
+Vivian: *sigh* I’m going to go get the check. #emotetype:pouty
+Evan:  Dang it, I really messed this up… screwed the pooch on this one… #boxtype:think #emotetype:idiot
 ===

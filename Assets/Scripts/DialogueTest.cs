@@ -84,6 +84,7 @@ public class DialogueTest : MonoBehaviour
         if (_dialogueRunner.CurrentNodeName == null || _dialogueRunner.CurrentNodeName == "")
         {
             if (dialogueProgressTimer != null) dialogueProgressTimer.Cancel();
+            // Send back signal to start next segment?
         } else {
             _lineView.UserRequestedViewAdvancement();
             ProcessDialogue();
@@ -93,7 +94,6 @@ public class DialogueTest : MonoBehaviour
     void ProcessDialogue()
     {
         currentLine = _lineView.GetCurrentLine();
-        Debug.Log("DialogueTest.ProgressDialogue() returned line: " + currentLine.RawText);
 
         FlipDialogueBox();
         
@@ -115,7 +115,7 @@ public class DialogueTest : MonoBehaviour
                 }
             }
         } else {
-            Debug.Log("No metadata found for current line");
+            //Debug.Log("No metadata found for current line");
         }
     }
 
@@ -136,7 +136,7 @@ public class DialogueTest : MonoBehaviour
 
     void ChangeDialogueBox(string boxType)
     {
-        Debug.Log("ChangeDialogueBox(): " + boxType);
+        //Debug.Log("ChangeDialogueBox(): " + boxType);
         switch(boxType){
             case "normal":
                 _dialogueBoxAnimator.Play("DialogueBox-Normal");
