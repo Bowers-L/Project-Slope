@@ -1,14 +1,15 @@
 ﻿title: Intro
 tags:
 ---
-Evan: So, Vivian brought me out to a jazz bar today. #boxtype:think #emotetype:evanhappy
-Evan: She’s been acting a little weird around me since last week, but I’m not really sure what’s wrong. #emotetype:nervous
-Evan: She keeps asking me whether I’ve forgotten something, but I’m pretty sure I haven’t missed anything...
+Evan: Oops, this is the intro dialogue node, but it's being skipped right now for some reason. If you see this, the error is fixed!
 ===
 
 title: Tutorial
 tags:
 ---
+Evan: So, Vivian brought me out to a jazz bar today. #boxtype:think #emotetype:evanhappy
+Evan: She’s been acting a little weird around me since last week, but I’m not really sure what’s wrong. #emotetype:nervous
+Evan: She keeps asking me whether I’ve forgotten something, but I’m pretty sure I haven’t missed anything...
 Evan: The music here is really nice! I feel like I can gather my thoughts if I vibe with the beat. #boxtype:think #emotetype:evanhappy
 Evan: Just gotta tap my fingers to it, like…\[1\], \[2\], \[3\], \[4\]...or maybe \[Z\], \[X\], \[C\], \[V\]?
 ===
@@ -48,7 +49,7 @@ Evan: Ah! So it was an event we had planned! Okay Evan, think! #boxtype:think
 title: Post3
 tags:
 ---
-Vivian: What were you working this week anyway? #boxtype:normal #emotetype:vivianhappy
+Vivian: What were you working on this week, anyway? #boxtype:normal #emotetype:vivianhappy
 Evan: Oh! It was a gift for you! I made a necklace for you at the shop! #emotetype:evanhappy
 Vivian: ...really? 
 Evan: Yeah! I just finished polishing it last night! It was supposed to be for our...anniversary. #emotetype:evanhappy

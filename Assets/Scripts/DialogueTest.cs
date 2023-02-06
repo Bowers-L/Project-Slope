@@ -62,12 +62,11 @@ public class DialogueTest : MonoBehaviour
 
     void Update()
     {
+        //Debug Input
+        /*
         if (Input.GetKeyDown(KeyCode.Space))
         {
             StartNode();
-            //ProgressDialogue();
-            // dialogueProgressCooldown = false;
-            // dialogueProgressCooldownTimer = Timer.Register(0.5f, () => dialogueProgressCooldown = true);
         }
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -77,6 +76,7 @@ public class DialogueTest : MonoBehaviour
         {
             _inMemoryVariableStorage.SetValue("$jamming", false);
         }
+        */
     }
 
     void ProgressDialogue()
@@ -98,11 +98,6 @@ public class DialogueTest : MonoBehaviour
         FlipDialogueBox();
         
         if (currentLine.Metadata != null) {
-            // if (currentLine.Metadata.Length == 2)
-            // {
-            //     emoteType = currentLine.Metadata[1].Split(':')[1];
-            // }
-            // boxType = currentLine.Metadata[0];
             foreach (string s in currentLine.Metadata)
             {
                 if (s.Split(':')[0] == "boxtype") 

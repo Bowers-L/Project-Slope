@@ -214,6 +214,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4658688304543225480, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
+      propertyPath: char1
+      value: 
+      objectReference: {fileID: 1273473495}
+    - target: {fileID: 4658688304543225480, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
+      propertyPath: char2
+      value: 
+      objectReference: {fileID: 1297612148}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
 --- !u!1 &30225061
@@ -1780,12 +1788,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_renderer: {fileID: 895666387}
-  m_maskType: 0
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
+  m_hasFontAssetChanged: 0
+  m_renderer: {fileID: 895666387}
+  m_maskType: 0
 --- !u!23 &895666387
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2377,7 +2385,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: eca515031edfdbe4c8ec4c657f2b1afa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 73651467616262b4bb1851ad057a9b89, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3738,12 +3746,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_renderer: {fileID: 1885146226}
-  m_maskType: 0
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
+  m_hasFontAssetChanged: 0
+  m_renderer: {fileID: 1885146226}
+  m_maskType: 0
 --- !u!23 &1885146226
 MeshRenderer:
   m_ObjectHideFlags: 0
