@@ -30,7 +30,7 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
         Ending
     }
 
-    private GameState gameState;
+    [SerializeField] [ReadOnly] private GameState gameState;
     public List<ChartData> charts;
     public int NumFails = 0;
 
@@ -44,12 +44,13 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
     HashSet<string> _labelsPassed = new HashSet<string>();
     public HashSet<string> LabelsPassed => _labelsPassed;
 
-    private FMODUnity.StudioEventEmitter emitter;
+    private FMODUnity.StudioEventEmitter musicEmitter;
 
     [SerializeField] GameObject dialogueManagerObj;
     DialogueTest _dialogueManager;
 
     private FMODUnity.StudioEventEmitter sfxEmitter;
+    private FMODUnity.StudioEventEmitter ambienceEmitter;
 
     void Awake() {
         InitializeSingleton();
@@ -62,9 +63,12 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
     {
         FMODUnity.StudioEventEmitter[] emitters = GetComponents<FMODUnity.StudioEventEmitter>();
 
-        emitter = emitters[0];
+        musicEmitter = emitters[0];
         sfxEmitter = emitters[1];
+        ambienceEmitter = emitters[2];
         
+        ambienceEmitter.Play();
+
         _musicFmodCallback = new FMOD.Studio.EVENT_CALLBACK(FMODEventCallback);
 
         //_musicEventInstance.start();
@@ -75,10 +79,9 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
 
     public void StartFMODEvent()
     {
-        gameState = GameState.Intro;
-        emitter.Play();
+        musicEmitter.Play();
         _labelsPassed.Clear();
-        _musicEventInstance = emitter.EventInstance;
+        _musicEventInstance = musicEmitter.EventInstance;
         _musicEventInstance.setCallback(_musicFmodCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
     }
 
@@ -99,7 +102,7 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
                 //First time passing label
                 game.LabelsPassed.Add(labelName);
                 game.NumFails = 0;
-                game.emitter.SetParameter("NumFails", game.NumFails);
+                game.musicEmitter.SetParameter("NumFails", game.NumFails);
                 //Debug.Log($"Num Fails: {game.NumFails}");
                 game.UpdateGameState();
             }
@@ -136,6 +139,10 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
                 // *** main menu witchcraft
                 break;
             case GameState.Intro:
+                if (ambienceEmitter.IsPlaying())
+                {
+                    ambienceEmitter.Stop();
+                }
                 _dialogueManager.StartNode("Intro");
                 break;
             case GameState.Tutorial: // game
@@ -227,8 +234,8 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
 
         //Update FMOD timeline position
         sfxEmitter.Play();
-        emitter.SetParameter("NumFails", NumFails);
-        emitter.EventInstance.setTimelinePosition(_currMarker == null ? 0 : _currMarker.Value.position);
+        musicEmitter.SetParameter("NumFails", NumFails);
+        musicEmitter.EventInstance.setTimelinePosition(_currMarker == null ? 0 : _currMarker.Value.position);
         UpdateGameState();
     }
 
