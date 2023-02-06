@@ -1,22 +1,17 @@
-﻿title: Intro
+﻿title: Tutorial
 tags:
 ---
 Evan: So, Vivian brought me out to a jazz bar today. #boxtype:think #emotetype:evanhappy
 Evan: She’s been acting a little weird around me since last week, but I’m not really sure what’s wrong. #emotetype:nervous
 Evan: She keeps asking me whether I’ve forgotten something, but I’m pretty sure I haven’t missed anything...
-===
-
-title: Tutorial
-tags:
----
-Evan: The music here is really nice! I feel like I can gather my thoughts if I vibe with the beat. #boxtype:think #emotetype:evanhappy
+Evan: Oh, the music here is really nice! I feel like I can gather my thoughts if I vibe with the beat. #boxtype:think #emotetype:evanhappy
 Evan: Just gotta tap my fingers to it, like…\[1\], \[2\], \[3\], \[4\]...or maybe \[Z\], \[X\], \[C\], \[V\]?
 ===
 
 title: Loop1
 tags:
 ---
-Evan: Hey, this is nice! What’s the occasion Vivian? We haven’t been around here in forever. #boxtype:normal #emotetype:evanhappy
+Evan: Hey, this is nice! What’s the occasion, Vivian? We haven’t been around here in forever. #boxtype:normal #emotetype:evanhappy
 Vivian: Yeah, I guess we haven’t. #emotetype:pouty
 Evan: Okay... What’s up? You’ve been acting weird since last week, what happened? #emotetype:nervous
 Vivian: I don’t know, was it? I was hoping this would jog your memory a bit.
@@ -26,22 +21,16 @@ Evan: Oh jeez, she’s mad. I’d better get to the root of this quickly... #box
 title: Post1
 tags:
 ---
-Vivian: Don’t think flattery is getting you out of this one, Evan. #boxtype:normal #emotetype:vivianhappy
-Evan: I was just bein’ honest! It was really sweet of ya to bring us out here tonight! #emotetype:idiot
-Vivian: Ha, I’ll believe that when you can remember why I did.
+Evan: Today's a special day, right? #emotetype:nervous
+Vivian: Warmer, but go on. #emotetype:vivianhappy
 Evan: Rats, think Evan! Last week... m’sure Vivian was really excited for something, but what could that be? #boxtype:think #emotetype:nervous
-Evan: I should have definitely taken a break from my project... #boxtype:think
 ===
 
 title: Post2
 tags:
 ---
-Evan: Woah, missed a pass at my drink. Sorry, did it spill on ya? #boxtype:normal #emotetype:evanhappy
-Vivian: I’m fine. Heh, this is just like when we first met here. #emotetype:vivianhappy
-Evan: Hah, yeah, I guess so! I was so tired from work that night... #emotetype:nervous
-Vivian: You should seriously take care of yourself, you were working all last week too. #emotetype:pouty
-Evan: Ah, my bad... There were a few things I wanted to take care of on a project.
-Vivian: ...And thanks to that, you’ve forgotten about our plans for last week...
+Evan: My mind’s drawing blanks…I should have definitely taken a break from my project…  #boxtype:normal #emotetype:nervous
+Vivian: You were working all of last week too, and thanks to that, you’ve forgotten about what we had planned... #emotetype:nervous
 Evan: Ah! So it was an event we had planned! Okay Evan, think! #boxtype:think
 ===
 
@@ -51,7 +40,8 @@ tags:
 Vivian: What were you working on this week, anyway? #boxtype:normal #emotetype:vivianhappy
 Evan: Oh! It was a gift for you! I made a necklace for you at the shop! #emotetype:evanhappy
 Vivian: ...really? 
-Evan: Yeah! I just finished polishing it last night! It was supposed to be for our...anniversary. #emotetype:evanhappy
+Evan: Yeah! I just finished polishing it last night! It was supposed to be for our anniversary! #emotetype:evanhappy
+Evan: ...for our…anniversary...oh!
 Evan: ...I am so sorry. #emotetype:nervous
 Vivian: You’re forgiven, just try not to forget next time, dear. #emotetype:pouty
 Evan: Here, let me show ya, I have it right here... #emotetype:evanhappy
@@ -63,15 +53,12 @@ tags:
 Evan: Oh, I know! Today is the day where...uhhh...umm... #boxtype:normal #emotetype:nervous
 Evan: ...you forgive me for not remembering?
 Vivian: Nice try. I’ll give you two more guesses. #emotetype:pouty
-Evan: Yikes! Let’s run that back... #boxtype:think
 ===
 
 title: Strike2
 tags:
 ---
-Evan: It’s uhh, ehh, umm, hhhh... #boxtype:normal #emotetype:nervous
-Evan: Christmas! #boxtype:yell #emotetype:idiot
-Vivian: What? #boxtype:normal #emotetype:vivianhappy
+Evan: It’s uhh, ehh, umm, hhhh...Christmas! #boxtype:normal #emotetype:nervous
 Evan: Easter! Valentine’s Day! Boxing Day! National Forgive Your Sweet Baby Girl For Having A Bad Memory Day! #boxtype:yell #emotetype:idiot
 Vivian: I’m...going to count that all as one guess, and give you one last try. Go on. #boxtype:normal #emotetype:pouty
 Evan: Ahhhh, I’ve really ruffled her feathers!! Think, Evan, think! #boxtype:think #emotetype:nervous
@@ -81,7 +68,8 @@ title: Strike3
 tags:
 ---
 Evan: uhhhhhhhhhhhhhfdlskjgfkldsjvoifdsnpvresjfds #boxtype:normal #emotetype:idiot
-Vivian: Alright, that’s enough. Today’s our anniversary! #boxtype:yell #emotetype:angry
+Vivian: Alright, that’s enough. #boxtype:normal #emotetype:angry
+Vivian: Today’s our anniversary! #boxtype:yell 
 Evan: ...oh. Oh. #boxtype:normal #emotetype:nervous
 Vivian: *sigh* I’m going to go get the check. #emotetype:pouty
 Evan:  Dang it, I really messed this up… screwed the pooch on this one… #boxtype:think #emotetype:idiot
