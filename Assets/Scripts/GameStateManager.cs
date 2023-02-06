@@ -4,6 +4,7 @@ using UnityEngine;
 using MyBox;
 using FMOD.Studio;
 using Unity.VisualScripting;
+using System;
 
 /**
  * This class is the main entry point into the game. 
@@ -18,14 +19,13 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
     public enum GameState
     {
         None,
-        Intro,
-        Tutorial,
-        FirstChorus,
-        Level1,
+        Prechorus,
+        Chorus,
+        Verse1,
         Response1,
-        Level2,
+        Verse2,
         Response2,
-        Level3,
+        Verse3,
         Response3,
         Ending
     }
@@ -95,7 +95,7 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
             //GameStateManager.Instance._prevMarker = GameStateManager.Instance._currMarker;
             game._currMarker = parameter;
             string labelName = (string) parameter.name;
-            UnityEngine.Debug.LogFormat("Marker: {0}", (string)parameter.name);
+            UnityEngine.Debug.LogFormat("<b><color=green>Marker: {0}</color></b>", (string)parameter.name);
             
             if (!game.LabelsPassed.Contains(labelName))
             {
@@ -104,7 +104,7 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
                 game.NumFails = 0;
                 game.musicEmitter.SetParameter("NumFails", game.NumFails);
                 //Debug.Log($"Num Fails: {game.NumFails}");
-                game.UpdateGameState();
+                game.UpdateGameState(labelName);
             }
         }
 
@@ -127,65 +127,65 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
      *
      * Progresses the current state of the game. Calls responsible managers.
      */
-    void UpdateGameState()
+    void UpdateGameState(string state)
     {
-        gameState = gameState+1;
+        Enum.TryParse(state, out gameState);
         Debug.Log($"SWITCH THE GAME STATE TO {gameState}");
         //gameState = 0;
+        ProcessGameState();
+    }
+
+    void UpdateGameState() {
+        gameState++;
+        Debug.Log($"SWITCH THE GAME STATE TO {gameState}");
+        ProcessGameState();
+    }
+
+    void ProcessGameState()
+    {
 
         switch (gameState)
         {
             case GameState.None: // this is the main menu
                 // *** main menu witchcraft
                 break;
-            case GameState.Intro:
+            case GameState.Prechorus:
                 if (ambienceEmitter.IsPlaying())
                 {
                     ambienceEmitter.Stop();
                 }
-                _dialogueManager.StartNode("Intro");
-                break;
-            case GameState.Tutorial: // game
-                // *** Start Chart 1 
                 _dialogueManager.StartNode("Tutorial");
                 PlayChart(0);
                 break;
-            case GameState.FirstChorus: // dialog
-                // *** Start Dialog 1
+            case GameState.Chorus:
                 _dialogueManager.StartNode("Loop1");
                 Conductor.Instance.Pause();
                 break;
-            case GameState.Level1: // game
-                // *** Start Chart 2
+            case GameState.Verse1:
                 PlayChart(1);
                 break;
-            case GameState.Response1: // dialog
-                // *** Start Dialog 2
+            case GameState.Response1:
                 _dialogueManager.StartNode("Post1");
                 Conductor.Instance.Pause();
                 break;
-            case GameState.Level2: // game
-                // *** Start Chart 3
+            case GameState.Verse2:
                 PlayChart(2);
                 break;
-            case GameState.Response2: // dialog
-                // *** Start Dialog 3
+            case GameState.Response2:
                 _dialogueManager.StartNode("Post2");
                 Conductor.Instance.Pause();
                 break;
-            case GameState.Level3: // game 
-                // *** Start Chart 4
+            case GameState.Verse3:
                 PlayChart(3);
                 break;
-            case GameState.Response3: // dialog
-                // *** Start Dialog 4
+            case GameState.Response3:
                 _dialogueManager.StartNode("Post3");
-                Conductor.Instance.Pause();
                 break;
-            case GameState.Ending: // dialog!
-                // *** Start Dialog 5
-
+            case GameState.Ending:
                 credits.PutOnScreen();
+                break;
+            default:
+                Debug.LogError("GameStateManager.UpdateGameState(): Could not find Gamestate.");
                 break;
         }
     }
