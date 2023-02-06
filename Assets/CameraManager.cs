@@ -12,7 +12,9 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private GameObject rightMidCam;
     [SerializeField] private GameObject rightFarCam;
 
-    [SerializeField] private TrackMover trackMover; 
+    [SerializeField] private TrackMover trackMover;
+
+    [SerializeField] private GameObject StartButton;
 
     // Start is called before the first frame update
     void Start()

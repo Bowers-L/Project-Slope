@@ -83,7 +83,7 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
     private void HandlePlayedNote(int pitch)
     {
         TrackNote note = CheckHitNote(pitch);
-        Debug.Log($"Player Pressed Note: {pitch}");
+        //Debug.Log($"Player Pressed Note: {pitch}");
 
         if (note == null)
         {
