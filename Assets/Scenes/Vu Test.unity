@@ -222,6 +222,34 @@ PrefabInstance:
       propertyPath: char2
       value: 
       objectReference: {fileID: 1297612148}
+    - target: {fileID: 8145719874624469675, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
+      propertyPath: onNodeComplete.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8145719874624469675, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
+      propertyPath: onNodeComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8145719874624469675, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
+      propertyPath: onNodeComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1666348761}
+    - target: {fileID: 8145719874624469675, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
+      propertyPath: onNodeComplete.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8145719874624469675, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
+      propertyPath: onNodeComplete.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EndNode
+      objectReference: {fileID: 0}
+    - target: {fileID: 8145719874624469675, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
+      propertyPath: onNodeComplete.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: DialogueTest, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8145719874624469675, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
+      propertyPath: onNodeComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
 --- !u!1 &30225061
@@ -3017,6 +3045,17 @@ Transform:
   m_Father: {fileID: 647030018}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: -4.5, y: 90, z: 0}
+--- !u!114 &1666348761 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4658688304543225480, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
+  m_PrefabInstance: {fileID: 16804779}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2325860b489a5d047823bbc18ffd1735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1703189821
 GameObject:
   m_ObjectHideFlags: 0

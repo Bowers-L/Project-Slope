@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityTimer;
 using Yarn.Unity;
 
 public class DialogueTest : MonoBehaviour
 {
+    public UnityEvent endNodeSignal;
+
     public enum DialogueBoxType {normal, yell}
 
     public string name1;
@@ -84,7 +87,6 @@ public class DialogueTest : MonoBehaviour
         if (_dialogueRunner.CurrentNodeName == null || _dialogueRunner.CurrentNodeName == "")
         {
             if (dialogueProgressTimer != null) dialogueProgressTimer.Cancel();
-            // Send back signal to start next segment?
         } else {
             _lineView.UserRequestedViewAdvancement();
             ProcessDialogue();
@@ -186,5 +188,11 @@ public class DialogueTest : MonoBehaviour
                 ProgressDialogue();
             }
         );
+    }
+
+    public void EndNode()
+    {
+        endNodeSignal.Invoke();
+        if (dialogueProgressTimer != null) dialogueProgressTimer.Cancel();
     }
 }

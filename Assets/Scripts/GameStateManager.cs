@@ -70,7 +70,7 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
         //_musicEventInstance.start();
 
         _dialogueManager = dialogueManagerObj.GetComponent<DialogueTest>();
-
+        _dialogueManager.endNodeSignal.AddListener(NextFmodSection);
     }
 
     public void StartFMODEvent()
@@ -181,6 +181,12 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
                 credits.PutOnScreen();
                 break;
         }
+    }
+
+    void NextFmodSection()
+    {
+        Debug.Log("GameStateManager.NextFmodSection(): Fired.");
+        // Proceed to next Fmod segment
     }
 
     private void PlayChart(int index)
