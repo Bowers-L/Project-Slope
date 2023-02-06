@@ -71,6 +71,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5200d5c14ad3154991fc269e99604b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameState: 0
   charts:
   - {fileID: 11400000, guid: 3f993ebf50a5ca643abc51b184751c85, type: 2}
   - {fileID: 11400000, guid: 6bd5f9aa4a2074f469ae18e8372829d9, type: 2}

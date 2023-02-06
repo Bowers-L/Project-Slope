@@ -1935,6 +1935,41 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 682569247}
+--- !u!1 &943093879 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4583963617398066776, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
+  m_PrefabInstance: {fileID: 16804779}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &943093885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 943093879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1660068632
+      Data2: 1286840113
+      Data3: 431116192
+      Data4: -986375344
+    Path: event:/Ambience/RestaurantAmbience
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &958595180 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 561631613498473728, guid: 68f361ecc937f6f4daf8f0d3d4b41503, type: 3}

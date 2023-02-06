@@ -77,8 +77,6 @@ public class CameraManager : MonoBehaviour
 
             yield return new WaitForSeconds(1);
             GameObject.FindObjectOfType<GameStateManager>().StartFMODEvent();
-
-
     }
 
     // Update is called once per frame
