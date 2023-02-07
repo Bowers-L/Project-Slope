@@ -1,11 +1,11 @@
 ﻿title: Tutorial
 tags:
 ---
-Evan: So, Vivian brought me out to a jazz bar today. #boxtype:think #emotetype:evanhappy
-Evan: She’s been acting a little weird around me since last week, but I’m not really sure what’s wrong. #emotetype:nervous
-Evan: She keeps asking me whether I’ve forgotten something, but I’m pretty sure I haven’t missed anything...
-Evan: Oh, the music here is really nice! I feel like I can gather my thoughts if I vibe with the beat. #boxtype:think #emotetype:evanhappy
-Evan: Just gotta tap my fingers to it, like…\[1\], \[2\], \[3\], \[4\]...or maybe \[Z\], \[X\], \[C\], \[V\]?
+Evan: (Oh, the music here is really nice! I feel like I can gather my thoughts if I vibe with the beat.) #boxtype:think #emotetype:evanhappy
+Evan: (Just gotta tap my fingers to it, like…\[1\], \[2\], \[3\], \[4\]...or maybe \[Z\], \[X\], \[C\], \[V\]?)
+Evan: (So, Vivian brought me out to a jazz bar today.) #boxtype:think #emotetype:evanhappy
+Evan: (She’s been acting a little weird around me since last week, but I’m not really sure what’s wrong.) #emotetype:nervous
+Evan: (She keeps asking me whether I’ve forgotten something, but I’m pretty sure I haven’t missed anything...)
 ===
 
 title: Loop1
@@ -15,7 +15,7 @@ Evan: Hey, this is nice! What’s the occasion, Vivian? We haven’t been around
 Vivian: Yeah, I guess we haven’t. #emotetype:pouty
 Evan: Okay... What’s up? You’ve been acting weird since last week, what happened? #emotetype:nervous
 Vivian: I don’t know, was it? I was hoping this would jog your memory a bit.
-Evan: Oh jeez, she’s mad. I’d better get to the root of this quickly... #boxtype:think
+Evan: (Oh jeez, she’s mad. I’d better get to the root of this quickly...) #boxtype:think
 ===
 
 title: Post1
@@ -23,15 +23,15 @@ tags:
 ---
 Evan: Today's a special day, right? #boxtype:normal #emotetype:nervous
 Vivian: Warmer, but go on. #emotetype:vivianhappy
-Evan: Rats, think Evan! Last week... m’sure Vivian was really excited for something, but what could that be? #boxtype:think #emotetype:nervous
+Evan: (Rats, think Evan! Last week... m’sure Vivian was really excited for something, but what could that be?) #boxtype:think #emotetype:nervous
 ===
 
 title: Post2
 tags:
 ---
 Evan: My mind’s drawing blanks…I should have definitely taken a break from my project…  #boxtype:normal #emotetype:nervous
-Vivian: You were working all of last week too, and thanks to that, you’ve forgotten about what we had planned... #boxtype:sad #emotetype:nervous
-Evan: Ah! So it was an event we had planned! Okay Evan, think! #boxtype:think
+Vivian: You were working all of last week too. No wonder you forgot what we had planned... #boxtype:sad #emotetype:nervous
+Evan: (Ah! So it was an event we had planned! Okay Evan, think!) #boxtype:think
 ===
 
 title: Post3
@@ -42,7 +42,7 @@ Evan: Oh! It was a gift for you! I made a necklace for you at the shop! #emotety
 Vivian: ...really? 
 Evan: Yeah! I just finished polishing it last night! It was supposed to be for our anniversary! #emotetype:evanhappy
 Evan: ...for our…anniversary...oh!
-Evan: ...I am so sorry. #boxtype:sad #emotetype:nervous
+Evan: Aw man, I am so sorry! #boxtype:sad #emotetype:nervous
 Vivian: You’re forgiven, just try not to forget next time, dear. #emotetype:pouty
 Evan: Here, let me show ya, I have it right here... #emotetype:evanhappy
 ===
@@ -61,7 +61,7 @@ tags:
 Evan: It’s uhh, ehh, umm, hhhh...Christmas! #boxtype:normal #emotetype:nervous
 Evan: Easter! Valentine’s Day! Boxing Day! National Forgive Your Sweet Baby Girl For Having A Bad Memory Day! #boxtype:yell #emotetype:idiot
 Vivian: I’m...going to count that all as one guess, and give you one last try. Go on. #boxtype:normal #emotetype:pouty
-Evan: Ahhhh, I’ve really ruffled her feathers!! Think, Evan, think! #boxtype:think #emotetype:nervous
+Evan: (Ahhhh, I’ve really ruffled her feathers!! Think, Evan, think!) #boxtype:think #emotetype:nervous
 ===
 
 title: Strike3
@@ -72,5 +72,5 @@ Vivian: Alright, that’s enough. #boxtype:normal #emotetype:angry
 Vivian: Today’s our anniversary! #boxtype:yell 
 Evan: ...oh. Oh. #boxtype:normal #emotetype:nervous
 Vivian: *sigh* I’m going to go get the check. #boxtype:normal #emotetype:pouty
-Evan:  Dang it, I really messed this up… screwed the pooch on this one… #boxtype:think #emotetype:idiot
+Evan: (Dang it, I really dropped the ball on this one...) #boxtype:think #emotetype:idiot
 ===
