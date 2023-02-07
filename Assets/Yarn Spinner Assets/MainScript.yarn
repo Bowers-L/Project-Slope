@@ -3,7 +3,7 @@ tags:
 ---
 Evan: (Oh, the music here is really nice! I feel like I can gather my thoughts if I vibe with the beat.) #boxtype:think #emotetype:evanhappy
 Evan: (Just gotta tap my fingers to it, like…\[1\], \[2\], \[3\], \[4\]...or maybe \[Z\], \[X\], \[C\], \[V\]?)
-Evan: (So, Vivian brought me out to a jazz bar today.) #boxtype:think #emotetype:evanhappy
+Evan: (So, Vivian brought me out to a jazz bar today.) #emotetype:evanhappy
 Evan: (She’s been acting a little weird around me since last week, but I’m not really sure what’s wrong.) #emotetype:nervous
 Evan: (She keeps asking me whether I’ve forgotten something, but I’m pretty sure I haven’t missed anything...)
 ===
@@ -12,8 +12,8 @@ title: Loop1
 tags:
 ---
 Evan: Hey, this is nice! What’s the occasion, Vivian? We haven’t been around here in forever. #boxtype:normal #emotetype:evanhappy
-Vivian: Yeah, I guess we haven’t. #emotetype:pouty
-Evan: Okay... What’s up? You’ve been acting weird since last week, what happened? #emotetype:nervous
+Vivian: Yeah, I guess we haven’t. #boxtype:sad #emotetype:pouty
+Evan: Okay... What’s up? You’ve been acting weird since last week, what happened? #boxtype:normal #emotetype:nervous
 Vivian: I don’t know, was it? I was hoping this would jog your memory a bit.
 Evan: (Oh jeez, she’s mad. I’d better get to the root of this quickly...) #boxtype:think
 ===
@@ -30,8 +30,8 @@ title: Post2
 tags:
 ---
 Evan: My mind’s drawing blanks…I should have definitely taken a break from my project…  #boxtype:normal #emotetype:nervous
-Vivian: You were working all of last week too. No wonder you forgot what we had planned... #boxtype:sad #emotetype:nervous
-Evan: (Ah! So it was an event we had planned! Okay Evan, think!) #boxtype:think
+Vivian: You were working all of last week too. No wonder you forgot what we had planned... #boxtype:sad #emotetype:pouty
+Evan: (Ah! So it was an event we had planned! Okay Evan, think!) #boxtype:think #emotetype:evanhappy
 ===
 
 title: Post3
@@ -41,10 +41,10 @@ Vivian: What were you working on this week, anyway? #boxtype:normal #emotetype:v
 Evan: Oh! It was a gift for you! I made a necklace for you at the shop! #emotetype:evanhappy
 Vivian: ...really? 
 Evan: Yeah! I just finished polishing it last night! It was supposed to be for our anniversary! #emotetype:evanhappy
-Evan: ...for our…anniversary...oh!
-Evan: Aw man, I am so sorry! #boxtype:sad #emotetype:nervous
-Vivian: You’re forgiven, just try not to forget next time, dear. #emotetype:pouty
-Evan: Here, let me show ya, I have it right here... #emotetype:evanhappy
+Evan: ...for our…anniversary...oh!  #emotetype:nervous #emotetype:pouty
+Evan: Aw man, I am so sorry! #boxtype:sad #emotetype:idiot
+Vivian: You’re forgiven, just try not to forget next time, dear. #emotetype:vivianhappy
+Evan: Here, let me show ya, I have it right here... #emotetype:evanhappy 
 ===
 
 title: Strike1
