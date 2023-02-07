@@ -21,7 +21,7 @@ Evan: Oh jeez, she’s mad. I’d better get to the root of this quickly... #box
 title: Post1
 tags:
 ---
-Evan: Today's a special day, right? #emotetype:nervous
+Evan: Today's a special day, right? #boxtype:normal #emotetype:nervous
 Vivian: Warmer, but go on. #emotetype:vivianhappy
 Evan: Rats, think Evan! Last week... m’sure Vivian was really excited for something, but what could that be? #boxtype:think #emotetype:nervous
 ===
@@ -30,7 +30,7 @@ title: Post2
 tags:
 ---
 Evan: My mind’s drawing blanks…I should have definitely taken a break from my project…  #boxtype:normal #emotetype:nervous
-Vivian: You were working all of last week too, and thanks to that, you’ve forgotten about what we had planned... #emotetype:nervous
+Vivian: You were working all of last week too, and thanks to that, you’ve forgotten about what we had planned... #boxtype:sad #emotetype:nervous
 Evan: Ah! So it was an event we had planned! Okay Evan, think! #boxtype:think
 ===
 
@@ -42,7 +42,7 @@ Evan: Oh! It was a gift for you! I made a necklace for you at the shop! #emotety
 Vivian: ...really? 
 Evan: Yeah! I just finished polishing it last night! It was supposed to be for our anniversary! #emotetype:evanhappy
 Evan: ...for our…anniversary...oh!
-Evan: ...I am so sorry. #emotetype:nervous
+Evan: ...I am so sorry. #boxtype:sad #emotetype:nervous
 Vivian: You’re forgiven, just try not to forget next time, dear. #emotetype:pouty
 Evan: Here, let me show ya, I have it right here... #emotetype:evanhappy
 ===
@@ -51,8 +51,8 @@ title: Strike1
 tags:
 ---
 Evan: Oh, I know! Today is the day where...uhhh...umm... #boxtype:normal #emotetype:nervous
-Evan: ...you forgive me for not remembering?
-Vivian: Nice try. I’ll give you two more guesses. #emotetype:pouty
+Evan: ...you forgive me for not remembering? #boxtype:sad
+Vivian: Nice try. I’ll give you two more guesses. #boxtype:normal #emotetype:pouty
 ===
 
 title: Strike2
@@ -67,10 +67,10 @@ Evan: Ahhhh, I’ve really ruffled her feathers!! Think, Evan, think! #boxtype:t
 title: Strike3
 tags:
 ---
-Evan: uhhhhhhhhhhhhhfdlskjgfkldsjvoifdsnpvresjfds #boxtype:normal #emotetype:idiot
+Evan: uhhhhhhhhhhhhhfdlskjgfkldsjvoifdsnpvresjfds #boxtype:sad #emotetype:idiot
 Vivian: Alright, that’s enough. #boxtype:normal #emotetype:angry
 Vivian: Today’s our anniversary! #boxtype:yell 
 Evan: ...oh. Oh. #boxtype:normal #emotetype:nervous
-Vivian: *sigh* I’m going to go get the check. #emotetype:pouty
+Vivian: *sigh* I’m going to go get the check. #boxtype:normal #emotetype:pouty
 Evan:  Dang it, I really messed this up… screwed the pooch on this one… #boxtype:think #emotetype:idiot
 ===

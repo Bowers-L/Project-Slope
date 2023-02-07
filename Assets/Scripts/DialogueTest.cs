@@ -144,6 +144,9 @@ public class DialogueTest : MonoBehaviour
             case "think":
                 _dialogueBoxAnimator.Play("DialogueBox-Think");
                 break;
+            case "sad":
+                _dialogueBoxAnimator.Play("DialogueBox-Sad");
+                break;
             default:
                 break;
         }
