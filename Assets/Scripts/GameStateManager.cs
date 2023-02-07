@@ -34,7 +34,6 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
     public List<ChartData> charts;
     public int NumFails = 0;
 
-
     FMOD.Studio.EVENT_CALLBACK _musicFmodCallback;
     FMOD.Studio.EventInstance _musicEventInstance;
 

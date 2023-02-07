@@ -188,6 +188,7 @@ public class DialogueTest : MonoBehaviour
 
     public void StartNode(string node = "Intro")
     {
+        _lineView.canvasGroupEnabled = true;
         _dialogueRunner.StartDialogue(node);
         _dialogueBoxAnimator.SetTrigger("bounce");
         ProcessDialogue();
@@ -205,6 +206,8 @@ public class DialogueTest : MonoBehaviour
     public void EndNode()
     {
         endNodeSignal.Invoke();
+        _lineView.canvasGroupEnabled = false;
+        _lineView.SetCanvasAlpha(0);
         if (dialogueProgressTimer != null) dialogueProgressTimer.Cancel();
     }
 }
