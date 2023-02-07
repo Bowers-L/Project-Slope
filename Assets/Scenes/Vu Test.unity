@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3122122622746693316, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
+      propertyPath: useTypewriterEffect
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3122122623208514881, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -142,6 +146,14 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 3122122623208514894, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 680.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3122122623208514894, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -336.16
+      objectReference: {fileID: 0}
     - target: {fileID: 4583963617398066776, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
       propertyPath: m_Name
       value: PlayerPerformance
@@ -234,6 +246,18 @@ PrefabInstance:
       propertyPath: char2
       value: 
       objectReference: {fileID: 1297612148}
+    - target: {fileID: 4658688305799773966, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4658688305799773966, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4658688305799773966, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 224.87
+      objectReference: {fileID: 0}
     - target: {fileID: 8145719874624469675, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
       propertyPath: onNodeComplete.m_PersistentCalls.m_Calls.Array.size
       value: 1
