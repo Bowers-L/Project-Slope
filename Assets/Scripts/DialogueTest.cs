@@ -43,6 +43,8 @@ public class DialogueTest : MonoBehaviour
     Timer dialogueProgressTimer;
     bool dialogueProgressCooldown = true;
 
+    Timer bounceTimer;
+
     LocalizedLine currentLine;
 
     void Start()
@@ -88,9 +90,15 @@ public class DialogueTest : MonoBehaviour
         {
             if (dialogueProgressTimer != null) dialogueProgressTimer.Cancel();
         } else {
-            _lineView.UserRequestedViewAdvancement();
-            ProcessDialogue();
+            _dialogueBoxAnimator.SetTrigger("bounce");
+            bounceTimer = Timer.Register(0.055555f, () => NextLine());
         }
+    }
+
+    public void NextLine()
+    {
+        _lineView.UserRequestedViewAdvancement();
+        ProcessDialogue();
     }
 
     void ProcessDialogue()
@@ -181,6 +189,7 @@ public class DialogueTest : MonoBehaviour
     public void StartNode(string node = "Intro")
     {
         _dialogueRunner.StartDialogue(node);
+        _dialogueBoxAnimator.SetTrigger("bounce");
         ProcessDialogue();
 
         dialogueProgressTimer = Timer.Register(
