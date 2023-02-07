@@ -5,6 +5,7 @@ using MyBox;
 using FMOD.Studio;
 using Unity.VisualScripting;
 using System;
+using UnityEngine.Events;
 
 /**
  * This class is the main entry point into the game. 
@@ -50,6 +51,8 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
 
     private FMODUnity.StudioEventEmitter sfxEmitter;
     private FMODUnity.StudioEventEmitter ambienceEmitter;
+
+    public static UnityEvent beatEvent = new UnityEvent();
 
     void Awake() {
         InitializeSingleton();
@@ -102,9 +105,15 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
                 game.LabelsPassed.Add(labelName);
                 game.NumFails = 0;
                 game.musicEmitter.SetParameter("NumFails", game.NumFails);
-                //Debug.Log($"Num Fails: {game.NumFails}");
                 game.UpdateGameState(labelName);
+                //Debug.Log($"Num Fails: {game.NumFails}");
             }
+            //TODO: Identify why there is no callback on passing a label after fail state
+            Debug.Log("<color=red>GameStateManager.FMODCallBack: Updating GameState with label: " + labelName + "</color>");
+        }
+        if (type == FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT)
+        {
+            beatEvent.Invoke();
         }
 
         return FMOD.RESULT.OK;
@@ -134,15 +143,14 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
         ProcessGameState();
     }
 
-    void UpdateGameState() {
-        gameState++;
+    void UpdateGameState(int i = 1) {
+        gameState += i;
         Debug.Log($"SWITCH THE GAME STATE TO {gameState}");
         ProcessGameState();
     }
 
     void ProcessGameState()
     {
-
         switch (gameState)
         {
             case GameState.None: // this is the main menu
@@ -192,7 +200,14 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
     void NextFmodSection()
     {
         Debug.Log("GameStateManager.NextFmodSection(): Fired.");
-        // Proceed to next Fmod segment
+        // If in fail state, resume
+        if (!musicEmitter.IsPlaying())
+        {
+            musicEmitter.Play();
+            musicEmitter.EventInstance.setTimelinePosition(_currMarker == null ? 0 : _currMarker.Value.position);
+            ambienceEmitter.Stop();
+            UpdateGameState(0);
+        }
     }
 
     private void PlayChart(int index)
@@ -228,14 +243,15 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
             default:
                 break;
         }
-        // *** Halt current instance of Fmod Timeline, also stop the current instance of game
-        gameState--;
+
+        //TODO: stop the chart and clear notes
+        Conductor.Instance.Pause();
 
         //Update FMOD timeline position
         sfxEmitter.Play();
         musicEmitter.SetParameter("NumFails", NumFails);
-        musicEmitter.EventInstance.setTimelinePosition(_currMarker == null ? 0 : _currMarker.Value.position);
-        UpdateGameState();
+        musicEmitter.Stop();
+        ambienceEmitter.Play();
     }
 
     IEnumerator GameOver() {
