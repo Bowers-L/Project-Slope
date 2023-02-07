@@ -2444,6 +2444,7 @@ GameObject:
   - component: {fileID: 1273473496}
   - component: {fileID: 1273473497}
   - component: {fileID: 1273473498}
+  - component: {fileID: 1273473499}
   m_Layer: 0
   m_Name: Evan
   m_TagString: Untagged
@@ -2538,6 +2539,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &1273473499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1273473495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e85b4f52b607e8745a1094f16dfe6204, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  beatCap: 2
+  offset: 0.16
 --- !u!1 &1297612148
 GameObject:
   m_ObjectHideFlags: 0
@@ -2549,6 +2564,7 @@ GameObject:
   - component: {fileID: 1297612149}
   - component: {fileID: 1297612150}
   - component: {fileID: 1297612151}
+  - component: {fileID: 1297612152}
   m_Layer: 0
   m_Name: Vivian
   m_TagString: Untagged
@@ -2643,6 +2659,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &1297612152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1297612148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e85b4f52b607e8745a1094f16dfe6204, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  beatCap: 2
+  offset: 0.16
 --- !u!1 &1406337960 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 561631615348404081, guid: 68f361ecc937f6f4daf8f0d3d4b41503, type: 3}
@@ -3602,6 +3632,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 397179330}
     m_Modifications:
+    - target: {fileID: 3970757949892047519, guid: 68f361ecc937f6f4daf8f0d3d4b41503, type: 3}
+      propertyPath: offset
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6872801364308224262, guid: 68f361ecc937f6f4daf8f0d3d4b41503, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -3650,7 +3684,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Track
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3970757949892047519, guid: 68f361ecc937f6f4daf8f0d3d4b41503, type: 3}
+    - {fileID: 7541825159881696148, guid: 68f361ecc937f6f4daf8f0d3d4b41503, type: 3}
+    - {fileID: 8463911742856294429, guid: 68f361ecc937f6f4daf8f0d3d4b41503, type: 3}
+    - {fileID: 5260312853248716828, guid: 68f361ecc937f6f4daf8f0d3d4b41503, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 68f361ecc937f6f4daf8f0d3d4b41503, type: 3}
 --- !u!4 &1772952062 stripped
 Transform:
