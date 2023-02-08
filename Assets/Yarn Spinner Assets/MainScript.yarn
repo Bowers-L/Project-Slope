@@ -37,13 +37,13 @@ Evan: (Ah! So it was an event we had planned! Okay Evan, think!) #boxtype:think 
 title: Post3
 tags:
 ---
-Vivian: What were you working on this week, anyway? #boxtype:normal #emotetype:vivianhappy
+Vivian: What were you working on this week, anyway? #boxtype:normal #emotetype:pouty
 Evan: Oh! It was a gift for you! I made a necklace for you at the shop! #emotetype:evanhappy
-Vivian: ...really? 
+Vivian: ...really? #emotetype:vivianhappy
 Evan: Yeah! I just finished polishing it last night! It was supposed to be for our anniversary! #emotetype:evanhappy
-Evan: ...for our…anniversary...oh!  #emotetype:nervous #emotetype:pouty
+Evan: ...for our...anniversary...oh!  #emotetype:nervous #emotetype:pouty
 Evan: Aw man, I am so sorry! #boxtype:sad #emotetype:idiot
-Vivian: You’re forgiven, just try not to forget next time, dear. #emotetype:vivianhappy
+Vivian: You’re forgiven, just try not to forget next time, dear. #boxtype:normal #emotetype:vivianhappy
 Evan: Here, let me show ya, I have it right here... #emotetype:evanhappy 
 ===
 
@@ -59,8 +59,8 @@ title: Strike2
 tags:
 ---
 Evan: It’s uhh, ehh, umm, hhhh...Christmas! Easter! Valentine’s Day! Boxing Day! National Forgive Your Sweet Baby Girl For Having A Bad Memory Day! #boxtype:yell #emotetype:idiot
-Vivian: I’m...going to count that all as one guess, and give you one last try. Go on. #boxtype:normal #emotetype:pouty
-Evan: (Ahhhh, I’ve really ruffled her feathers!! Think, Evan, think!) #boxtype:think #emotetype:nervous
+Vivian: I’m...going to count that all as one guess, and give you one last try. Go on. #boxtype:normal #emotetype:pouty #emotetype:nervous
+Evan: (Ahhhh, I’ve really ruffled her feathers!! Think, Evan, think!) #boxtype:think #emotetype:idiot
 ===
 
 title: Strike3
