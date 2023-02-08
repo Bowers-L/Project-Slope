@@ -1,4 +1,5 @@
 using MyBox;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /*IMPORTANT TERMINOLOGY:
@@ -44,6 +45,11 @@ public class Conductor : MyBox.Singleton<Conductor>
     private ChartData _currChart;
     public ChartData Chart => _currChart;
 
+    public delegate void OnPlayDel(ChartData chart);
+    public delegate void OnPauseDel();
+    public static event OnPlayDel OnPlay;
+    public static event OnPauseDel OnPause;
+
     private void Awake()
     {
         InitializeSingleton();
@@ -86,13 +92,13 @@ public class Conductor : MyBox.Singleton<Conductor>
         currMomentSeconds = -_currChart.firstBeatOffsetSeconds;
         isPaused = false;
 
-        Track.Instance.Init();
-        PlayerPerformanceManager.Instance.StartNewSection();
+        OnPlay?.Invoke(chart);
     }
 
     public void Pause()
     {
         isPaused = true;
+        OnPause?.Invoke();
     }
 
     public void Resume()
@@ -114,7 +120,7 @@ public class Conductor : MyBox.Singleton<Conductor>
 
     public int BeatsToCU(float beats)
     {
-        return (int)(beats * Chart.unitsPerBeat);
+        return (int)(beats * _currChart.unitsPerBeat);
     }
 
     private float GetDSPTime()

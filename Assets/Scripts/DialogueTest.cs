@@ -205,6 +205,7 @@ public class DialogueTest : MonoBehaviour
 
     public void EndNode()
     {
+        Debug.Log("ENDED NODE");
         endNodeSignal.Invoke();
         _lineView.canvasGroupEnabled = false;
         _lineView.SetCanvasAlpha(0);

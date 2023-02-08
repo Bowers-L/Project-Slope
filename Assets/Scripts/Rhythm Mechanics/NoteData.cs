@@ -1,5 +1,5 @@
 ﻿[System.Serializable]
-public class Note
+public class NoteData
 {
     public const int SIXTEENTH = 48;
     public const int EIGHTH = 48 * 2;
@@ -15,7 +15,7 @@ public class Note
 
     public string Description => $"Note at position {moment} with pitch {pitch} and length {length}";
 
-    public Note(int moment, int pitch, int length)
+    public NoteData(int moment, int pitch, int length)
     {
         this.moment = moment;
         this.pitch = pitch;

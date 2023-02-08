@@ -34,21 +34,22 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
     [SerializeField] [ReadOnly] private GameState gameState;
     public List<ChartData> charts;
     public int NumFails = 0;
+    [SerializeField] GameObject dialogueManagerObj;
 
-    FMOD.Studio.EVENT_CALLBACK _musicFmodCallback;
-    FMOD.Studio.EventInstance _musicEventInstance;
-
+    //FMOD JANK
+    private FMOD.Studio.EVENT_CALLBACK _musicFmodCallback;
+    private FMOD.Studio.EventInstance _musicEventInstance;
     //FMOD.Studio.TIMELINE_MARKER_PROPERTIES? _prevMarker;
-    FMOD.Studio.TIMELINE_MARKER_PROPERTIES? _currMarker;
-
-    HashSet<string> _labelsPassed = new HashSet<string>();
+    private FMOD.Studio.TIMELINE_MARKER_PROPERTIES? _currMarker;
+    private HashSet<string> _labelsPassed = new HashSet<string>();
     public HashSet<string> LabelsPassed => _labelsPassed;
 
-    private FMODUnity.StudioEventEmitter musicEmitter;
 
-    [SerializeField] GameObject dialogueManagerObj;
+    private bool _inFailureState;
+
     DialogueTest _dialogueManager;
 
+    private FMODUnity.StudioEventEmitter musicEmitter;
     private FMODUnity.StudioEventEmitter sfxEmitter;
     private FMODUnity.StudioEventEmitter ambienceEmitter;
 
@@ -58,6 +59,17 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
         InitializeSingleton();
 
         gameState = GameState.None;
+        _inFailureState = false;
+    }
+
+    private void OnEnable()
+    {
+        PlayerPerformanceManager.OnLevelFailed += OnLevelFailed;
+    }
+
+    private void OnDisable()
+    {
+        PlayerPerformanceManager.OnLevelFailed -= OnLevelFailed;
     }
 
     // Start is called before the first frame update
@@ -76,7 +88,9 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
         //_musicEventInstance.start();
 
         _dialogueManager = dialogueManagerObj.GetComponent<DialogueTest>();
-        _dialogueManager.endNodeSignal.AddListener(NextFmodSection);
+        _dialogueManager.endNodeSignal.AddListener(OnDialogueEnd);
+
+        //StartFMODEvent();
     }
 
     public void StartFMODEvent()
@@ -109,7 +123,7 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
                 //Debug.Log($"Num Fails: {game.NumFails}");
             }
             //TODO: Identify why there is no callback on passing a label after fail state
-            Debug.Log("<color=red>GameStateManager.FMODCallBack: Updating GameState with label: " + labelName + "</color>");
+            Debug.Log("<color=green>GameStateManager.FMODCallBack: Updating GameState with label: " + labelName + "</color>");
         }
         if (type == FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT)
         {
@@ -197,7 +211,7 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
         }
     }
 
-    void NextFmodSection()
+    void PlayFMODFromLastMarker()
     {
         Debug.Log("GameStateManager.NextFmodSection(): Fired.");
         // If in fail state, resume
@@ -222,10 +236,10 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
     }
 
     /**
-     * Called by the conductor class when the user fails. If the user fails, restart fmod sequence, start game chart, and play fail sfx.
+     * Called by PlayerPerformanceManager when the user fails. If the user fails, restart fmod sequence, start game chart, and play fail sfx.
      *
      */
-    public void RestartCurrentLevel()
+    public void OnLevelFailed()
     {
         NumFails++;
         switch(NumFails){
@@ -244,24 +258,41 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
                 break;
         }
 
-        //TODO: stop the chart and clear notes
         Conductor.Instance.Pause();
 
         //Update FMOD timeline position
         sfxEmitter.Play();
         musicEmitter.SetParameter("NumFails", NumFails);
         musicEmitter.Stop();
-        ambienceEmitter.Play();
+        _inFailureState = true;
+
+        //ambienceEmitter.Play();
     }
 
-    IEnumerator GameOver() {
+    private void OnDialogueEnd()
+    {
+        //THIS IS SCUFFED PLZ FIX
+        if (_inFailureState)
+        {
+            RestartLevel();
+        }
+    }
+
+    public void RestartLevel()
+    {
+        Track.Instance.Rewind(() =>
+        {
+            _inFailureState = false;
+            PlayFMODFromLastMarker();
+        });
+    }
+
+    private IEnumerator GameOver() {
         
         GameObject.Find("Game Over").SetActive(true);
         yield return new WaitForSeconds(3);
-        Debug.Log("test");
+        //Debug.Log("test");
         GameObject.FindObjectOfType<AppManager>().ReloadMainScene();
     }
 
 }
-
-// fmod just continues unless update game state explicitly stops it

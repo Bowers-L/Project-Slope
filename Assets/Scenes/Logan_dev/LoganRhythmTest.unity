@@ -522,8 +522,47 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4658688306254550341, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
+--- !u!1 &4583963617631251212 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4583963617398066776, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
+  m_PrefabInstance: {fileID: 4583963617631251211}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4583963617631251213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4583963617631251212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1660068632
+      Data2: 1286840113
+      Data3: 431116192
+      Data4: -986375344
+    Path: event:/Ambience/RestaurantAmbience
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1001 &6872801364741637961
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -544,12 +583,24 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6872801364308224262, guid: 68f361ecc937f6f4daf8f0d3d4b41503, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6872801364308224262, guid: 68f361ecc937f6f4daf8f0d3d4b41503, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6872801364308224262, guid: 68f361ecc937f6f4daf8f0d3d4b41503, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6872801364308224262, guid: 68f361ecc937f6f4daf8f0d3d4b41503, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6872801364308224262, guid: 68f361ecc937f6f4daf8f0d3d4b41503, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6872801364308224262, guid: 68f361ecc937f6f4daf8f0d3d4b41503, type: 3}
       propertyPath: m_LocalPosition.z
@@ -582,6 +633,10 @@ PrefabInstance:
     - target: {fileID: 6872801364308224262, guid: 68f361ecc937f6f4daf8f0d3d4b41503, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6872801364308224262, guid: 68f361ecc937f6f4daf8f0d3d4b41503, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6872801364308224263, guid: 68f361ecc937f6f4daf8f0d3d4b41503, type: 3}
       propertyPath: m_Name
