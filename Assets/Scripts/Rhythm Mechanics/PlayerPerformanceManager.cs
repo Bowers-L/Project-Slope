@@ -17,6 +17,9 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
     [SerializeField] private GameObject missFXPrefab;
     [SerializeField] private GameObject[] tracks;
 
+    [SerializeField] private GameObject brainMeterObject;
+    Animator brainMeterAnimator;
+
     private int hitNotesInSection;
     private int missedNotesInSection;    //Letting the note pass without hitting it.
     private int missHits;    //Pressing button at wrong time
@@ -34,6 +37,7 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
     private void OnEnable()
     {
         Conductor.OnPlay += OnConductorPlay;
+        brainMeterAnimator = brainMeterObject.GetComponent<Animator>();
     }
 
     private void OnDisable()
@@ -91,6 +95,7 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
         hitNotesInSection = 0;
         missedNotesInSection = 0;
         playerHealth = playerMaxHealthPerSection;
+        if (brainMeterObject.activeSelf) brainMeterAnimator.SetInteger("brainJuice", playerMaxHealthPerSection);
     }
 
     private void HandlePlayedNote(int pitch)
@@ -114,6 +119,8 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
     {
         //Do VFX Things. Keep Track of Pass/Fail, etc.
         hitNotesInSection++;
+        playerHealth++;
+        if (brainMeterObject.activeSelf) brainMeterAnimator.SetInteger("brainJuice", playerHealth);
 
         Track.Instance.ActiveNotes.Remove(note);
 
@@ -133,7 +140,8 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
     public void HandleMissHit()
     {
         missHits++;
-        playerHealth--;
+        playerHealth -= 5;
+        if (brainMeterObject.activeSelf) brainMeterAnimator.SetInteger("brainJuice", playerHealth);
         StartCoroutine(FlashColor(Track.Instance.BeatBar.GetComponent<SpriteRenderer>(), Color.red, flashSpeed));
     }
 
@@ -142,7 +150,8 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
         Debug.Log($"MISSED NOTE: {note}");
         //Do VFX Things. Keep Track of Pass/Fail, etc.
         missedNotesInSection++;
-        playerHealth--;
+        playerHealth -= 5;
+        if (brainMeterObject.activeSelf) brainMeterAnimator.SetInteger("brainJuice", playerHealth);
 
         //GameObject track = tracks[note.NoteData.pitch];
         GameObject fxInstance = Instantiate(missFXPrefab, note.transform.position, Track.Instance.transform.rotation);
