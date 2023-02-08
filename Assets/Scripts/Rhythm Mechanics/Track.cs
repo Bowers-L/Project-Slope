@@ -78,7 +78,7 @@ public class Track : Singleton<Track>
             {
                 if (!_activeNoteSet.Contains(_chart.notes[i]) && ShouldSpawnNote(_chart.notes[i]))
                 {
-                    Debug.Log($"SPAWNING NOTE: {_chart.notes[i].moment}");
+                    //Debug.Log($"SPAWNING NOTE: {_chart.notes[i].moment}");
                     SpawnNote(_chart.notes[i]);
                 }
             }
