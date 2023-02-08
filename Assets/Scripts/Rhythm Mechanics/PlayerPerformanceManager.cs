@@ -139,14 +139,13 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
 
     public void HandleNoteMissed(TrackNote note)
     {
+        Debug.Log($"MISSED NOTE: {note}");
         //Do VFX Things. Keep Track of Pass/Fail, etc.
         missedNotesInSection++;
         playerHealth--;
 
         //GameObject track = tracks[note.NoteData.pitch];
         GameObject fxInstance = Instantiate(missFXPrefab, note.transform.position, Track.Instance.transform.rotation);
-        Destroy(note.gameObject);
-
         Animator anim = fxInstance.GetComponent<Animator>();
         Destroy(fxInstance, anim.GetCurrentAnimatorStateInfo(0).length);
     }

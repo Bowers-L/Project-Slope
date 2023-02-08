@@ -28,8 +28,6 @@ public class Track : Singleton<Track>
     public GameObject BeatBar => beatBar;
 
     public List<TrackNote> ActiveNotes => _activeNoteList;
-
-    private int _nextNotePointer = 0;
     private List<TrackNote> _activeNoteList = new List<TrackNote>();
     private HashSet<NoteData> _activeNoteSet = new HashSet<NoteData>();
     private ChartData _chart;
@@ -80,9 +78,9 @@ public class Track : Singleton<Track>
             {
                 if (!_activeNoteSet.Contains(_chart.notes[i]) && ShouldSpawnNote(_chart.notes[i]))
                 {
-                    SpawnNote(_chart.notes[_nextNotePointer]);
+                    Debug.Log($"SPAWNING NOTE: {_chart.notes[i].moment}");
+                    SpawnNote(_chart.notes[i]);
                 }
-
             }
 
             //Check Despawning Notes
@@ -91,6 +89,7 @@ public class Track : Singleton<Track>
                 if (ShouldDespawnNote(_activeNoteList[i].NoteData))
                 {
                     DespawnNote(_activeNoteList[i]);
+                    _activeNoteSet.Remove(_activeNoteList[i].NoteData);
                     _activeNoteList.RemoveAt(i);
                     i--;
                 }
@@ -106,6 +105,11 @@ public class Track : Singleton<Track>
 
     private bool ShouldSpawnNote(NoteData note)
     {
+        if (note == null)
+        {
+            return false;
+        }
+
         int deltaCU = NoteMomentDeltaCU(note);
         bool upperBoundCheck = deltaCU <= SpawnMomentCU();
         bool lowerBoundCheck = deltaCU > DespawnMomentCU();
@@ -127,10 +131,9 @@ public class Track : Singleton<Track>
         if (!_isRewinding)
         {
             PlayerPerformanceManager.Instance.HandleNoteMissed(note);
-        } else
-        {
-            Destroy(note);
         }
+
+        Destroy(note.gameObject);
     }
 
     private void ClearTrackData()
@@ -149,7 +152,6 @@ public class Track : Singleton<Track>
         _chart = chart;
         _trackActive = true;
         _isRewinding = false;
-        _nextNotePointer = 0;
     }
 
     public int NoteMomentDeltaCU(NoteData note)
