@@ -6,14 +6,14 @@ using UnityEngine;
 public class ChartData : ScriptableObject
 {
 
-    public List<Note> notes;
+    public List<NoteData> notes;
     public float bpm;
     public int timeSignatureNum;   //Implied 4 in denominator
-    public int unitsPerBeat = Note.QUARTER; //Always 4 in time signature
+    public int unitsPerBeat = NoteData.QUARTER; //Always 4 in time signature
 
     public float firstBeatOffsetSeconds = 0f;
 
-    public ChartData(List<Note> notes, float bpm, int timeSignatureNum, int unitsPerBeat = Note.QUARTER)
+    public ChartData(List<NoteData> notes, float bpm, int timeSignatureNum, int unitsPerBeat = NoteData.QUARTER)
     {
         this.bpm = bpm;
         this.timeSignatureNum = timeSignatureNum;

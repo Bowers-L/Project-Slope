@@ -254,10 +254,11 @@ MonoBehaviour:
   noteXOffset: -1.8
   noteXSpacing: 1.2
   beatsPerTL: 3
-  despawnBeats: 0.25
+  despawnBeats: 0.5
   spawnBar: {fileID: 6872801363860332827}
   beatBar: {fileID: 6872801363696380793}
   notePrefab: {fileID: 6388998836435875635, guid: c80a2d1608e2be746a946f4131f51937, type: 3}
+  rewindTime: 3
 --- !u!1 &6872801364682925821
 GameObject:
   m_ObjectHideFlags: 0

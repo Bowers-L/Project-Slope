@@ -28,15 +28,20 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
 
     private HashSet<SpriteRenderer> flashing = new HashSet<SpriteRenderer>();
 
-    public void StartNewSection()
+    public delegate void OnLevelFailedDel(); 
+    public static event OnLevelFailedDel OnLevelFailed;
+
+    private void OnEnable()
     {
-        failed = false;
-        hitNotesInSection = 0;
-        missedNotesInSection = 0;
-        playerHealth = playerMaxHealthPerSection;
+        Conductor.OnPlay += OnConductorPlay;
     }
 
-    public void OnParticleSystemStopped()
+    private void OnDisable()
+    {
+        Conductor.OnPlay -= OnConductorPlay;
+    }
+
+    private void OnParticleSystemStopped()
     {
         failed = false;
         playerHealth = playerMaxHealthPerSection;
@@ -50,7 +55,7 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
             {
                 failed = true;
                 Debug.Log("You Failed n00b");
-                GameStateManager.Instance.RestartCurrentLevel();
+                GameStateManager.Instance.OnLevelFailed();
             }
 
             if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Alpha1))
@@ -78,6 +83,14 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
     public bool CheckFailure()
     {
         return playerHealth <= 0;
+    }
+
+    private void OnConductorPlay(ChartData chart)
+    {
+        failed = false;
+        hitNotesInSection = 0;
+        missedNotesInSection = 0;
+        playerHealth = playerMaxHealthPerSection;
     }
 
     private void HandlePlayedNote(int pitch)
@@ -130,8 +143,6 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
         missedNotesInSection++;
         playerHealth--;
 
-        Track.Instance.ActiveNotes.Remove(note);
-
         //GameObject track = tracks[note.NoteData.pitch];
         GameObject fxInstance = Instantiate(missFXPrefab, note.transform.position, Track.Instance.transform.rotation);
         Destroy(note.gameObject);
@@ -171,7 +182,7 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
         {
             if (pitch == note.NoteData.pitch)
             {
-                int noteMoment = Track.Instance.NoteMomentOnTrackCU(note.NoteData);
+                int noteMoment = Track.Instance.NoteMomentDeltaCU(note.NoteData);
 
                 int earlyTimingWindowCU = Conductor.Instance.BeatsToCU(earlyTimingWindowBeats);
                 int lateTimingWindowCU = Conductor.Instance.BeatsToCU(lateTimingWindowBeats);

@@ -1,5 +1,9 @@
 using MyBox;
+
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Track : Singleton<Track>
@@ -13,98 +17,186 @@ public class Track : Singleton<Track>
     [SerializeField] private GameObject beatBar;
     [SerializeField] private GameObject notePrefab;
 
+    [SerializeField, Tooltip("It's Rewind Time!")] private float rewindTime;
 
-    private Queue<Note> noteInstantiateQueue;
-    private List<TrackNote> activeNoteList;
+
+    //private Queue<NoteData> noteInstantiateQueue = new Queue<NoteData>();
 
     public float TrackLengthYDelta => spawnBar.transform.position.y - beatBar.transform.position.y;
     public float BeatsPerTL => beatsPerTL;
     public GameObject SpawnBar => spawnBar;
     public GameObject BeatBar => beatBar;
 
-    public List<TrackNote> ActiveNotes => activeNoteList;
+    public List<TrackNote> ActiveNotes => _activeNoteList;
 
-    private bool hasInit = false;
+    private int _nextNotePointer = 0;
+    private List<TrackNote> _activeNoteList = new List<TrackNote>();
+    private HashSet<NoteData> _activeNoteSet = new HashSet<NoteData>();
+    private ChartData _chart;
+    private bool _trackActive = false;
+    private bool _isRewinding = false;
+    private int _trackMoment;
+    private int _trackRewindLengthCU;
+
+    public int Direction => _isRewinding ? -1 : 1;
 
     private void Awake()
     {
-        InitializeSingleton();
-        hasInit = false;
+        InitializeSingleton(false);
+        _chart = null;
+        _trackActive = false;
+        _isRewinding = false;
+        _trackMoment = 0;
     }
 
-    private void Start()
+    private void OnEnable()
     {
+        Conductor.OnPlay += OnConductorPlay;
+    }
+
+    private void OnDisable()
+    {
+        Conductor.OnPlay -= OnConductorPlay;
     }
 
     private void Update()
     {   
-        if (hasInit)
+
+        if (_trackActive)
         {
-            Note noteData;
-            noteInstantiateQueue.TryPeek(out noteData);
-
-            //Once note's moment passes the spawn moment, spawn the note.
-            if (noteData != null && NoteMomentOnTrackCU(noteData) <= SpawnMomentCU())
+            //Update Moment
+            if (_isRewinding)
             {
-                //Spawn the Note!
-                GameObject noteObj = Instantiate(notePrefab, GetNotePos(noteData), transform.rotation);
-                TrackNote tNote = noteObj.GetComponent<TrackNote>();
-                tNote.NoteData = noteData;
-
-                activeNoteList.Add(tNote);
-                noteInstantiateQueue.Dequeue();
+                _trackMoment -= (int)(_trackRewindLengthCU/rewindTime * Time.deltaTime);
+                _trackMoment = Mathf.Max(_trackMoment, 0);
+            }
+            else
+            {
+                _trackMoment = Conductor.Instance.CurrMomentCU;
             }
 
-            if (activeNoteList.Count > 0)
+            //Check Spawning Notes
+            for (int i = 0; i < _chart.notes.Count; i++)
             {
-                //PLAYER MISSED THIS NOTE
-                Note closestNote = activeNoteList[0].NoteData;
-                if (NoteMomentOnTrackCU(closestNote) <= DespawnMomentCU())
+                if (!_activeNoteSet.Contains(_chart.notes[i]) && ShouldSpawnNote(_chart.notes[i]))
                 {
-                    PlayerPerformanceManager.Instance.HandleNoteMissed(activeNoteList[0]);
+                    SpawnNote(_chart.notes[_nextNotePointer]);
+                }
+
+            }
+
+            //Check Despawning Notes
+            for (int i = 0; i < _activeNoteList.Count; i++)
+            {
+                if (ShouldDespawnNote(_activeNoteList[i].NoteData))
+                {
+                    DespawnNote(_activeNoteList[i]);
+                    _activeNoteList.RemoveAt(i);
+                    i--;
                 }
             }
         }
     }
 
-    public void Init()
+    private bool ShouldDespawnNote(NoteData note)
     {
-        hasInit = true;
-        noteInstantiateQueue = new Queue<Note>();
-        activeNoteList = new List<TrackNote>();
+        int deltaCU = NoteMomentDeltaCU(note);
+        return deltaCU <= DespawnMomentCU() || deltaCU > SpawnMomentCU();
+    }
 
-        List<Note> notes = Conductor.Instance.Chart.notes;
-        for (int i = 0; i < notes.Count; i++)
+    private bool ShouldSpawnNote(NoteData note)
+    {
+        int deltaCU = NoteMomentDeltaCU(note);
+        bool upperBoundCheck = deltaCU <= SpawnMomentCU();
+        bool lowerBoundCheck = deltaCU > DespawnMomentCU();
+        return note != null && upperBoundCheck && lowerBoundCheck;
+    }
+
+    private void SpawnNote(NoteData noteData)
+    {
+        GameObject noteObj = Instantiate(notePrefab, GetNotePos(noteData), transform.rotation);
+        TrackNote tNote = noteObj.GetComponent<TrackNote>();
+        tNote.NoteData = noteData;
+
+        _activeNoteList.Add(tNote);
+        _activeNoteSet.Add(noteData);
+    }
+
+    private void DespawnNote(TrackNote note)
+    {
+        if (!_isRewinding)
         {
-            noteInstantiateQueue.Enqueue(notes[i]);
+            PlayerPerformanceManager.Instance.HandleNoteMissed(note);
+        } else
+        {
+            Destroy(note);
         }
     }
 
-    public int NoteMomentOnTrackCU(Note note)
+    private void ClearTrackData()
     {
-        return (int) (note.moment - Conductor.Instance.CurrMomentCU);
+        foreach (TrackNote n in _activeNoteList) {
+            Destroy(n.gameObject);
+        }
+        _activeNoteList.Clear();
+        _activeNoteSet.Clear();
     }
 
-    public Vector3 GetNotePos(Note note)
+    private void OnConductorPlay(ChartData chart)
     {
-        //Assumes center of note is 0, 0
-        float x = GetNoteXPos(note.pitch);
-        float y = GetNoteYPos(NoteMomentOnTrackCU(note));
+        ClearTrackData();
 
-        Vector3 localNotePos = new Vector3(x, y);
-        Vector3 globalNotePos = transform.TransformPoint(localNotePos);
-        return globalNotePos;
+        _chart = chart;
+        _trackActive = true;
+        _isRewinding = false;
+        _nextNotePointer = 0;
+    }
+
+    public int NoteMomentDeltaCU(NoteData note)
+    {
+        return (int) (note.moment - _trackMoment);
     }
 
     //The moment a note should spawn on the track
     public int SpawnMomentCU()
     {
-        return (int) (beatsPerTL * Conductor.Instance.Chart.unitsPerBeat);
+        return (int) (beatsPerTL * _chart.unitsPerBeat);
     }
 
     public int DespawnMomentCU()
     {
-        return (int) (-despawnBeats * Conductor.Instance.Chart.unitsPerBeat);
+        return (int) (-despawnBeats * _chart.unitsPerBeat);
+    }
+
+    public void Rewind(System.Action callback = null)
+    {
+        StartCoroutine(RewindCorout(callback));
+    }
+
+    private IEnumerator RewindCorout(System.Action callback = null)
+    {
+        _trackActive = true;
+        _isRewinding = true;
+        _trackRewindLengthCU = _trackMoment;
+
+        yield return new WaitUntil(() =>
+        {
+            return _trackMoment <= 0;
+        });
+
+        _isRewinding = false;
+        callback();
+    }
+
+    public Vector3 GetNotePos(NoteData note)
+    {
+        //Assumes center of note is 0, 0
+        float x = GetNoteXPos(note.pitch);
+        float y = GetNoteYPos(NoteMomentDeltaCU(note));
+
+        Vector3 localNotePos = new Vector3(x, y);
+        Vector3 globalNotePos = transform.TransformPoint(localNotePos);
+        return globalNotePos;
     }
 
     private float GetNoteXPos(int pitch)
@@ -115,7 +207,7 @@ public class Track : Singleton<Track>
     private float GetNoteYPos(int momentDiff)
     {
         float y = BeatBar.transform.position.y;
-        float trackLengthsFromBeatBar = (float) momentDiff / Conductor.Instance.Chart.unitsPerBeat / BeatsPerTL;
+        float trackLengthsFromBeatBar = (float) momentDiff / _chart.unitsPerBeat / BeatsPerTL;
         y += trackLengthsFromBeatBar * TrackLengthYDelta;
         return y;
     }
@@ -130,8 +222,6 @@ public class Track : Singleton<Track>
 
     private void OnDrawGizmosSelected()
     {
-
-
         for (int i = 0; i < 4; i++)
         {
             float x = GetNoteXPos(i);
@@ -159,5 +249,8 @@ public class Track : Singleton<Track>
                 GetNoteYPosBeat(-despawnBeats),
                 spawnBar.transform.position.z), 0.2f);
         }
+
+        Gizmos.color = Color.cyan;
+        //Gizmos.DrawSphere(new Vector3(BeatBar.transform.position.x, BeatBar.transform.position.y, BeatBar.transform.position.z), 1f);
     }
 }
