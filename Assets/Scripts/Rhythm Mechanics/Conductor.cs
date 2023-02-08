@@ -22,6 +22,8 @@ public class Conductor : MyBox.Singleton<Conductor>
 
     [SerializeField] private ChartData testChart;
     [SerializeField] private float delayPerFailAdjustment;
+    [SerializeField] private GameObject brainMeterObject;
+    Animator brainMeterAnimator;
 
     private float currMomentSeconds;    //How much time has elapsed in the song
     private bool isPaused;
@@ -61,6 +63,7 @@ public class Conductor : MyBox.Singleton<Conductor>
         fmodCore = FMODUnity.RuntimeManager.CoreSystem;
         fmodCore.getMasterChannelGroup(out masterChannel);
         fmodCore.getSoftwareFormat(out sampleRateHertz, out _, out _);
+        brainMeterAnimator = brainMeterObject.GetComponent<Animator>();
 
         if (testChart != null)
         {
@@ -91,6 +94,8 @@ public class Conductor : MyBox.Singleton<Conductor>
         startTime = GetCurrentTime();
         currMomentSeconds = -_currChart.firstBeatOffsetSeconds;
         isPaused = false;
+
+        brainMeterObject.SetActive(true);
 
         OnPlay?.Invoke(chart);
     }

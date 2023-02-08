@@ -23,6 +23,7 @@ public class DialogueTest : MonoBehaviour
     [SerializeField] GameObject char1;
     [SerializeField] GameObject char2;
     [SerializeField] Sprite[] emoteList;
+    [SerializeField] float delayPerMessage = 4f;
 
     DialogueRunner _dialogueRunner;
     InMemoryVariableStorage _inMemoryVariableStorage;
@@ -210,7 +211,7 @@ public class DialogueTest : MonoBehaviour
         ProcessDialogue();
 
         dialogueProgressTimer = Timer.Register(
-            duration: 4f,
+            duration: delayPerMessage,
             isLooped: true,
             onComplete: () => 
             {
