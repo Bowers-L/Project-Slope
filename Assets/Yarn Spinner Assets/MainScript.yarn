@@ -3,14 +3,14 @@ tags:
 ---
 Evan: (Oh, the music here is really nice! I feel like I can gather my thoughts if I vibe with the beat.) #boxtype:think #emotetype:evanhappy
 Evan: (Just gotta tap my fingers to it, like…\[1\], \[2\], \[3\], \[4\]...or maybe \[Z\], \[X\], \[C\], \[V\]?)
-Evan: (So, Vivian brought me out to a jazz bar today.) #emotetype:evanhappy
-Evan: (She’s been acting a little weird around me since last week, but I’m not really sure what’s wrong.) #emotetype:nervous
-Evan: (She keeps asking me whether I’ve forgotten something, but I’m pretty sure I haven’t missed anything...)
 ===
 
 title: Loop1
 tags:
 ---
+Evan: (So, Vivian brought me out to a jazz bar today.) #emotetype:evanhappy
+Evan: (She’s been acting a little weird around me since last week, but I’m not really sure what’s wrong.) #emotetype:nervous
+Evan: (She keeps asking me whether I’ve forgotten something, but I’m pretty sure I haven’t missed anything...)
 Evan: Hey, this is nice! What’s the occasion, Vivian? We haven’t been around here in forever. #boxtype:normal #emotetype:evanhappy
 Vivian: Yeah, I guess we haven’t. #boxtype:sad #emotetype:pouty
 Evan: Okay... What’s up? You’ve been acting weird since last week, what happened? #boxtype:normal #emotetype:nervous
@@ -58,8 +58,7 @@ Vivian: Nice try. I’ll give you two more guesses. #boxtype:normal #emotetype:p
 title: Strike2
 tags:
 ---
-Evan: It’s uhh, ehh, umm, hhhh...Christmas! #boxtype:normal #emotetype:nervous
-Evan: Easter! Valentine’s Day! Boxing Day! National Forgive Your Sweet Baby Girl For Having A Bad Memory Day! #boxtype:yell #emotetype:idiot
+Evan: It’s uhh, ehh, umm, hhhh...Christmas! Easter! Valentine’s Day! Boxing Day! National Forgive Your Sweet Baby Girl For Having A Bad Memory Day! #boxtype:yell #emotetype:idiot
 Vivian: I’m...going to count that all as one guess, and give you one last try. Go on. #boxtype:normal #emotetype:pouty
 Evan: (Ahhhh, I’ve really ruffled her feathers!! Think, Evan, think!) #boxtype:think #emotetype:nervous
 ===

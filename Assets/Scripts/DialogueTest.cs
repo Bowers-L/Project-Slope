@@ -37,6 +37,7 @@ public class DialogueTest : MonoBehaviour
     SpriteRenderer char2sprite;
     Animator char1anim;
     Animator char2anim;
+    RectTransform dialogueBoxTransform;
     string emoteType = "default";
 
     //Timer dialogueProgressCooldownTimer;
@@ -47,6 +48,8 @@ public class DialogueTest : MonoBehaviour
 
     LocalizedLine currentLine;
 
+    bool endOfNode;
+
     void Start()
     {
         _dialogueRunner = DialogueRunnerObject.GetComponent<DialogueRunner>();
@@ -55,6 +58,7 @@ public class DialogueTest : MonoBehaviour
         _yarnProject = _dialogueRunner.yarnProject;
 
         _dialogueBoxAnimator = DialogueBox.GetComponent<Animator>();
+        dialogueBoxTransform = DialogueBox.GetComponent<RectTransform>();
 
         char1anim = char1.GetComponent<Animator>();
         char2anim = char2.GetComponent<Animator>();
@@ -105,7 +109,7 @@ public class DialogueTest : MonoBehaviour
     {
         currentLine = _lineView.GetCurrentLine();
 
-        FlipDialogueBox();
+        ProcessSpeaker();
         
         if (currentLine.Metadata != null) {
             foreach (string s in currentLine.Metadata)
@@ -124,18 +128,29 @@ public class DialogueTest : MonoBehaviour
         }
     }
 
-    void FlipDialogueBox()
+    void ProcessSpeaker()
     {
         if (currentLine.CharacterName != null && currentLine.CharacterName == name1)
         {
             DialogueBox.transform.rotation = Quaternion.Euler(0, 0, 0);
             DialogueTextObject.transform.rotation = Quaternion.Euler(0, 0, 0);
             NameTextObject.transform.rotation = Quaternion.Euler(0, 0, 0);
-        } else if (currentLine.CharacterName == name2)
+
+            dialogueBoxTransform.localPosition = new Vector3(-80, dialogueBoxTransform.localPosition.y, dialogueBoxTransform.localPosition.z);
+
+            char1sprite.color = new Color(1, 1, 1, 1);
+            char2sprite.color = new Color(0.6f, 0.6f, 0.6f, 1);
+        } 
+        else if (currentLine.CharacterName == name2)
         {
             DialogueBox.transform.rotation = Quaternion.Euler(0, 180, 0);
             DialogueTextObject.transform.rotation = Quaternion.Euler(0, 0, 0);
             NameTextObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+
+            dialogueBoxTransform.localPosition = new Vector3(80, dialogueBoxTransform.localPosition.y, dialogueBoxTransform.localPosition.z);
+
+            char1sprite.color = new Color(0.6f, 0.6f, 0.6f, 1);
+            char2sprite.color = new Color(1, 1, 1, 1);
         }
     }
 
@@ -188,6 +203,7 @@ public class DialogueTest : MonoBehaviour
 
     public void StartNode(string node = "Intro")
     {
+        endOfNode = false;
         _lineView.canvasGroupEnabled = true;
         _dialogueRunner.StartDialogue(node);
         _dialogueBoxAnimator.SetTrigger("bounce");
@@ -206,9 +222,18 @@ public class DialogueTest : MonoBehaviour
     public void EndNode()
     {
         Debug.Log("ENDED NODE");
+        endOfNode = true;
+        if (dialogueProgressTimer != null) dialogueProgressTimer.Cancel();
         endNodeSignal.Invoke();
         _lineView.canvasGroupEnabled = false;
         _lineView.SetCanvasAlpha(0);
-        if (dialogueProgressTimer != null) dialogueProgressTimer.Cancel();
+
+        //EndNode event calls after processing the next line, which appears to be whatever the last line is.
+        //Can't find another way to figure out when it's the last line of a node, so here's a jank solution for this race condition:
+        Timer.Register(0.06f, () => {
+            char1sprite.color = new Color(1, 1, 1, 1);
+            char2sprite.color = new Color(1, 1, 1, 1);
+            dialogueBoxTransform.localPosition = new Vector3(0, dialogueBoxTransform.localPosition.y, dialogueBoxTransform.localPosition.z);
+        });
     }
 }
