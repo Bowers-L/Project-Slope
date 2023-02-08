@@ -19,7 +19,6 @@ public class DialogueTest : MonoBehaviour
     [SerializeField] GameObject DialogueView;
     [SerializeField] GameObject DialogueBox;
     [SerializeField] GameObject DialogueTextObject;
-    [SerializeField] GameObject NameTextObject;
     [SerializeField] GameObject char1;
     [SerializeField] GameObject char2;
     [SerializeField] Sprite[] emoteList;
@@ -28,6 +27,7 @@ public class DialogueTest : MonoBehaviour
     DialogueRunner _dialogueRunner;
     InMemoryVariableStorage _inMemoryVariableStorage;
     CustomDialogueView _lineView;
+    TextMeshProUGUI _text;
     YarnProject _yarnProject;
     Animator _dialogueBoxAnimator;
 
@@ -57,6 +57,7 @@ public class DialogueTest : MonoBehaviour
         _inMemoryVariableStorage = DialogueRunnerObject.GetComponent<InMemoryVariableStorage>();
         _lineView = DialogueView.GetComponent<CustomDialogueView>();
         _yarnProject = _dialogueRunner.yarnProject;
+        _text = DialogueTextObject.GetComponent<TextMeshProUGUI>();
 
         _dialogueBoxAnimator = DialogueBox.GetComponent<Animator>();
         dialogueBoxTransform = DialogueBox.GetComponent<RectTransform>();
@@ -109,6 +110,11 @@ public class DialogueTest : MonoBehaviour
     void ProcessDialogue()
     {
         currentLine = _lineView.GetCurrentLine();
+        int fontSizeValue = 63 - (currentLine.RawText.Length/4);
+        Debug.Log("Font Size: " + fontSizeValue);
+        if (fontSizeValue > 50) fontSizeValue = 50;
+        if (fontSizeValue < 36) fontSizeValue = 36;
+        _text.fontSize = fontSizeValue;
 
         ProcessSpeaker();
         
@@ -135,7 +141,6 @@ public class DialogueTest : MonoBehaviour
         {
             DialogueBox.transform.rotation = Quaternion.Euler(0, 0, 0);
             DialogueTextObject.transform.rotation = Quaternion.Euler(0, 0, 0);
-            NameTextObject.transform.rotation = Quaternion.Euler(0, 0, 0);
 
             dialogueBoxTransform.localPosition = new Vector3(-80, dialogueBoxTransform.localPosition.y, dialogueBoxTransform.localPosition.z);
 
@@ -146,7 +151,6 @@ public class DialogueTest : MonoBehaviour
         {
             DialogueBox.transform.rotation = Quaternion.Euler(0, 180, 0);
             DialogueTextObject.transform.rotation = Quaternion.Euler(0, 0, 0);
-            NameTextObject.transform.rotation = Quaternion.Euler(0, 0, 0);
 
             dialogueBoxTransform.localPosition = new Vector3(80, dialogueBoxTransform.localPosition.y, dialogueBoxTransform.localPosition.z);
 
