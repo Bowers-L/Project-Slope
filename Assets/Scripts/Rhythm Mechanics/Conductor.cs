@@ -1,6 +1,7 @@
 using MyBox;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /*IMPORTANT TERMINOLOGY:
  * -I'm using the term "moment" instead of "position" to represent a note's placement in the track and how much 
@@ -10,7 +11,7 @@ using UnityEngine;
  * Chart Units (or CU) is used to represent the moment of a note. 192 CU = 1 Quater Note Beat.
  */
 
-public class Conductor : CustomSingleton<Conductor>
+public class Conductor : MyBox.Singleton<Conductor>
 {
     public enum TimingMethod
     {
@@ -54,8 +55,10 @@ public class Conductor : CustomSingleton<Conductor>
 
     private void Awake()
     {
-        InitializeSingleton();
+        InitializeSingleton(false);
         isPaused = true;
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void Start()
@@ -63,12 +66,17 @@ public class Conductor : CustomSingleton<Conductor>
         fmodCore = FMODUnity.RuntimeManager.CoreSystem;
         fmodCore.getMasterChannelGroup(out masterChannel);
         fmodCore.getSoftwareFormat(out sampleRateHertz, out _, out _);
-        brainMeterAnimator = brainMeterObject.GetComponent<Animator>();
 
         if (testChart != null)
         {
             //Play(testChart); //FOR TESTING (call from Game Manager Instead.)
         }
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        brainMeterObject = GameObject.Find("Track and buffer").transform.GetChild(0).gameObject;
+        brainMeterAnimator = brainMeterObject.GetComponent<Animator>();
     }
 
     private void Update()
@@ -83,6 +91,9 @@ public class Conductor : CustomSingleton<Conductor>
 
     public void Play(ChartData chart)
     {
+        brainMeterObject = GameObject.Find("Track and buffer").transform.GetChild(0).gameObject;
+        brainMeterAnimator = brainMeterObject.GetComponent<Animator>();
+        
         Debug.Log($"Starting the Chart {chart.name}");
         _currChart = chart;
 

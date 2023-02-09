@@ -111,7 +111,7 @@ public class DialogueTest : MonoBehaviour
     {
         currentLine = _lineView.GetCurrentLine();
         int fontSizeValue = 63 - (currentLine.RawText.Length/4);
-        Debug.Log("Font Size: " + fontSizeValue);
+        //Debug.Log("Font Size: " + fontSizeValue);
         if (fontSizeValue > 50) fontSizeValue = 50;
         if (fontSizeValue < 36) fontSizeValue = 36;
         _text.fontSize = fontSizeValue;
