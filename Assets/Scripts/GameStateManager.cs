@@ -6,6 +6,7 @@ using FMOD.Studio;
 using Unity.VisualScripting;
 using System;
 using UnityEngine.Events;
+using UnityTimer;
 
 /**
  * This class is the main entry point into the game. 
@@ -55,11 +56,14 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
 
     public static UnityEvent beatEvent = new UnityEvent();
 
+    private UnityTimer.Timer endingTimer;
+
     void Awake() {
         InitializeSingleton();
 
         gameState = GameState.None;
         _inFailureState = false;
+        UnityTimer.Timer.CancelAllRegisteredTimers();
     }
 
     private void OnEnable()
@@ -95,7 +99,8 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
 
     public void StartFMODEvent()
     {
-        musicEmitter.Play();
+        //musicEmitter.Play();
+        EndingSequence();
         _labelsPassed.Clear();
         _musicEventInstance = musicEmitter.EventInstance;
         _musicEventInstance.setCallback(_musicFmodCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
@@ -143,6 +148,9 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
     }
 
     [SerializeField] private TrackMover credits;
+    [SerializeField] private GameObject endingArt;
+    [SerializeField] private GameObject dimmer1;
+    [SerializeField] private GameObject dimmer2;
 
     /**
      * CALLED BY FMOD reaching the end of a section.
@@ -203,7 +211,6 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
                 _dialogueManager.StartNode("Post3");
                 break;
             case GameState.Ending:
-                credits.PutOnScreen();
                 break;
             default:
                 Debug.LogError("GameStateManager.UpdateGameState(): Could not find Gamestate.");
@@ -220,6 +227,7 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
             musicEmitter.Play();
             _musicEventInstance = musicEmitter.EventInstance;
             _musicEventInstance.setTimelinePosition(_currMarker == null ? 0 : _currMarker.Value.position);
+            Debug.LogError("Restarting at time: " + _currMarker.Value.position);
             _musicEventInstance.setCallback(_musicFmodCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
             ambienceEmitter.Stop();
             UpdateGameState(0);
@@ -278,6 +286,10 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
         {
             RestartLevel();
         }
+        if (gameState == GameState.Ending)
+        {
+            EndingSequence();
+        }
     }
 
     public void RestartLevel()
@@ -297,4 +309,36 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
         GameObject.FindObjectOfType<AppManager>().ReloadMainScene();
     }
 
+    private void EndingSequence()
+    {
+        StartCoroutine(DimOverTime(0.9f));
+        if (endingTimer == null) endingTimer = UnityTimer.Timer.Register(1.5f, () => {
+            endingArt.SetActive(true);
+            credits.PutOnScreen();
+            UnityTimer.Timer.CancelAllRegisteredTimers();
+        });
+    }
+
+    public void DimOverTimePublic(float value, bool moveToFront = false, int targetDimmer = 0)
+    {
+        StartCoroutine(DimOverTime(value, moveToFront, targetDimmer));
+    }
+
+    private IEnumerator DimOverTime(float targetValue, bool moveToFront = false, int targetDimmer = 0)
+    {
+        SpriteRenderer dimmerSR = null;
+        if (targetDimmer == 0)
+        {
+            dimmerSR = dimmer1.GetComponent<SpriteRenderer>();
+        } else if (targetDimmer == 1)
+        {
+            dimmerSR = dimmer2.GetComponent<SpriteRenderer>();
+        }
+        while (dimmerSR.color.a < targetValue)
+        {
+            dimmerSR.color = new Color (0, 0, 0, dimmerSR.color.a + 0.02f);
+            yield return new WaitForSeconds(0.016f);
+        }
+        yield return null;
+    }
 }
