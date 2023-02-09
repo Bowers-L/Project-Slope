@@ -106,7 +106,6 @@ public class GameStateManager : CustomSingleton<GameStateManager>
         _musicFmodCallback = new FMOD.Studio.EVENT_CALLBACK(FMODEventCallback);
 
         LoadDependencies();
-        _dialogueManager.endNodeSignal.AddListener(OnDialogueEnd);
     }
 
     public void LoadDependencies()
@@ -114,12 +113,14 @@ public class GameStateManager : CustomSingleton<GameStateManager>
         //extremely jank solution for reattaching dependencies
         dialogueManagerObj = GameObject.Find("DialogueScene").transform.GetChild(1).gameObject;
         _dialogueManager = dialogueManagerObj.GetComponent<DialogueTest>();
+        _dialogueManager.endNodeSignal.AddListener(OnDialogueEnd);
         credits = GameObject.Find("Credits").GetComponent<TrackMover>();
         GameObject track = GameObject.Find("Track and buffer");
         endingArt = track.transform.GetChild(3).gameObject;
         endingArt.SetActive(false);
         dimmer1 = track.transform.GetChild(4).gameObject;
         dimmer2 = track.transform.GetChild(5).gameObject;
+        _failureState = FailureState.None;
     }
 
     public void StartFMODEvent()
@@ -289,8 +290,6 @@ public class GameStateManager : CustomSingleton<GameStateManager>
                     break;
                 case 3:
                     _dialogueManager.StartNode("Strike3");
-                    //gameover logic, return to start of game instead of restarting
-                    GameOver();
                     break;
                 default:
                     break;
@@ -299,11 +298,11 @@ public class GameStateManager : CustomSingleton<GameStateManager>
 
         Conductor.Instance.Pause();
 
-        //Update FMOD timeline position
+        //Stop Music
         sfxEmitter.Play();
         musicEmitter.SetParameter("NumFails", NumFails);
         musicEmitter.Stop();
-        _failureState = FailureState.Failed;
+        _failureState = NumFails >= 3 ? FailureState.GameOver : FailureState.Failed;
 
         //ambienceEmitter.Play();
 
@@ -354,7 +353,7 @@ public class GameStateManager : CustomSingleton<GameStateManager>
         //yield return new WaitForSeconds(3);
         //Debug.Log("test");
         StartCoroutine(DimOverTime(1, false, 1));
-        UnityTimer.Timer.Register(2.5f, () => GameObject.FindObjectOfType<AppManager>().ReloadMainScene());
+        UnityTimer.Timer.Register(2f, () => GameObject.FindObjectOfType<AppManager>().ReloadMainScene());
     }
 
     private void EndingSequence()
