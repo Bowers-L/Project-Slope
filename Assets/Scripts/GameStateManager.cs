@@ -272,8 +272,6 @@ public class GameStateManager : CustomSingleton<GameStateManager>
                 break;
             case 3:
                 _dialogueManager.StartNode("Strike3");
-                //gameover logic, return to start of game instead of restarting
-                StartCoroutine(GameOver());
                 break;
             default:
                 break;
@@ -293,6 +291,11 @@ public class GameStateManager : CustomSingleton<GameStateManager>
     private void OnDialogueEnd()
     {
         //THIS IS SCUFFED PLZ FIX
+        if (NumFails >= 3)
+        {
+            StartCoroutine(DimOverTime(1, false, 1));
+            UnityTimer.Timer.Register(2f, () => GameObject.FindObjectOfType<AppManager>().ReloadMainScene());
+        }
         if (_inFailureState)
         {
             RestartLevel();
