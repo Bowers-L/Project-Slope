@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
 {
@@ -33,6 +34,17 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
 
     public delegate void OnLevelFailedDel(); 
     public static event OnLevelFailedDel OnLevelFailed;
+
+    private void Start()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        brainMeterObject = GameObject.Find("Track and buffer").transform.GetChild(0).gameObject;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        brainMeterObject = GameObject.Find("Track and buffer").transform.GetChild(0).gameObject;
+    }
 
     private void OnEnable()
     {

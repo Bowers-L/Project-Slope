@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 using System;
 using UnityEngine.Events;
 using UnityTimer;
+using UnityEngine.SceneManagement;
 
 /**
  * This class is the main entry point into the game. 
@@ -16,7 +17,7 @@ using UnityTimer;
  *
  * It also handles restarting the conductor / fmod upon a level failure. 
  */
-public class GameStateManager : MyBox.Singleton<GameStateManager>
+public class GameStateManager : CustomSingleton<GameStateManager>
 {
     public enum GameState
     {
@@ -58,6 +59,11 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
     public static UnityEvent alternateBeatEvent = new UnityEvent();
 
     private UnityTimer.Timer endingTimer;
+    
+    [SerializeField] private TrackMover credits;
+    [SerializeField] private GameObject endingArt;
+    [SerializeField] private GameObject dimmer1;
+    [SerializeField] private GameObject dimmer2;
 
     void Awake() {
         InitializeSingleton();
@@ -65,6 +71,7 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
         gameState = GameState.None;
         _inFailureState = false;
         UnityTimer.Timer.CancelAllRegisteredTimers();
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnEnable()
@@ -90,17 +97,26 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
 
         _musicFmodCallback = new FMOD.Studio.EVENT_CALLBACK(FMODEventCallback);
 
-        //_musicEventInstance.start();
-
         _dialogueManager = dialogueManagerObj.GetComponent<DialogueTest>();
         _dialogueManager.endNodeSignal.AddListener(OnDialogueEnd);
+    }
 
-        //StartFMODEvent();
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        //extremely jank solution for reattaching dependencies
+        dialogueManagerObj = GameObject.Find("DialogueScene").transform.GetChild(1).gameObject;
+        credits = GameObject.Find("Credits").GetComponent<TrackMover>();
+        GameObject track = GameObject.Find("Track and buffer");
+        endingArt = track.transform.GetChild(3).gameObject;
+        endingArt.SetActive(false);
+        dimmer1 = track.transform.GetChild(4).gameObject;
+        dimmer2 = track.transform.GetChild(5).gameObject;
     }
 
     public void StartFMODEvent()
     {
-        musicEmitter.Play();
+        //musicEmitter.Play();
+        EndingSequence();
         _labelsPassed.Clear();
         _musicEventInstance = musicEmitter.EventInstance;
         _musicEventInstance.setCallback(_musicFmodCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
@@ -147,11 +163,6 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
         //    UpdateGameState();
         //}
     }
-
-    [SerializeField] private TrackMover credits;
-    [SerializeField] private GameObject endingArt;
-    [SerializeField] private GameObject dimmer1;
-    [SerializeField] private GameObject dimmer2;
 
     /**
      * CALLED BY FMOD reaching the end of a section.
@@ -313,7 +324,7 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
     private void EndingSequence()
     {
         StartCoroutine(DimOverTime(0.9f));
-        if (endingTimer == null) endingTimer = UnityTimer.Timer.Register(1.5f, () => {
+        endingTimer = UnityTimer.Timer.Register(1.5f, () => {
             endingArt.SetActive(true);
             credits.PutOnScreen();
             UnityTimer.Timer.CancelAllRegisteredTimers();
