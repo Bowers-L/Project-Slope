@@ -78,7 +78,6 @@ public class GameStateManager : CustomSingleton<GameStateManager>
         gameState = GameState.None;
         _failureState = FailureState.None;
         UnityTimer.Timer.CancelAllRegisteredTimers();
-        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnEnable()
@@ -104,14 +103,15 @@ public class GameStateManager : CustomSingleton<GameStateManager>
 
         _musicFmodCallback = new FMOD.Studio.EVENT_CALLBACK(FMODEventCallback);
 
-        _dialogueManager = dialogueManagerObj.GetComponent<DialogueTest>();
+        LoadDependencies();
         _dialogueManager.endNodeSignal.AddListener(OnDialogueEnd);
     }
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    public void LoadDependencies()
     {
         //extremely jank solution for reattaching dependencies
         dialogueManagerObj = GameObject.Find("DialogueScene").transform.GetChild(1).gameObject;
+        _dialogueManager = dialogueManagerObj.GetComponent<DialogueTest>();
         credits = GameObject.Find("Credits").GetComponent<TrackMover>();
         GameObject track = GameObject.Find("Track and buffer");
         endingArt = track.transform.GetChild(3).gameObject;
@@ -123,7 +123,6 @@ public class GameStateManager : CustomSingleton<GameStateManager>
     public void StartFMODEvent()
     {
         musicEmitter.Play();
-        //EndingSequence();
         _labelsPassed.Clear();
         _musicEventInstance = musicEmitter.EventInstance;
         _musicEventInstance.setCallback(_musicFmodCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER);

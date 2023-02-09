@@ -2,10 +2,11 @@ using MyBox;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
+public class PlayerPerformanceManager : CustomSingleton<PlayerPerformanceManager>
 {
     [SerializeField] private float flashSpeed;
     [SerializeField] private float earlyTimingWindowBeats;
@@ -42,18 +43,21 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        FindDependencies();
+
     }
 
     void FindDependencies()
     {
+        tracks.Clear();
+        Debug.Log("FindDependencies() was called");
         GameObject track = GameObject.Find("Track and buffer");
         brainMeterObject = track.transform.GetChild(0).gameObject;
         brainMeterAnimator = brainMeterObject.GetComponent<Animator>();
-        Transform beatBar = track.transform.GetChild(0);
+        GameObject beatBar = track.transform.GetChild(1).GetChild(1).gameObject;
+        Debug.Log(beatBar.name);
         foreach (Transform t in beatBar.GetComponentsInChildren<Transform>())
         {
-            if (t.gameObject.name.StartsWith("Track"))
+            if (t.gameObject.name.StartsWith("Track") && tracks.Count < 4)
                 tracks.Add(t.gameObject);
         }
     }
@@ -61,7 +65,6 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
     private void OnEnable()
     {
         Conductor.OnPlay += OnConductorPlay;
-        FindDependencies();
     }
 
     private void OnDisable()
@@ -116,7 +119,6 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
     private void OnConductorPlay(ChartData chart)
     {
         FindDependencies();
-
         failed = false;
         hitNotesInSection = 0;
         missedNotesInSection = 0;

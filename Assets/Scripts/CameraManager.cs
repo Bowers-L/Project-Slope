@@ -19,6 +19,7 @@ public class CameraManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameStateManager.Instance.LoadDependencies();
         leftNearCam.SetActive(false);
         leftMidCam.SetActive(false);
         rightNearCam.SetActive(false);
