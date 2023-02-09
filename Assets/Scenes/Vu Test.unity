@@ -224,20 +224,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4583963617398066781, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
       propertyPath: tracks.Array.size
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4583963617398066781, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
       propertyPath: tracks.Array.data[0]
       value: 
-      objectReference: {fileID: 1406337960}
+      objectReference: {fileID: 958595180}
     - target: {fileID: 4583963617398066781, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
       propertyPath: tracks.Array.data[1]
       value: 
-      objectReference: {fileID: 356507047}
+      objectReference: {fileID: 958595180}
     - target: {fileID: 4583963617398066781, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
       propertyPath: tracks.Array.data[2]
       value: 
-      objectReference: {fileID: 643232362}
+      objectReference: {fileID: 958595180}
     - target: {fileID: 4583963617398066781, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
       propertyPath: tracks.Array.data[3]
       value: 
@@ -1088,11 +1088,6 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 260541446}
---- !u!1 &356507047 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 561631613928716567, guid: 68f361ecc937f6f4daf8f0d3d4b41503, type: 3}
-  m_PrefabInstance: {fileID: 1740023465}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &381676860 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4658688304543225487, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
@@ -1616,11 +1611,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 485346086}
   m_CullTransparentMesh: 1
---- !u!1 &643232362 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 561631615332716966, guid: 68f361ecc937f6f4daf8f0d3d4b41503, type: 3}
-  m_PrefabInstance: {fileID: 1740023465}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &647030017
 GameObject:
   m_ObjectHideFlags: 0
@@ -3141,11 +3131,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   beatCap: 2
   offset: 0.16
---- !u!1 &1406337960 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 561631615348404081, guid: 68f361ecc937f6f4daf8f0d3d4b41503, type: 3}
-  m_PrefabInstance: {fileID: 1740023465}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1410272976
 GameObject:
   m_ObjectHideFlags: 0
