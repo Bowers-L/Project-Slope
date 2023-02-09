@@ -97,7 +97,6 @@ public class GameStateManager : CustomSingleton<GameStateManager>
         _musicFmodCallback = new FMOD.Studio.EVENT_CALLBACK(FMODEventCallback);
 
         LoadDependencies();
-        _dialogueManager.endNodeSignal.AddListener(OnDialogueEnd);
     }
 
     public void LoadDependencies()
@@ -105,12 +104,14 @@ public class GameStateManager : CustomSingleton<GameStateManager>
         //extremely jank solution for reattaching dependencies
         dialogueManagerObj = GameObject.Find("DialogueScene").transform.GetChild(1).gameObject;
         _dialogueManager = dialogueManagerObj.GetComponent<DialogueTest>();
+        _dialogueManager.endNodeSignal.AddListener(OnDialogueEnd);
         credits = GameObject.Find("Credits").GetComponent<TrackMover>();
         GameObject track = GameObject.Find("Track and buffer");
         endingArt = track.transform.GetChild(3).gameObject;
         endingArt.SetActive(false);
         dimmer1 = track.transform.GetChild(4).gameObject;
         dimmer2 = track.transform.GetChild(5).gameObject;
+        _inFailureState = false;
     }
 
     public void StartFMODEvent()
@@ -272,8 +273,6 @@ public class GameStateManager : CustomSingleton<GameStateManager>
                 break;
             case 3:
                 _dialogueManager.StartNode("Strike3");
-                //gameover logic, return to start of game instead of restarting
-                StartCoroutine(GameOver());
                 break;
             default:
                 break;
@@ -293,6 +292,11 @@ public class GameStateManager : CustomSingleton<GameStateManager>
     private void OnDialogueEnd()
     {
         //THIS IS SCUFFED PLZ FIX
+        if (NumFails >= 3)
+        {
+            StartCoroutine(DimOverTime(1, false, 1));
+            UnityTimer.Timer.Register(2f, () => GameObject.FindObjectOfType<AppManager>().ReloadMainScene());
+        }
         if (_inFailureState)
         {
             RestartLevel();
