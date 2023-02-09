@@ -218,7 +218,9 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
         if (!musicEmitter.IsPlaying())
         {
             musicEmitter.Play();
-            musicEmitter.EventInstance.setTimelinePosition(_currMarker == null ? 0 : _currMarker.Value.position);
+            _musicEventInstance = musicEmitter.EventInstance;
+            _musicEventInstance.setTimelinePosition(_currMarker == null ? 0 : _currMarker.Value.position);
+            _musicEventInstance.setCallback(_musicFmodCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
             ambienceEmitter.Stop();
             UpdateGameState(0);
         }
