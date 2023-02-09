@@ -32,6 +32,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Spread vines
+    second: {fileID: 2100000, guid: 0e4fe0f4bd6fb0a4d883bfb57a98432c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Tables
     second: {fileID: 2100000, guid: 28ac2c6e09ea0f24886e6aa93c6ba4a1, type: 2}
   - first:
