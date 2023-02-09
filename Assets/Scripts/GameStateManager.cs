@@ -116,7 +116,6 @@ public class GameStateManager : CustomSingleton<GameStateManager>
     public void StartFMODEvent()
     {
         musicEmitter.Play();
-        //EndingSequence();
         _labelsPassed.Clear();
         _musicEventInstance = musicEmitter.EventInstance;
         _musicEventInstance.setCallback(_musicFmodCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
