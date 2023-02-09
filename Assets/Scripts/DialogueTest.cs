@@ -139,23 +139,23 @@ public class DialogueTest : MonoBehaviour
     {
         if (currentLine.CharacterName != null && currentLine.CharacterName == name1)
         {
-            DialogueBox.transform.rotation = Quaternion.Euler(0, 0, 0);
-            DialogueTextObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+            if (DialogueBox != null) DialogueBox.transform.rotation = Quaternion.Euler(0, 0, 0);
+            if (DialogueBox != null) DialogueTextObject.transform.rotation = Quaternion.Euler(0, 0, 0);
 
-            dialogueBoxTransform.localPosition = new Vector3(-80, dialogueBoxTransform.localPosition.y, dialogueBoxTransform.localPosition.z);
+            if (DialogueBox != null) dialogueBoxTransform.localPosition = new Vector3(-80, dialogueBoxTransform.localPosition.y, dialogueBoxTransform.localPosition.z);
 
-            char1sprite.color = new Color(1, 1, 1, 1);
-            char2sprite.color = new Color(0.6f, 0.6f, 0.6f, 1);
+            if (char1sprite != null) char1sprite.color = new Color(1, 1, 1, 1);
+            if (char2sprite != null) char2sprite.color = new Color(0.6f, 0.6f, 0.6f, 1);
         } 
         else if (currentLine.CharacterName == name2)
         {
-            DialogueBox.transform.rotation = Quaternion.Euler(0, 180, 0);
-            DialogueTextObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+            if (DialogueBox != null) DialogueBox.transform.rotation = Quaternion.Euler(0, 180, 0);
+            if (DialogueBox != null) DialogueTextObject.transform.rotation = Quaternion.Euler(0, 0, 0);
 
-            dialogueBoxTransform.localPosition = new Vector3(80, dialogueBoxTransform.localPosition.y, dialogueBoxTransform.localPosition.z);
+            if (DialogueBox != null) dialogueBoxTransform.localPosition = new Vector3(80, dialogueBoxTransform.localPosition.y, dialogueBoxTransform.localPosition.z);
 
-            char1sprite.color = new Color(0.6f, 0.6f, 0.6f, 1);
-            char2sprite.color = new Color(1, 1, 1, 1);
+            if (char1sprite != null) char1sprite.color = new Color(0.6f, 0.6f, 0.6f, 1);
+            if (char2sprite != null) char2sprite.color = new Color(1, 1, 1, 1);
         }
     }
 
@@ -184,22 +184,22 @@ public class DialogueTest : MonoBehaviour
     {
         switch(emoteType) {
             case "evanhappy":
-                char1sprite.sprite = emoteList[0];
+                if (char1sprite != null) char1sprite.sprite = emoteList[0];
                 break;
             case "vivianhappy":
-                char2sprite.sprite = emoteList[3];
+                if (char2sprite != null) char2sprite.sprite = emoteList[3];
                 break;
             case "pouty":
-                char2sprite.sprite = emoteList[5];
+                if (char2sprite != null) char2sprite.sprite = emoteList[5];
                 break;
             case "angry":
-                char2sprite.sprite = emoteList[4];
+                if (char2sprite != null) char2sprite.sprite = emoteList[4];
                 break;
             case "idiot":
-                char1sprite.sprite = emoteList[1];
+                if (char1sprite != null) char1sprite.sprite = emoteList[1];
                 break;
             case "nervous":
-                char1sprite.sprite = emoteList[2];
+                if (char1sprite != null) char1sprite.sprite = emoteList[2];
                 break;
             default:
                 break;
@@ -209,9 +209,9 @@ public class DialogueTest : MonoBehaviour
     public void StartNode(string node = "Intro")
     {
         endOfNode = false;
-        _lineView.canvasGroupEnabled = true;
-        _dialogueRunner.StartDialogue(node);
-        _dialogueBoxAnimator.SetTrigger("bounce");
+        if (_lineView != null) _lineView.canvasGroupEnabled = true;
+        if (_dialogueRunner != null) _dialogueRunner.StartDialogue(node);
+        if (_dialogueBoxAnimator != null) _dialogueBoxAnimator.SetTrigger("bounce");
         ProcessDialogue();
 
         dialogueProgressTimer = Timer.Register(
@@ -230,15 +230,15 @@ public class DialogueTest : MonoBehaviour
         endOfNode = true;
         if (dialogueProgressTimer != null) dialogueProgressTimer.Cancel();
         endNodeSignal.Invoke();
-        _lineView.canvasGroupEnabled = false;
-        _lineView.SetCanvasAlpha(0);
+        if (_lineView != null) _lineView.canvasGroupEnabled = false;
+        if (_lineView != null) _lineView.SetCanvasAlpha(0);
 
         //EndNode event calls after processing the next line, which appears to be whatever the last line is.
         //Can't find another way to figure out when it's the last line of a node, so here's a jank solution for this race condition:
         Timer.Register(0.06f, () => {
-            char1sprite.color = new Color(1, 1, 1, 1);
-            char2sprite.color = new Color(1, 1, 1, 1);
-            dialogueBoxTransform.localPosition = new Vector3(0, dialogueBoxTransform.localPosition.y, dialogueBoxTransform.localPosition.z);
+            if (char1sprite != null) char1sprite.color = new Color(1, 1, 1, 1);
+            if (char2sprite != null) char2sprite.color = new Color(1, 1, 1, 1);
+            if (dialogueBoxTransform != null) dialogueBoxTransform.localPosition = new Vector3(0, dialogueBoxTransform.localPosition.y, dialogueBoxTransform.localPosition.z);
         });
     }
 }

@@ -59,6 +59,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  brainMeterObject: {fileID: 0}
 --- !u!114 &4583963617398066780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,6 +81,8 @@ MonoBehaviour:
   NumFails: 0
   dialogueManagerObj: {fileID: 4658688304543225487}
   credits: {fileID: 0}
+  endingArt: {fileID: 0}
+  dimmer: {fileID: 0}
 --- !u!114 &4583963617398066771
 MonoBehaviour:
   m_ObjectHideFlags: 0

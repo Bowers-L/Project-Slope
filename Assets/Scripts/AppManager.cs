@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityTimer;
 
 public class AppManager : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class AppManager : MonoBehaviour
     }
 
     public void ReloadMainScene() {
+        Timer.CancelAllRegisteredTimers();
         SceneManager.LoadScene(0);
     }
 }
