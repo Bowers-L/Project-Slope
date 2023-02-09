@@ -6,7 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class Track : Singleton<Track>
+public class Track : CustomSingleton<Track>
 {
     [SerializeField] private float noteXOffset;
     [SerializeField] private float noteXSpacing;
