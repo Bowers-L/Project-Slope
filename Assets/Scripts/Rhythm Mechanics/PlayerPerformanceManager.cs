@@ -48,6 +48,7 @@ public class PlayerPerformanceManager : CustomSingleton<PlayerPerformanceManager
 
     void FindDependencies()
     {
+        tracks.Clear();
         Debug.Log("FindDependencies() was called");
         GameObject track = GameObject.Find("Track and buffer");
         brainMeterObject = track.transform.GetChild(0).gameObject;
