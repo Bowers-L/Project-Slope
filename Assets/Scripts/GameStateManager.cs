@@ -55,6 +55,7 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
     private FMODUnity.StudioEventEmitter ambienceEmitter;
 
     public static UnityEvent beatEvent = new UnityEvent();
+    public static UnityEvent alternateBeatEvent = new UnityEvent();
 
     private UnityTimer.Timer endingTimer;
 
@@ -99,11 +100,11 @@ public class GameStateManager : MyBox.Singleton<GameStateManager>
 
     public void StartFMODEvent()
     {
-        //musicEmitter.Play();
-        EndingSequence();
+        musicEmitter.Play();
         _labelsPassed.Clear();
         _musicEventInstance = musicEmitter.EventInstance;
         _musicEventInstance.setCallback(_musicFmodCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
+        alternateBeatEvent.Invoke();
     }
 
     [AOT.MonoPInvokeCallback(typeof(FMOD.Studio.EVENT_CALLBACK))]
