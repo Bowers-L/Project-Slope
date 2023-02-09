@@ -33,6 +33,13 @@ public class GameStateManager : CustomSingleton<GameStateManager>
         Ending
     }
 
+    public enum FailureState
+    {
+        None,
+        Failed,
+        GameOver,
+    }
+
     [SerializeField] [ReadOnly] private GameState gameState;
     public List<ChartData> charts;
     public int NumFails = 0;
@@ -41,13 +48,15 @@ public class GameStateManager : CustomSingleton<GameStateManager>
     //FMOD JANK
     private FMOD.Studio.EVENT_CALLBACK _musicFmodCallback;
     private FMOD.Studio.EventInstance _musicEventInstance;
+    public FMOD.Studio.EventInstance MusicEvent => _musicEventInstance;
+
     //FMOD.Studio.TIMELINE_MARKER_PROPERTIES? _prevMarker;
     private FMOD.Studio.TIMELINE_MARKER_PROPERTIES? _currMarker;
     private HashSet<string> _labelsPassed = new HashSet<string>();
     public HashSet<string> LabelsPassed => _labelsPassed;
 
-
-    private bool _inFailureState;
+    //State Bools (should use state machine but we don't have one of those)
+    private FailureState _failureState = FailureState.None;
 
     DialogueTest _dialogueManager;
 
@@ -66,10 +75,10 @@ public class GameStateManager : CustomSingleton<GameStateManager>
     [SerializeField] private GameObject dimmer2;
 
     void Awake() {
-        InitializeSingleton();
+        InitializeSingleton(false);
 
         gameState = GameState.None;
-        _inFailureState = false;
+        _failureState = FailureState.None;
         UnityTimer.Timer.CancelAllRegisteredTimers();
     }
 
@@ -111,7 +120,7 @@ public class GameStateManager : CustomSingleton<GameStateManager>
         endingArt.SetActive(false);
         dimmer1 = track.transform.GetChild(4).gameObject;
         dimmer2 = track.transform.GetChild(5).gameObject;
-        _inFailureState = false;
+        _failureState = FailureState.None;
     }
 
     public void StartFMODEvent()
@@ -232,18 +241,23 @@ public class GameStateManager : CustomSingleton<GameStateManager>
 
     void PlayFMODFromLastMarker()
     {
-        Debug.Log("GameStateManager.NextFmodSection(): Fired.");
+        Debug.Log("GameStateManager.PlayFMODFromLastMarker(): Fired.");
         // If in fail state, resume
-        if (!musicEmitter.IsPlaying())
-        {
-            musicEmitter.Play();
-            _musicEventInstance = musicEmitter.EventInstance;
-            _musicEventInstance.setTimelinePosition(_currMarker == null ? 0 : _currMarker.Value.position);
-            Debug.LogError("Restarting at time: " + _currMarker.Value.position);
-            _musicEventInstance.setCallback(_musicFmodCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
-            ambienceEmitter.Stop();
-            UpdateGameState(0);
-        }
+        //if (!musicEmitter.IsPlaying())
+        //{
+        musicEmitter.Play();
+        _musicEventInstance = musicEmitter.EventInstance;
+        _musicEventInstance.setTimelinePosition(GetCurrMarkerTimelinePos());
+        Debug.Log("Restarting at time: " + _currMarker.Value.position);
+        _musicEventInstance.setCallback(_musicFmodCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
+        ambienceEmitter.Stop();
+        UpdateGameState(0);
+        //}
+    }
+
+    private int GetCurrMarkerTimelinePos()
+    {
+        return _currMarker == null ? 0 : _currMarker.Value.position;
     }
 
     private void PlayChart(int index)
@@ -254,7 +268,7 @@ public class GameStateManager : CustomSingleton<GameStateManager>
             return;
         }
 
-        Conductor.Instance.Play(charts[index]);
+        Conductor.Instance.PlayFromTimelinePos(charts[index], GetCurrMarkerTimelinePos());
     }
 
     /**
@@ -263,65 +277,83 @@ public class GameStateManager : CustomSingleton<GameStateManager>
      */
     public void OnLevelFailed()
     {
-        NumFails++;
-        switch(NumFails){
-            case 1:
-                _dialogueManager.StartNode("Strike1");
-                break;
-            case 2:
-                _dialogueManager.StartNode("Strike2");
-                break;
-            case 3:
-                _dialogueManager.StartNode("Strike3");
-                break;
-            default:
-                break;
+        if (gameState != GameState.Prechorus)
+        {
+            NumFails++;
+            switch (NumFails)
+            {
+                case 1:
+                    _dialogueManager.StartNode("Strike1");
+                    break;
+                case 2:
+                    _dialogueManager.StartNode("Strike2");
+                    break;
+                case 3:
+                    _dialogueManager.StartNode("Strike3");
+                    break;
+                default:
+                    break;
+            }
         }
 
         Conductor.Instance.Pause();
 
-        //Update FMOD timeline position
+        //Stop Music
         sfxEmitter.Play();
         musicEmitter.SetParameter("NumFails", NumFails);
         musicEmitter.Stop();
-        _inFailureState = true;
+        _failureState = NumFails >= 3 ? FailureState.GameOver : FailureState.Failed;
 
         //ambienceEmitter.Play();
+
+        if (gameState == GameState.Prechorus)
+        {
+            RestartLevel();
+        }
     }
 
     private void OnDialogueEnd()
     {
-        //THIS IS SCUFFED PLZ FIX
-        if (NumFails >= 3)
-        {
-            StartCoroutine(DimOverTime(1, false, 1));
-            UnityTimer.Timer.Register(2f, () => GameObject.FindObjectOfType<AppManager>().ReloadMainScene());
-        }
-        if (_inFailureState)
-        {
-            RestartLevel();
-        }
         if (gameState == GameState.Ending)
         {
             EndingSequence();
         }
+        else
+        {
+            switch (_failureState)
+            {
+                case FailureState.GameOver:
+                    GameOver();
+                    break;
+                case FailureState.Failed:
+                    RestartLevel();
+                    break;
+                case FailureState.None:
+                default:
+                    break;
+            }
+
+        }
+
     }
 
     public void RestartLevel()
     {
         Track.Instance.Rewind(() =>
         {
-            _inFailureState = false;
+            _failureState = FailureState.None;
             PlayFMODFromLastMarker();
         });
     }
 
-    private IEnumerator GameOver() {
-        
-        GameObject.Find("Game Over").SetActive(true);
-        yield return new WaitForSeconds(3);
+    private void GameOver() {
+
+        Debug.Log("GAME OVER!");
+        //GameObject.Find("Game Over").SetActive(true);
+        //yield return new WaitForSeconds(3);
         //Debug.Log("test");
-        GameObject.FindObjectOfType<AppManager>().ReloadMainScene();
+        StartCoroutine(DimOverTime(1, false, 1));
+        UnityTimer.Timer.Register(2f, () => GameObject.FindObjectOfType<AppManager>().ReloadMainScene());
     }
 
     private void EndingSequence()

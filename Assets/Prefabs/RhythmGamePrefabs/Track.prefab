@@ -258,7 +258,7 @@ MonoBehaviour:
   spawnBar: {fileID: 6872801363860332827}
   beatBar: {fileID: 6872801363696380793}
   notePrefab: {fileID: 6388998836435875635, guid: c80a2d1608e2be746a946f4131f51937, type: 3}
-  rewindTime: 3
+  rewindTime: 1
 --- !u!1 &6872801364682925821
 GameObject:
   m_ObjectHideFlags: 0

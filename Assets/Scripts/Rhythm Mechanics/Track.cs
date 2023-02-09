@@ -186,6 +186,7 @@ public class Track : CustomSingleton<Track>
             return _trackMoment <= 0;
         });
 
+        Debug.Log("REWINDED TRACK");
         _isRewinding = false;
         callback();
     }
