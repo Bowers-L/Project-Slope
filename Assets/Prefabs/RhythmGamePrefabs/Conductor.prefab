@@ -48,6 +48,7 @@ MonoBehaviour:
   testChart: {fileID: 11400000, guid: 36d96f7e965d4d240a28fa82b1cc0c29, type: 2}
   delayPerFailAdjustment: 0
   brainMeterObject: {fileID: 0}
+  timingMethod: 2
 --- !u!114 &2221619505580632583
 MonoBehaviour:
   m_ObjectHideFlags: 0

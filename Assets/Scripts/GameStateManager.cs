@@ -48,6 +48,8 @@ public class GameStateManager : CustomSingleton<GameStateManager>
     //FMOD JANK
     private FMOD.Studio.EVENT_CALLBACK _musicFmodCallback;
     private FMOD.Studio.EventInstance _musicEventInstance;
+    public FMOD.Studio.EventInstance MusicEvent => _musicEventInstance;
+
     //FMOD.Studio.TIMELINE_MARKER_PROPERTIES? _prevMarker;
     private FMOD.Studio.TIMELINE_MARKER_PROPERTIES? _currMarker;
     private HashSet<string> _labelsPassed = new HashSet<string>();
@@ -244,12 +246,17 @@ public class GameStateManager : CustomSingleton<GameStateManager>
         //{
         musicEmitter.Play();
         _musicEventInstance = musicEmitter.EventInstance;
-        _musicEventInstance.setTimelinePosition(_currMarker == null ? 0 : _currMarker.Value.position);
+        _musicEventInstance.setTimelinePosition(GetCurrMarkerTimelinePos());
         Debug.Log("Restarting at time: " + _currMarker.Value.position);
         _musicEventInstance.setCallback(_musicFmodCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
         ambienceEmitter.Stop();
         UpdateGameState(0);
         //}
+    }
+
+    private int GetCurrMarkerTimelinePos()
+    {
+        return _currMarker == null ? 0 : _currMarker.Value.position;
     }
 
     private void PlayChart(int index)
@@ -260,7 +267,7 @@ public class GameStateManager : CustomSingleton<GameStateManager>
             return;
         }
 
-        Conductor.Instance.Play(charts[index]);
+        Conductor.Instance.PlayFromTimelinePos(charts[index], GetCurrMarkerTimelinePos());
     }
 
     /**
