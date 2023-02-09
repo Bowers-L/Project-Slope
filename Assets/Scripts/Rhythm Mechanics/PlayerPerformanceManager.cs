@@ -16,7 +16,7 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
     //Hit and Miss FX
     [SerializeField] private GameObject hitFXPrefab;
     [SerializeField] private GameObject missFXPrefab;
-    [SerializeField] private GameObject[] tracks;
+    [SerializeField] private List<GameObject> tracks = new List<GameObject>(4);
 
     [SerializeField] private GameObject brainMeterObject;
     Animator brainMeterAnimator;
@@ -38,18 +38,30 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
     private void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        brainMeterObject = GameObject.Find("Track and buffer").transform.GetChild(0).gameObject;
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        brainMeterObject = GameObject.Find("Track and buffer").transform.GetChild(0).gameObject;
+        FindDependencies();
+    }
+
+    void FindDependencies()
+    {
+        GameObject track = GameObject.Find("Track and buffer");
+        brainMeterObject = track.transform.GetChild(0).gameObject;
+        brainMeterAnimator = brainMeterObject.GetComponent<Animator>();
+        Transform beatBar = track.transform.GetChild(0);
+        foreach (Transform t in beatBar.GetComponentsInChildren<Transform>())
+        {
+            if (t.gameObject.name.StartsWith("Track"))
+                tracks.Add(t.gameObject);
+        }
     }
 
     private void OnEnable()
     {
         Conductor.OnPlay += OnConductorPlay;
-        brainMeterAnimator = brainMeterObject.GetComponent<Animator>();
+        FindDependencies();
     }
 
     private void OnDisable()
@@ -103,11 +115,18 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
 
     private void OnConductorPlay(ChartData chart)
     {
+        FindDependencies();
+
         failed = false;
         hitNotesInSection = 0;
         missedNotesInSection = 0;
         playerHealth = playerMaxHealthPerSection;
-        if (brainMeterObject.activeSelf) brainMeterAnimator.SetInteger("brainJuice", playerMaxHealthPerSection);
+        if (brainMeterAnimator != null) 
+        {
+            brainMeterAnimator.SetInteger("brainJuice", playerMaxHealthPerSection);
+        } else {
+            Debug.Log("why is this nullll");
+        }
     }
 
     private void HandlePlayedNote(int pitch)
