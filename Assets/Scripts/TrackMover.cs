@@ -60,7 +60,7 @@ public class TrackMover : MonoBehaviour
         while (transform.position.y < endVerticalPos)
         {
             transform.position = new Vector3(transform.position.x, transform.position.y+speed, transform.position.z);
-            yield return new WaitForSeconds(0.016f);
+            yield return new WaitForSecondsRealtime(0.016f);
         }
 
         transform.position = onScreenPos;
