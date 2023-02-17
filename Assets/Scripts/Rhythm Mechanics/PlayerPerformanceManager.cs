@@ -122,7 +122,12 @@ public class PlayerPerformanceManager : CustomSingleton<PlayerPerformanceManager
         failed = false;
         hitNotesInSection = 0;
         missedNotesInSection = 0;
-        playerHealth = playerMaxHealthPerSection;
+        if (GameStateManager.Instance.gameState == GameStateManager.GameState.Prechorus)
+        {
+            playerHealth = 150;
+        } else {
+            playerHealth = playerMaxHealthPerSection;
+        }
         if (brainMeterAnimator != null) 
         {
             brainMeterAnimator.SetInteger("brainJuice", playerMaxHealthPerSection);

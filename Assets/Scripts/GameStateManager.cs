@@ -40,7 +40,7 @@ public class GameStateManager : CustomSingleton<GameStateManager>
         GameOver,
     }
 
-    [SerializeField] [ReadOnly] private GameState gameState;
+    [SerializeField] [ReadOnly] public GameState gameState;
     public List<ChartData> charts;
     public int NumFails = 0;
     [SerializeField] GameObject dialogueManagerObj;
