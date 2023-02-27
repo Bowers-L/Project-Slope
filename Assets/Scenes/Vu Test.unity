@@ -2280,12 +2280,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Logan Bowers\r\n~\r\nSystem Programming, Music\r\n\r\n\nPeter Chae\r\n~\r\nCharacter
-    Artist, Art Direction\r\n\n\nBrooklyn Chen\r\n~\r\nUI/General Programming, 2D
-    Animation, Writing\r\n\n\nChris Lee\r\n~\r\nMusic\n\n\nYoon Lee\r\n~\r\nMusic,
-    Production, Narrative Design\n\r\n\nVu Nguyen\r\n~\r\nEnvironment Art\r\n\r\n\nMitchell
-    Philipp\r\n~\r\nTechnical Art\n\r\n\nKevin Sadi\r\n~\r\nAudio Programming, Music\r\n\r\n\n\nMade
-    for Georgia Tech Global Game Jam 2023\r"
+  m_text: "Logan Bowers\r\n~\r\nSystem Programming, Music\r\n\r\n\nCaptain Turnip\n~\r\nCharacter
+    Artist, Art Direction\r\n\n\nluzoko\n~\r\nUI/General Programming, 2D Animation,
+    Writing\r\n\n\nChris Lee\r\n~\r\nMusic\n\n\nYoon Lee\r\n~\r\nMusic, Production,
+    Narrative Design\n\r\n\nVu Nguyen\r\n~\r\nEnvironment Art\r\n\r\n\nMitchell Philipp\r\n~\r\nTechnical
+    Art\n\r\n\nKevin Sadi\r\n~\r\nAudio Programming, Music\r\n\r\n\n\nMade for Georgia
+    Tech Global Game Jam 2023\r"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1420645ada9138b478ba4dffb95732e3, type: 2}
   m_sharedMaterial: {fileID: -2688203293449323259, guid: 1420645ada9138b478ba4dffb95732e3, type: 2}

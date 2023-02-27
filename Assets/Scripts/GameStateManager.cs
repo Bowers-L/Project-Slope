@@ -151,9 +151,8 @@ public class GameStateManager : CustomSingleton<GameStateManager>
                 game.NumFails = 0;
                 game.musicEmitter.SetParameter("NumFails", game.NumFails);
                 game.UpdateGameState(labelName);
-                //Debug.Log($"Num Fails: {game.NumFails}");
+                Debug.Log($"Num Fails: {game.NumFails}");
             }
-            //TODO: Identify why there is no callback on passing a label after fail state
             Debug.Log("<color=green>GameStateManager.FMODCallBack: Updating GameState with label: " + labelName + "</color>");
         }
         if (type == FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT)
@@ -242,17 +241,15 @@ public class GameStateManager : CustomSingleton<GameStateManager>
     void PlayFMODFromLastMarker()
     {
         Debug.Log("GameStateManager.PlayFMODFromLastMarker(): Fired.");
-        // If in fail state, resume
-        //if (!musicEmitter.IsPlaying())
-        //{
+
         musicEmitter.Play();
+        musicEmitter.SetParameter("NumFails", NumFails);
         _musicEventInstance = musicEmitter.EventInstance;
         _musicEventInstance.setTimelinePosition(GetCurrMarkerTimelinePos());
         Debug.Log("Restarting at time: " + _currMarker.Value.position);
         _musicEventInstance.setCallback(_musicFmodCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
         ambienceEmitter.Stop();
         UpdateGameState(0);
-        //}
     }
 
     private int GetCurrMarkerTimelinePos()
@@ -299,9 +296,8 @@ public class GameStateManager : CustomSingleton<GameStateManager>
         Conductor.Instance.Pause();
 
         //Stop Music
-        sfxEmitter.Play();
-        musicEmitter.SetParameter("NumFails", NumFails);
         musicEmitter.Stop();
+        sfxEmitter.Play();
         _failureState = NumFails >= 3 ? FailureState.GameOver : FailureState.Failed;
 
         //ambienceEmitter.Play();

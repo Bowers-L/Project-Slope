@@ -185,7 +185,7 @@ public class PlayerPerformanceManager : CustomSingleton<PlayerPerformanceManager
 
     public void HandleNoteMissed(TrackNote note)
     {
-        Debug.Log($"MISSED NOTE: {note}");
+        //Debug.Log($"MISSED NOTE: {note}");
         //Do VFX Things. Keep Track of Pass/Fail, etc.
         missedNotesInSection++;
         playerHealth -= 5;
