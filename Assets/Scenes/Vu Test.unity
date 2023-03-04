@@ -186,6 +186,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -336.16
       objectReference: {fileID: 0}
+    - target: {fileID: 4583963617398066771, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
+      propertyPath: TriggerOnce
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4583963617398066776, guid: c7f8f7fb4292ac84aa2418aead199d09, type: 3}
       propertyPath: m_Name
       value: PlayerPerformance
