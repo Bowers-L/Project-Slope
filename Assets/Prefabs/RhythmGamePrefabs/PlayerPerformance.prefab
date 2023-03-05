@@ -59,6 +59,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  brainMeterObject: {fileID: 0}
 --- !u!114 &4583963617398066780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71,6 +72,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5200d5c14ad3154991fc269e99604b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameState: 0
   charts:
   - {fileID: 11400000, guid: 3f993ebf50a5ca643abc51b184751c85, type: 2}
   - {fileID: 11400000, guid: 6bd5f9aa4a2074f469ae18e8372829d9, type: 2}
@@ -79,6 +81,8 @@ MonoBehaviour:
   NumFails: 0
   dialogueManagerObj: {fileID: 4658688304543225487}
   credits: {fileID: 0}
+  endingArt: {fileID: 0}
+  dimmer: {fileID: 0}
 --- !u!114 &4583963617398066771
 MonoBehaviour:
   m_ObjectHideFlags: 0

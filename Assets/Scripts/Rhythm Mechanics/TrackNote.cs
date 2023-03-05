@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TrackNote : MonoBehaviour
 {
-    public Note NoteData { get; set; }
+    public NoteData NoteData { get; set; }
 
     private void Update()
     {

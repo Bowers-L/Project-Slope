@@ -1,5 +1,10 @@
+using FMODUnity;
 using MyBox;
+using System;
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /*IMPORTANT TERMINOLOGY:
  * -I'm using the term "moment" instead of "position" to represent a note's placement in the track and how much 
@@ -14,40 +19,51 @@ public class Conductor : MyBox.Singleton<Conductor>
     public enum TimingMethod
     {
         UnityTime,  //This will be out of sync, but is useful for testing.
-        FMODDsp     //Actually use this in game since it will sync better.
+        FMODDsp,     //Actually use this in game since it will sync better, but there are delays and issues and stuff with event starts.
+        FMODTimelinePos,
     }
-
-    public const TimingMethod timingMethod = TimingMethod.FMODDsp;
 
     [SerializeField] private ChartData testChart;
     [SerializeField] private float delayPerFailAdjustment;
+    [SerializeField] private GameObject brainMeterObject;
+    [SerializeField] private TimingMethod timingMethod;
+    Animator brainMeterAnimator;
 
     private float currMomentSeconds;    //How much time has elapsed in the song
     private bool isPaused;
     public bool Paused => isPaused;
 
     //Chart specific parameters
-    private float beatsPerSecond;
-    private float unitsPerBeat;
-    private float startTime;
+    private float _beatsPerSecond;
+    private float _unitsPerBeat;
+    private float _startTimeSec;
 
     //FMOD Dsp Clock Things
     private FMOD.System fmodCore;
     private FMOD.ChannelGroup masterChannel;
     private int sampleRateHertz;
 
-    public float CurrMomentBeats => currMomentSeconds * beatsPerSecond;
-    public int CurrMomentCU => (int) (currMomentSeconds * beatsPerSecond * unitsPerBeat);
+    //FMOD Timeline Method
 
-    public float TimeSinceStart => GetCurrentTime() - startTime;
+    public float CurrMomentBeats => currMomentSeconds * _beatsPerSecond;
+    public int CurrMomentCU => (int) (currMomentSeconds * _beatsPerSecond * _unitsPerBeat);
+
+    public float TimeSinceStart => GetCurrentTime() - _startTimeSec;
 
     private ChartData _currChart;
     public ChartData Chart => _currChart;
 
+    public delegate void OnPlayDel(ChartData chart);
+    public delegate void OnPauseDel();
+    public static event OnPlayDel OnPlay;
+    public static event OnPauseDel OnPause;
+
     private void Awake()
     {
-        InitializeSingleton();
+        InitializeSingleton(false);
         isPaused = true;
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void Start()
@@ -62,11 +78,23 @@ public class Conductor : MyBox.Singleton<Conductor>
         }
     }
 
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        brainMeterObject = GameObject.Find("Track and buffer").transform.GetChild(0).gameObject;
+        brainMeterAnimator = brainMeterObject.GetComponent<Animator>();
+    }
+
     private void Update()
     {
         if (!isPaused)
         {
-            currMomentSeconds = TimeSinceStart - _currChart.firstBeatOffsetSeconds - delayPerFailAdjustment * GameStateManager.Instance.NumFails;
+            if (TimeSinceStart < 5f)
+            {
+                //Debug.Log($"Curr Timeline Pos: {TimeSinceStart+_startTimeSec}");
+                //Debug.Log($"Time Diff: {TimeSinceStart}");
+            }
+
+            currMomentSeconds = TimeSinceStart - _currChart.firstBeatOffsetSeconds;
 
             //Debug.Log($"Current Moment Beat: {CurrMomentBeats}");
         }
@@ -74,25 +102,38 @@ public class Conductor : MyBox.Singleton<Conductor>
 
     public void Play(ChartData chart)
     {
+        brainMeterObject = GameObject.Find("Track and buffer").transform.GetChild(0).gameObject;
+        brainMeterAnimator = brainMeterObject.GetComponent<Animator>();
+        
         Debug.Log($"Starting the Chart {chart.name}");
         _currChart = chart;
 
         //Set Chart Parameters
-        beatsPerSecond = (float)_currChart.bpm / 60f;
-        unitsPerBeat = _currChart.unitsPerBeat;
+        _beatsPerSecond = (float)_currChart.bpm / 60f;
+        _unitsPerBeat = _currChart.unitsPerBeat;
 
         //Set Internal State
-        startTime = GetCurrentTime();
         currMomentSeconds = -_currChart.firstBeatOffsetSeconds;
         isPaused = false;
 
-        Track.Instance.Init();
-        PlayerPerformanceManager.Instance.StartNewSection();
+        brainMeterObject.SetActive(true);
+
+        OnPlay?.Invoke(chart);
+
+        _startTimeSec = GetCurrentTime();
+        //Debug.Log($"START TIME: {_startTimeSec}");
+    }
+
+    public void PlayFromTimelinePos(ChartData chart, int timelinePosMilliS)
+    {
+        Play(chart);
+        _startTimeSec = (float) (timelinePosMilliS / 1000f);
     }
 
     public void Pause()
     {
         isPaused = true;
+        OnPause?.Invoke();
     }
 
     public void Resume()
@@ -108,13 +149,16 @@ public class Conductor : MyBox.Singleton<Conductor>
                 return Time.time;
             case TimingMethod.FMODDsp:
                 return GetDSPTime();
+            case TimingMethod.FMODTimelinePos:
+            default:
+                return GetTimelinePosSeconds();
         }
 
     }
 
     public int BeatsToCU(float beats)
     {
-        return (int)(beats * Chart.unitsPerBeat);
+        return (int)(beats * _currChart.unitsPerBeat);
     }
 
     private float GetDSPTime()
@@ -124,5 +168,12 @@ public class Conductor : MyBox.Singleton<Conductor>
 
         double dspTime = (double) numSamples / sampleRateHertz;
         return (float) dspTime;
+    }
+
+    private float GetTimelinePosSeconds()
+    {
+        int posMilliseconds;
+        GameStateManager.Instance.MusicEvent.getTimelinePosition(out posMilliseconds);
+        return (float) posMilliseconds / 1000f;
     }
 }

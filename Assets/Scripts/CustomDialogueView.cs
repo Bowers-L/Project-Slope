@@ -25,6 +25,7 @@ namespace Yarn.Unity{
         /// <seealso cref="useFadeEffect"/>
         [SerializeField]
         internal CanvasGroup canvasGroup;
+        public bool canvasGroupEnabled = false;
 
         /// <summary>
         /// Controls whether the line view should fade in when lines appear, and
@@ -205,7 +206,7 @@ namespace Yarn.Unity{
 
         private void Awake()
         {
-            canvasGroup.alpha = 0;
+            canvasGroup.alpha = canvasGroupEnabled ? 1 : 0;
             canvasGroup.blocksRaycasts = false;
         }
 
@@ -236,7 +237,7 @@ namespace Yarn.Unity{
                 currentStopToken.Complete();
             }
             
-            canvasGroup.alpha = 0;
+            //canvasGroup.alpha = 0;
             canvasGroup.blocksRaycasts = false;
             // turning interaction back on, if it needs it
             canvasGroup.interactable = interactable;
@@ -484,6 +485,11 @@ namespace Yarn.Unity{
         public LocalizedLine GetCurrentLine()
         {
             return currentLineLoaded;
+        }
+
+        public void SetCanvasAlpha(float value = 0f)
+        {
+            canvasGroup.alpha = value;
         }
     }
 }

@@ -19,14 +19,15 @@ public class DialogueTest : MonoBehaviour
     [SerializeField] GameObject DialogueView;
     [SerializeField] GameObject DialogueBox;
     [SerializeField] GameObject DialogueTextObject;
-    [SerializeField] GameObject NameTextObject;
     [SerializeField] GameObject char1;
     [SerializeField] GameObject char2;
     [SerializeField] Sprite[] emoteList;
+    [SerializeField] float delayPerMessage = 4f;
 
     DialogueRunner _dialogueRunner;
     InMemoryVariableStorage _inMemoryVariableStorage;
     CustomDialogueView _lineView;
+    TextMeshProUGUI _text;
     YarnProject _yarnProject;
     Animator _dialogueBoxAnimator;
 
@@ -37,13 +38,18 @@ public class DialogueTest : MonoBehaviour
     SpriteRenderer char2sprite;
     Animator char1anim;
     Animator char2anim;
+    RectTransform dialogueBoxTransform;
     string emoteType = "default";
 
     //Timer dialogueProgressCooldownTimer;
     Timer dialogueProgressTimer;
     bool dialogueProgressCooldown = true;
 
+    Timer bounceTimer;
+
     LocalizedLine currentLine;
+
+    bool endOfNode;
 
     void Start()
     {
@@ -51,8 +57,10 @@ public class DialogueTest : MonoBehaviour
         _inMemoryVariableStorage = DialogueRunnerObject.GetComponent<InMemoryVariableStorage>();
         _lineView = DialogueView.GetComponent<CustomDialogueView>();
         _yarnProject = _dialogueRunner.yarnProject;
+        _text = DialogueTextObject.GetComponent<TextMeshProUGUI>();
 
         _dialogueBoxAnimator = DialogueBox.GetComponent<Animator>();
+        dialogueBoxTransform = DialogueBox.GetComponent<RectTransform>();
 
         char1anim = char1.GetComponent<Animator>();
         char2anim = char2.GetComponent<Animator>();
@@ -88,16 +96,27 @@ public class DialogueTest : MonoBehaviour
         {
             if (dialogueProgressTimer != null) dialogueProgressTimer.Cancel();
         } else {
-            _lineView.UserRequestedViewAdvancement();
-            ProcessDialogue();
+            _dialogueBoxAnimator.SetTrigger("bounce");
+            bounceTimer = Timer.Register(0.055555f, () => NextLine());
         }
+    }
+
+    public void NextLine()
+    {
+        _lineView.UserRequestedViewAdvancement();
+        ProcessDialogue();
     }
 
     void ProcessDialogue()
     {
         currentLine = _lineView.GetCurrentLine();
+        int fontSizeValue = 63 - (currentLine.RawText.Length/4);
+        //Debug.Log("Font Size: " + fontSizeValue);
+        if (fontSizeValue > 50) fontSizeValue = 50;
+        if (fontSizeValue < 36) fontSizeValue = 36;
+        _text.fontSize = fontSizeValue;
 
-        FlipDialogueBox();
+        ProcessSpeaker();
         
         if (currentLine.Metadata != null) {
             foreach (string s in currentLine.Metadata)
@@ -116,18 +135,27 @@ public class DialogueTest : MonoBehaviour
         }
     }
 
-    void FlipDialogueBox()
+    void ProcessSpeaker()
     {
         if (currentLine.CharacterName != null && currentLine.CharacterName == name1)
         {
-            DialogueBox.transform.rotation = Quaternion.Euler(0, 0, 0);
-            DialogueTextObject.transform.rotation = Quaternion.Euler(0, 0, 0);
-            NameTextObject.transform.rotation = Quaternion.Euler(0, 0, 0);
-        } else if (currentLine.CharacterName == name2)
+            if (DialogueBox != null) DialogueBox.transform.rotation = Quaternion.Euler(0, 0, 0);
+            if (DialogueBox != null) DialogueTextObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+
+            if (DialogueBox != null) dialogueBoxTransform.localPosition = new Vector3(-80, dialogueBoxTransform.localPosition.y, dialogueBoxTransform.localPosition.z);
+
+            if (char1sprite != null) char1sprite.color = new Color(1, 1, 1, 1);
+            if (char2sprite != null) char2sprite.color = new Color(0.6f, 0.6f, 0.6f, 1);
+        } 
+        else if (currentLine.CharacterName == name2)
         {
-            DialogueBox.transform.rotation = Quaternion.Euler(0, 180, 0);
-            DialogueTextObject.transform.rotation = Quaternion.Euler(0, 0, 0);
-            NameTextObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+            if (DialogueBox != null) DialogueBox.transform.rotation = Quaternion.Euler(0, 180, 0);
+            if (DialogueBox != null) DialogueTextObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+
+            if (DialogueBox != null) dialogueBoxTransform.localPosition = new Vector3(80, dialogueBoxTransform.localPosition.y, dialogueBoxTransform.localPosition.z);
+
+            if (char1sprite != null) char1sprite.color = new Color(0.6f, 0.6f, 0.6f, 1);
+            if (char2sprite != null) char2sprite.color = new Color(1, 1, 1, 1);
         }
     }
 
@@ -144,6 +172,9 @@ public class DialogueTest : MonoBehaviour
             case "think":
                 _dialogueBoxAnimator.Play("DialogueBox-Think");
                 break;
+            case "sad":
+                _dialogueBoxAnimator.Play("DialogueBox-Sad");
+                break;
             default:
                 break;
         }
@@ -153,22 +184,22 @@ public class DialogueTest : MonoBehaviour
     {
         switch(emoteType) {
             case "evanhappy":
-                char1sprite.sprite = emoteList[0];
+                if (char1sprite != null) char1sprite.sprite = emoteList[0];
                 break;
             case "vivianhappy":
-                char2sprite.sprite = emoteList[3];
+                if (char2sprite != null) char2sprite.sprite = emoteList[3];
                 break;
             case "pouty":
-                char2sprite.sprite = emoteList[5];
+                if (char2sprite != null) char2sprite.sprite = emoteList[5];
                 break;
             case "angry":
-                char2sprite.sprite = emoteList[4];
+                if (char2sprite != null) char2sprite.sprite = emoteList[4];
                 break;
             case "idiot":
-                char1sprite.sprite = emoteList[1];
+                if (char1sprite != null) char1sprite.sprite = emoteList[1];
                 break;
             case "nervous":
-                char1sprite.sprite = emoteList[2];
+                if (char1sprite != null) char1sprite.sprite = emoteList[2];
                 break;
             default:
                 break;
@@ -177,11 +208,14 @@ public class DialogueTest : MonoBehaviour
 
     public void StartNode(string node = "Intro")
     {
-        _dialogueRunner.StartDialogue(node);
+        endOfNode = false;
+        if (_lineView != null) _lineView.canvasGroupEnabled = true;
+        if (_dialogueRunner != null) _dialogueRunner.StartDialogue(node);
+        if (_dialogueBoxAnimator != null) _dialogueBoxAnimator.SetTrigger("bounce");
         ProcessDialogue();
 
         dialogueProgressTimer = Timer.Register(
-            duration: 4f,
+            duration: delayPerMessage,
             isLooped: true,
             onComplete: () => 
             {
@@ -192,7 +226,19 @@ public class DialogueTest : MonoBehaviour
 
     public void EndNode()
     {
-        endNodeSignal.Invoke();
+        Debug.Log("ENDED NODE");
+        endOfNode = true;
         if (dialogueProgressTimer != null) dialogueProgressTimer.Cancel();
+        endNodeSignal.Invoke();
+        if (_lineView != null) _lineView.canvasGroupEnabled = false;
+        if (_lineView != null) _lineView.SetCanvasAlpha(0);
+
+        //EndNode event calls after processing the next line, which appears to be whatever the last line is.
+        //Can't find another way to figure out when it's the last line of a node, so here's a jank solution for this race condition:
+        Timer.Register(0.06f, () => {
+            if (char1sprite != null) char1sprite.color = new Color(1, 1, 1, 1);
+            if (char2sprite != null) char2sprite.color = new Color(1, 1, 1, 1);
+            if (dialogueBoxTransform != null) dialogueBoxTransform.localPosition = new Vector3(0, dialogueBoxTransform.localPosition.y, dialogueBoxTransform.localPosition.z);
+        });
     }
 }

@@ -34,7 +34,7 @@ public class MSChartParser : MonoBehaviour
         {
             float bpm = 0;
             int timeSignatureNum = 0;
-            List<Note> notes = new List<Note>();
+            List<NoteData> notes = new List<NoteData>();
             while (!sr.EndOfStream)
             {
                 string line = sr.ReadLine();
@@ -89,7 +89,7 @@ public class MSChartParser : MonoBehaviour
                         int length = int.Parse(tokens[startI + 4]);
 
 
-                        Note newNote = new Note(moment, pitch, length);
+                        NoteData newNote = new NoteData(moment, pitch, length);
                         notes.Add(newNote);
                         line = sr.ReadLine();
                     }
@@ -99,7 +99,7 @@ public class MSChartParser : MonoBehaviour
             //Print all the parameters so I know the file parsed right.
             Debug.Log($"BPM: {bpm}");
             Debug.Log($"Time Signature: {timeSignatureNum} over 4");
-            foreach (Note note in notes)
+            foreach (NoteData note in notes)
             {
                 Debug.Log(note.Description);
             }
@@ -108,7 +108,7 @@ public class MSChartParser : MonoBehaviour
             chart.bpm = bpm;
             chart.timeSignatureNum = timeSignatureNum;
             chart.notes = notes;
-            chart.unitsPerBeat = Note.QUARTER;
+            chart.unitsPerBeat = NoteData.QUARTER;
             
             AssetDatabase.CreateAsset(chart, chartsPath + '/' + Path.GetFileNameWithoutExtension(file.Name) + ".asset");
         }

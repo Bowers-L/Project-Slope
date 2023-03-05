@@ -2,9 +2,11 @@ using MyBox;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
+public class PlayerPerformanceManager : CustomSingleton<PlayerPerformanceManager>
 {
     [SerializeField] private float flashSpeed;
     [SerializeField] private float earlyTimingWindowBeats;
@@ -15,7 +17,10 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
     //Hit and Miss FX
     [SerializeField] private GameObject hitFXPrefab;
     [SerializeField] private GameObject missFXPrefab;
-    [SerializeField] private GameObject[] tracks;
+    [SerializeField] private List<GameObject> tracks = new List<GameObject>(4);
+
+    [SerializeField] private GameObject brainMeterObject;
+    Animator brainMeterAnimator;
 
     private int hitNotesInSection;
     private int missedNotesInSection;    //Letting the note pass without hitting it.
@@ -28,15 +33,46 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
 
     private HashSet<SpriteRenderer> flashing = new HashSet<SpriteRenderer>();
 
-    public void StartNewSection()
+    public delegate void OnLevelFailedDel(); 
+    public static event OnLevelFailedDel OnLevelFailed;
+
+    private void Start()
     {
-        failed = false;
-        hitNotesInSection = 0;
-        missedNotesInSection = 0;
-        playerHealth = playerMaxHealthPerSection;
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    public void OnParticleSystemStopped()
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+
+    }
+
+    void FindDependencies()
+    {
+        tracks.Clear();
+        Debug.Log("FindDependencies() was called");
+        GameObject track = GameObject.Find("Track and buffer");
+        brainMeterObject = track.transform.GetChild(0).gameObject;
+        brainMeterAnimator = brainMeterObject.GetComponent<Animator>();
+        GameObject beatBar = track.transform.GetChild(1).GetChild(1).gameObject;
+        Debug.Log(beatBar.name);
+        foreach (Transform t in beatBar.GetComponentsInChildren<Transform>())
+        {
+            if (t.gameObject.name.StartsWith("Track") && tracks.Count < 4)
+                tracks.Add(t.gameObject);
+        }
+    }
+
+    private void OnEnable()
+    {
+        Conductor.OnPlay += OnConductorPlay;
+    }
+
+    private void OnDisable()
+    {
+        Conductor.OnPlay -= OnConductorPlay;
+    }
+
+    private void OnParticleSystemStopped()
     {
         failed = false;
         playerHealth = playerMaxHealthPerSection;
@@ -50,7 +86,7 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
             {
                 failed = true;
                 Debug.Log("You Failed n00b");
-                GameStateManager.Instance.RestartCurrentLevel();
+                GameStateManager.Instance.OnLevelFailed();
             }
 
             if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Alpha1))
@@ -80,10 +116,30 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
         return playerHealth <= 0;
     }
 
+    private void OnConductorPlay(ChartData chart)
+    {
+        FindDependencies();
+        failed = false;
+        hitNotesInSection = 0;
+        missedNotesInSection = 0;
+        if (GameStateManager.Instance.gameState == GameStateManager.GameState.Prechorus)
+        {
+            playerHealth = 150;
+        } else {
+            playerHealth = playerMaxHealthPerSection;
+        }
+        if (brainMeterAnimator != null) 
+        {
+            brainMeterAnimator.SetInteger("brainJuice", playerMaxHealthPerSection);
+        } else {
+            Debug.Log("why is this nullll");
+        }
+    }
+
     private void HandlePlayedNote(int pitch)
     {
         TrackNote note = CheckHitNote(pitch);
-        Debug.Log($"Player Pressed Note: {pitch}");
+        //Debug.Log($"Player Pressed Note: {pitch}");
 
         if (note == null)
         {
@@ -101,6 +157,8 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
     {
         //Do VFX Things. Keep Track of Pass/Fail, etc.
         hitNotesInSection++;
+        playerHealth++;
+        if (brainMeterObject.activeSelf) brainMeterAnimator.SetInteger("brainJuice", playerHealth);
 
         Track.Instance.ActiveNotes.Remove(note);
 
@@ -120,22 +178,21 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
     public void HandleMissHit()
     {
         missHits++;
-        playerHealth--;
+        playerHealth -= 5;
+        if (brainMeterObject.activeSelf) brainMeterAnimator.SetInteger("brainJuice", playerHealth);
         StartCoroutine(FlashColor(Track.Instance.BeatBar.GetComponent<SpriteRenderer>(), Color.red, flashSpeed));
     }
 
     public void HandleNoteMissed(TrackNote note)
     {
+        //Debug.Log($"MISSED NOTE: {note}");
         //Do VFX Things. Keep Track of Pass/Fail, etc.
         missedNotesInSection++;
-        playerHealth--;
-
-        Track.Instance.ActiveNotes.Remove(note);
+        playerHealth -= 5;
+        if (brainMeterObject.activeSelf) brainMeterAnimator.SetInteger("brainJuice", playerHealth);
 
         //GameObject track = tracks[note.NoteData.pitch];
         GameObject fxInstance = Instantiate(missFXPrefab, note.transform.position, Track.Instance.transform.rotation);
-        Destroy(note.gameObject);
-
         Animator anim = fxInstance.GetComponent<Animator>();
         Destroy(fxInstance, anim.GetCurrentAnimatorStateInfo(0).length);
     }
@@ -171,7 +228,7 @@ public class PlayerPerformanceManager : Singleton<PlayerPerformanceManager>
         {
             if (pitch == note.NoteData.pitch)
             {
-                int noteMoment = Track.Instance.NoteMomentOnTrackCU(note.NoteData);
+                int noteMoment = Track.Instance.NoteMomentDeltaCU(note.NoteData);
 
                 int earlyTimingWindowCU = Conductor.Instance.BeatsToCU(earlyTimingWindowBeats);
                 int lateTimingWindowCU = Conductor.Instance.BeatsToCU(lateTimingWindowBeats);

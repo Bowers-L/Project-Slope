@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6931617345608413978}
   - component: {fileID: 8234819427971004909}
   - component: {fileID: 637096706234839886}
+  - component: {fileID: 1612705132470860335}
   m_Layer: 0
   m_Name: Track4
   m_TagString: Untagged
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: -23765503
   m_SortingLayer: 1
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 5fa3f1b6431b05e48b2a5d3408b4d9bb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 397b0f309f763b449a1af0c37240ed66, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -118,3 +119,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &1612705132470860335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6388998836435875635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e85b4f52b607e8745a1094f16dfe6204, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  beatCap: 1
+  offset: 0
