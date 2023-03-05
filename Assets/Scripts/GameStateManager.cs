@@ -242,12 +242,13 @@ public class GameStateManager : CustomSingleton<GameStateManager>
     {
         Debug.Log("GameStateManager.PlayFMODFromLastMarker(): Fired.");
 
-        musicEmitter.Play();
+        //musicEmitter.Play();
         musicEmitter.SetParameter("NumFails", NumFails);
         _musicEventInstance = musicEmitter.EventInstance;
         _musicEventInstance.setTimelinePosition(GetCurrMarkerTimelinePos());
         Debug.Log("Restarting at time: " + _currMarker.Value.position);
         _musicEventInstance.setCallback(_musicFmodCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
+        _musicEventInstance.setPaused(false);
         ambienceEmitter.Stop();
         UpdateGameState(0);
     }
@@ -296,7 +297,8 @@ public class GameStateManager : CustomSingleton<GameStateManager>
         Conductor.Instance.Pause();
 
         //Stop Music
-        musicEmitter.Stop();
+        //musicEmitter.Stop();
+        _musicEventInstance.setPaused(true);
         sfxEmitter.Play();
         _failureState = NumFails >= 3 ? FailureState.GameOver : FailureState.Failed;
 
